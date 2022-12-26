@@ -3,11 +3,15 @@ name: Notifications
 services:
   gotify:
     image: gotify/server
+    # Hack to get around the lack of secret support in Gotify
+    entrypoint: ['/bin/sh', '-c', 'GOTIFY_DEFAULTUSER_PASS=$(cat /run/secrets/admin_password) ./gotify-app']
     networks:
       - gotify
       - traefik
     volumes:
       - gotify:/app/data
+    secrets:
+      - admin_password
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -25,3 +29,7 @@ volumes:
       type: none
       o: bind
       device: ${MOUNT_DIR?}/gotify/data/
+
+secrets:
+  admin_password:
+    file: ${MOUNT_DIR?}/gotify/secrets/admin_password
