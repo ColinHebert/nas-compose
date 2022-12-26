@@ -3,15 +3,12 @@ name: Notifications
 services:
   gotify:
     image: gotify/server
-    entrypoint: ./entrypoint.sh
+    entrypoint: ./data/entrypoint.sh
     networks:
       - gotify
       - traefik
     volumes:
       - gotify:/app/data
-    configs:
-      - source: gotify_entrypoint
-        target: /app/entrypoint.sh
     secrets:
       - admin_password
     restart: unless-stopped
@@ -31,10 +28,6 @@ volumes:
       type: none
       o: bind
       device: ${MOUNT_DIR?}/gotify/data/
-
-configs:
-  gotify_entrypoint:
-    file: ${MOUNT_DIR?}/gotify/config/entrypoint.sh
 
 secrets:
   admin_password:
