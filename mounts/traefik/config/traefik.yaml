@@ -4,6 +4,9 @@ providers:
     exposedByDefault: false
     network: traefik
 
+serverstransport:
+  insecureskipverify: true
+
 api:
   insecure: true
 
