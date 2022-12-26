@@ -35,7 +35,7 @@ services:
     command: >
       --host tcp://docker:2375
       --hide-label nas-compose.boostrap=true
-      --admin-password-file /var/run/secrets/portainer_password
+      --admin-password-file /run/secrets/portainer_password
     networks:
       - docker
       - traefik
