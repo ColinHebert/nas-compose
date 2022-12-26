@@ -1,5 +1,5 @@
 #!/bin/bash
-curl "$GOTIFY_ADDRESS/message" \
+curl -s "$GOTIFY_ADDRESS/message" \
     -X POST \
     -H "X-Gotify-Key: $GOTIFY_TOKEN" \
     -F "title=IP Address updated" \
