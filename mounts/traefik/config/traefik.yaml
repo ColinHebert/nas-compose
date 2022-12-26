@@ -21,3 +21,6 @@ entryPoints:
     address: :443
     http:
       tls: {}
+
+global:
+  sendAnonymousUsage: false
