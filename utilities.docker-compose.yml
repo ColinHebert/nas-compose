@@ -34,7 +34,7 @@ services:
     environment:
       GOTIFY_ADDRESS: http://gotify
       GOTIFY_TOKEN_FILE: /run/secrets/gotify_token
-      CLOUDFLARE_DOMAIN: ${DDCLIENT_CLOUDFLARE_DOMAIN-dev.dedicated.contact}
+      CLOUDFLARE_DOMAIN: ${DDCLIENT_CLOUDFLARE_DOMAIN-test.dedicated.contact}
       CLOUDFLARE_TOKEN_FILE: /run/secrets/cloudflare_token
     networks:
       - gotify
