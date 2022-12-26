@@ -64,7 +64,7 @@ volumes:
   portainer:
     driver_opts:
       <<: *bind-volume
-      device: ${MOUNT_DIR?}/portainer
+      device: ${MOUNT_DIR?}/portainer/
   traefik:
     driver_opts:
       <<: *bind-volume
