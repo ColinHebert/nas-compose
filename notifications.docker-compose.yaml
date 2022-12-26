@@ -1,0 +1,27 @@
+name: Notifications
+
+services:
+  gotify:
+    image: gotify/server
+    networks:
+      - gotify
+      - traefik
+    volumes:
+      - gotify:/app/data
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.gotify.rule: HostRegexp(`gotify{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
+
+networks:
+  gotify:
+    name: gotify
+  traefik:
+    external: true
+
+volumes:
+  gotify: 
+    driver_opts:
+      type: none
+      o: bind
+      device: ${MOUNT_DIR?}/gotify/data/
