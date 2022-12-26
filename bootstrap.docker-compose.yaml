@@ -21,8 +21,9 @@ services:
     networks:
       - traefik
       - docker
-    volumes:
-      - traefik:/etc/traefik/
+    configs:
+      - source: traefik
+        target: /etc/traefik/
     depends_on:
       - docker
     restart: unless-stopped
@@ -40,6 +41,8 @@ services:
       - traefik
     volumes:
       - portainer:/data
+    secrets:
+      - portainer_password
     depends_on:
       - docker
     restart: unless-stopped
@@ -67,8 +70,12 @@ volumes:
   portainer:
     driver_opts:
       <<: *bind-volume
-      device: ${MOUNT_DIR?}/portainer/
+      device: ${MOUNT_DIR?}/portainer/data/
+
+config:
   traefik:
-    driver_opts:
-      <<: *bind-volume
-      device: ${MOUNT_DIR?}/traefik/
+    file: ${MOUNT_DIR?}/traefik/config/
+
+secrets:
+  portainer_password:
+    file: ${MOUNT_DIR?}/portainer/secrets/portainer_password

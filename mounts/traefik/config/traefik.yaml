@@ -3,3 +3,6 @@ providers:
     endpoint: tcp://docker:2375
     exposedByDefault: false
     network: traefik
+
+api:
+  insecure: true
