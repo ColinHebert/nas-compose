@@ -31,7 +31,7 @@ services:
 
   portainer:
     image: portainer/portainer-ce
-    command: --host tcp://docker:2375 --hide-label nas-compose.boostrap --admin-password-file
+    command: --host tcp://docker:2375 --hide-label nas-compose.boostrap --admin-password-file /data/portainer_password
     networks:
       - docker
       - traefik
