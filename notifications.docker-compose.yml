@@ -20,7 +20,7 @@ networks:
     external: true
 
 volumes:
-  gotify: 
+  gotify:
     driver_opts:
       type: none
       o: bind
