@@ -1,5 +1,6 @@
 watch:
-  schedule: "0 */6 * * *"
+  schedule: 0 */6 * * *
+  firstCheckNotif: true
 
 notif:
   gotify:
