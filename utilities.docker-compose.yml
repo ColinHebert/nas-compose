@@ -10,7 +10,8 @@ services:
       - source: diun
         target: /etc/diun/
     secrets:
-      - gotify_token
+      - source: diun_gotify_token
+        target: gotify_token
     restart: unless-stopped
 
   smokeping:
@@ -26,6 +27,28 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.smokeping.rule: HostRegexp(`smokeping{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
+
+  ddclient:
+    image: linuxserver/ddclient
+    environment:
+      GOTIFY_ADDRESS: http://gotify
+      GOTIFY_TOKEN_FILE: /run/secrets/gotify_token
+      CLOUDFLARE_DOMAIN: ${DDCLIENT_CLOUDFLARE_DOMAIN-dev.dedicated.contact}
+      CLOUDFLARE_TOKEN_FILE: /run/secrets/cloudflare_token
+    networks:
+      - gotify
+    volumes:
+      - ddclient:/config
+      - smokeping-data:/data
+    configs:
+      - source: ddclient
+        target: /config/
+    secrets:
+      - source: ddclient_gotify_token
+        target: gotify_token
+      - source: ddclient_cloudflare_token
+        target: cloudflare_token
+    restart: unless-stopped
 
 networks:
   docker:
@@ -46,13 +69,24 @@ volumes:
       type: none
       o: bind
       device: ${MOUNT_DIR?}/smokeping/data/
+  ddclient:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${MOUNT_DIR?}/ddclient/data/
 
 configs:
   diun:
     file: ${MOUNT_DIR?}/diun/config/
 #  smokeping:
 #    file: ${MOUNT_DIR?}/smokeping/config/
+  ddclient:
+    file: ${MOUNT_DIR?}/ddclient/config/
 
 secrets:
-  gotify_token:
+  diun_gotify_token:
     file: ${MOUNT_DIR?}/diun/secrets/gotify_token
+  ddclient_gotify_token:
+    file: ${MOUNT_DIR?}/ddclient/secrets/gotify_token
+  ddclient_cloudflare_token:
+    file: ${MOUNT_DIR?}/ddclient/secrets/cloudflare_token
