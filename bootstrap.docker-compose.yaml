@@ -63,9 +63,6 @@ networks:
     labels:
       nas-compose.boostrap: true
 
-#--------------------------------------
-# Volumes
-#--------------------------------------
 volumes:
   portainer:
     driver_opts:
