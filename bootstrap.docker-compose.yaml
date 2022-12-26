@@ -62,14 +62,11 @@ networks:
 #--------------------------------------
 # Volumes
 #--------------------------------------
-x-driver_opts: &bind-volume
-  type: none
-  o: bind
-
 volumes:
   portainer:
     driver_opts:
-      <<: *bind-volume
+      type: none
+      o: bind
       device: ${MOUNT_DIR?}/portainer/data/
 
 configs:
