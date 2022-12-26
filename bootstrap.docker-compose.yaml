@@ -72,7 +72,7 @@ volumes:
       <<: *bind-volume
       device: ${MOUNT_DIR?}/portainer/data/
 
-config:
+configs:
   traefik:
     file: ${MOUNT_DIR?}/traefik/config/
 
