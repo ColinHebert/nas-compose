@@ -20,9 +20,9 @@ services:
       - traefik
     volumes:
       - smokeping:/data
-#    configs:
-#      - source: smokeping
-#        target: /config/
+    #configs:
+    #  - source: smokeping
+    #    target: /config/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -30,6 +30,7 @@ services:
 
   ddclient:
     image: linuxserver/ddclient
+    entrypoint: /data/entrypoint.sh
     environment:
       GOTIFY_ADDRESS: http://gotify
       GOTIFY_TOKEN_FILE: /run/secrets/gotify_token
@@ -38,8 +39,7 @@ services:
     networks:
       - gotify
     volumes:
-      - ddclient:/config
-      - smokeping-data:/data
+      - ddclient:/data
     configs:
       - source: ddclient
         target: /config/
