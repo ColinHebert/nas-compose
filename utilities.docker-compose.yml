@@ -42,7 +42,7 @@ services:
       - ddclient:/data
     configs:
       - source: ddclient
-        target: /config/
+        target: /config/ddclient.conf.tpl
     secrets:
       - source: ddclient_gotify_token
         target: gotify_token
@@ -81,7 +81,7 @@ configs:
 #  smokeping:
 #    file: ${MOUNT_DIR?}/smokeping/config/
   ddclient:
-    file: ${MOUNT_DIR?}/ddclient/config/
+    file: ${MOUNT_DIR?}/ddclient/config/ddclient.conf.tpl
 
 secrets:
   diun_gotify_token:
