@@ -49,7 +49,7 @@ services:
     labels:
       nas-compose.boostrap: true
       traefik.enable: true
-      traefik.http.routers.portainer.rule: HostRegexp(`portainer(\.[a-z0-9-]+)?dedicated.contact`)
+      traefik.http.routers.portainer.rule: HostRegexp(`portainer(\.[a-z0-9-]+)?\.dedicated\.contact`)
       traefik.http.services.portainer.loadbalancer.server.port: 9443
       traefik.http.services.portainer.loadbalancer.server.scheme: https
 
