@@ -32,6 +32,8 @@ networks:
     external: true
   gotify:
     external: true
+  traefik:
+    external: true
 
 volumes:
   diun:
