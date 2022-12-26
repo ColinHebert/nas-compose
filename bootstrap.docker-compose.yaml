@@ -1,0 +1,71 @@
+name: Bootstrap
+
+services:
+  docker:
+    image: alpine/socat
+    command: tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
+    networks:
+      - docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    labels:
+      nas-compose.boostrap: true
+
+  traefik:
+    image: traefik
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    networks:
+      - traefik
+      - docker
+    volumes:
+      - traefik:/etc/traefik/
+    depends_on:
+      - docker
+    restart: unless-stopped
+    labels:
+      nas-compose.boostrap: true
+
+  portainer:
+    image: portainer/portainer-ce
+    command: --host tcp://docker:2375 --hide-label nas-compose.boostrap --admin-password-file
+    networks:
+      - docker
+      - traefik
+    volumes:
+      - portainer:/data
+    depends_on:
+      - docker
+    restart: unless-stopped
+    labels:
+      nas-compose.boostrap: true
+      traefik.enable: true
+      traefik.http.routers.portainer.rule: HostRegexp(`portainer(\.[a-z0-9-]+)?dedicated.contact`)
+      traefik.http.services.portainer.loadbalancer.server.port: 9443
+      traefik.http.services.portainer.loadbalancer.server.scheme: https
+
+networks:
+  docker:
+    name: docker
+  traefik:
+    name: traefik
+
+#--------------------------------------
+# Volumes
+#--------------------------------------
+x-driver_opts: &bind-volume
+  type: none
+  o: bind
+
+volumes:
+  portainer:
+    driver_opts:
+      <<: *bind-volume
+      device: ${MOUNT_DIR?}/portainer
+  traefik:
+    driver_opts:
+      <<: *bind-volume
+      device: ${MOUNT_DIR?}/traefik/
