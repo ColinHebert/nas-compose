@@ -5,8 +5,8 @@ ssl=yes                 # use ssl-support.  Works with
                         # ssl-library
 postscript=/data/postscript_gotify.sh # run script after updating.  The
                         # new IP is added as argument.
-
-usev4=webv4
+use=web
+web=googledomains
 
 ##
 ## CloudFlare (www.cloudflare.com)
