@@ -13,6 +13,20 @@ services:
       - gotify_token
     restart: unless-stopped
 
+  smokeping:
+    image: linuxserver/smokeping
+    networks:
+      - traefik
+    volumes:
+      - smokeping:/data
+#    configs:
+#      - source: smokeping
+#        target: /config/
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.smokeping.rule: HostRegexp(`smokeping{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
+
 networks:
   docker:
     external: true
@@ -25,10 +39,17 @@ volumes:
       type: none
       o: bind
       device: ${MOUNT_DIR?}/diun/data/
+  smokeping:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${MOUNT_DIR?}/smokeping/data/
 
 configs:
   diun:
     file: ${MOUNT_DIR?}/diun/config/
+#  smokeping:
+#    file: ${MOUNT_DIR?}/smokeping/config/
 
 secrets:
   gotify_token:
