@@ -56,8 +56,12 @@ services:
 networks:
   docker:
     name: docker
+    labels:
+      nas-compose.boostrap: true
   traefik:
     name: traefik
+    labels:
+      nas-compose.boostrap: true
 
 #--------------------------------------
 # Volumes
@@ -68,6 +72,8 @@ volumes:
       type: none
       o: bind
       device: ${MOUNT_DIR?}/portainer/data/
+    labels:
+      nas-compose.boostrap: true
 
 configs:
   traefik:
