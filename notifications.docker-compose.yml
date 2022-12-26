@@ -4,6 +4,8 @@ services:
   gotify:
     image: gotify/server
     entrypoint: ./data/entrypoint.sh
+    environment:
+      GOTIFY_DEFAULTUSER_PASS_FILE: /run/secrets/admin_password
     networks:
       - gotify
       - traefik
