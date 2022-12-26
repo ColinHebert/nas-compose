@@ -6,3 +6,5 @@ providers:
 
 api:
   insecure: true
+
+accessLog: {}
