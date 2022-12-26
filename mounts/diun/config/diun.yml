@@ -1,0 +1,13 @@
+watch:
+  schedule: "0 */6 * * *"
+
+notif:
+  gotify:
+    endpoint: http://gotify
+    tokenFile: /run/secrets/gotify_token
+
+providers:
+  docker:
+    endpoint: tcp://docker:2375
+    watchByDefault: true
+    watchStopped: true

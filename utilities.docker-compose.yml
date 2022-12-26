@@ -1,0 +1,35 @@
+services:
+  diun:
+    image: crazymax/diun
+    networks:
+      - docker
+      - gotify
+    volumes:
+      - diun:/data
+    configs:
+      - source: diun
+        target: /etc/diun/
+    secrets:
+      - gotify_token
+    restart: unless-stopped
+
+networks:
+  docker:
+    external: true
+  gotify:
+    external: true
+
+volumes:
+  diun:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${MOUNT_DIR?}/diun/data/
+
+configs:
+  diun:
+    file: ${MOUNT_DIR?}/diun/config/
+
+secrets:
+  gotify_token:
+    file: ${MOUNT_DIR?}/diun/secrets/gotify_token
