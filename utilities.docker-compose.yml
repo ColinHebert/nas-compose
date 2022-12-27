@@ -1,7 +1,7 @@
 services:
   watchtower:
     image: containrrr/watchtower
-    environments:
+    environment:
       DOCKER_HOST: tcp://docker:2375
       WATCHTOWER_INCLUDE_RESTARTING: true
       WATCHTOWER_INCLUDE_STOPPED: true
@@ -80,8 +80,8 @@ configs:
     file: ${MOUNT_DIR?}/ddclient/config/ddclient.conf.tpl
 
 secrets:
-  diun_gotify_token:
-    file: ${MOUNT_DIR?}/diun/secrets/gotify_token
+  watchtower_gotify_token:
+    file: ${MOUNT_DIR?}/watchtower/secrets/gotify_token
   ddclient_gotify_token:
     file: ${MOUNT_DIR?}/ddclient/secrets/gotify_token
   ddclient_cloudflare_token:
