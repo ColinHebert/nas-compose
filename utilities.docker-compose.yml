@@ -1,16 +1,19 @@
 services:
-  diun:
-    image: crazymax/diun
+  watchtower:
+    image: containrrr/watchtower
+    environments:
+      DOCKER_HOST: tcp://docker:2375
+      WATCHTOWER_INCLUDE_RESTARTING: true
+      WATCHTOWER_INCLUDE_STOPPED: true
+      WATCHTOWER_MONITOR_ONLY: true
+      WATCHTOWER_NOTIFICATIONS: gotify
+      WATCHTOWER_NOTIFICATION_GOTIFY_URL: http://gotify
+      WATCHTOWER_NOTIFICATION_GOTIFY_TOKEN: /run/secrets/gotify_token
     networks:
       - docker
       - gotify
-    volumes:
-      - diun:/data
-    configs:
-      - source: diun
-        target: /etc/diun/
     secrets:
-      - source: diun_gotify_token
+      - source: watchtower_gotify_token
         target: gotify_token
     restart: unless-stopped
 
@@ -59,11 +62,6 @@ networks:
     external: true
 
 volumes:
-  diun:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${MOUNT_DIR?}/diun/data/
   smokeping:
     driver_opts:
       type: none
@@ -76,8 +74,6 @@ volumes:
       device: ${MOUNT_DIR?}/ddclient/data/
 
 configs:
-  diun:
-    file: ${MOUNT_DIR?}/diun/config/
 #  smokeping:
 #    file: ${MOUNT_DIR?}/smokeping/config/
   ddclient:
