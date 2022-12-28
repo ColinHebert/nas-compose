@@ -22,7 +22,7 @@ services:
     networks:
       - traefik
     volumes:
-      - smokeping_data:/data
+      - smokeping_data:/data/
     #configs:
     #  - source: smokeping
     #    target: /config/
@@ -42,8 +42,8 @@ services:
     networks:
       - gotify
     volumes:
-      - ddclient_data:/data
-      - ddclient_init:/custom-cont-init.d:ro
+      - ddclient_data:/data/
+      - ddclient_init:/custom-cont-init.d/:ro
     configs:
       - source: ddclient_config
         target: /config/
@@ -67,23 +67,23 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${MOUNT_DIR?}/smokeping/data/
+      device: ${MOUNT_DIR?}/smokeping/volumes/data/
   ddclient_data:
     driver_opts:
       type: none
       o: bind
-      device: ${MOUNT_DIR?}/ddclient/data/
+      device: ${MOUNT_DIR?}/ddclient/volumes/data/
   ddclient_init:
     driver_opts:
       type: none
       o: bind
-      device: ${MOUNT_DIR?}/ddclient/cont-init/
+      device: ${MOUNT_DIR?}/ddclient/volumes/init/
 
 configs:
 #  smokeping:
 #    file: ${MOUNT_DIR?}/smokeping/config/
   ddclient_config:
-    file: ${MOUNT_DIR?}/ddclient/config/
+    file: ${MOUNT_DIR?}/ddclient/configs/ddclient.conf.tpl
 
 secrets:
   watchtower_gotify_token:

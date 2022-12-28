@@ -10,9 +10,9 @@ services:
       - gotify
       - traefik
     volumes:
-      - gotify_data:/app/data
+      - gotify_data:/app/data/
     secrets:
-      - admin_password
+      - gotify_admin_password
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -29,8 +29,8 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${MOUNT_DIR?}/gotify/data/
+      device: ${MOUNT_DIR?}/gotify/volumes/data/
 
 secrets:
-  admin_password:
+  gotify_admin_password:
     file: ${MOUNT_DIR?}/gotify/secrets/admin_password

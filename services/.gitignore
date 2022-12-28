@@ -1,0 +1,6 @@
+*/volumes/*/*
+!*/volumes/*/README.md
+!*/volumes/*/.gitkeep
+*/secrets/*
+!*/secrets/README.md
+!.gitignore
