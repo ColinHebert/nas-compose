@@ -43,7 +43,7 @@ services:
     volumes:
       - ddclient_data:/data/
       - ddclient_config:/config/
-      - ddclient_init:/custom-cont-init.d/:ro
+      - ddclient_init:/config/custom-cont-init.d/:ro #TODO: Move to /custom-cont-init.d/
     configs:
       - source: ddclient_config_tpl
         target: /config/ddclient.conf.tpl
