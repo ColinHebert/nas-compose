@@ -21,13 +21,9 @@ file_env() {
 	unset "$fileVar"
 }
 
-cd /app
-
-
 apk add --update gettext
 
 file_env 'GOTIFY_TOKEN'
 file_env 'CLOUDFLARE_TOKEN'
-envsubst < /config/ddclient.conf.tpl > /config/ddclient.conf
 
-/init "$@"
+envsubst < /config/ddclient.conf.tpl > /ddclient.conf
