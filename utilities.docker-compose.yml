@@ -33,7 +33,6 @@ services:
 
   ddclient:
     image: linuxserver/ddclient
-    entrypoint: /data/entrypoint.sh
     environment:
       GOTIFY_ADDRESS: http://gotify
       GOTIFY_TOKEN_FILE: /run/secrets/gotify_token
