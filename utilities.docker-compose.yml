@@ -43,10 +43,11 @@ services:
       - gotify
     volumes:
       - ddclient_data:/data/
+      - ddclient_config:/config/
       - ddclient_init:/custom-cont-init.d/:ro
     configs:
-      - source: ddclient_config
-        target: /config/
+      - source: ddclient_config_tpl
+        target: /config/ddclient.conf.tpl
     secrets:
       - source: ddclient_gotify_token
         target: gotify_token
@@ -73,6 +74,11 @@ volumes:
       type: none
       o: bind
       device: ${SERVICES_DIR?}/ddclient/volumes/data/
+  ddclient_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SERVICES_DIR?}/ddclient/volumes/config/
   ddclient_init:
     driver_opts:
       type: none
@@ -82,7 +88,7 @@ volumes:
 configs:
 #  smokeping:
 #    file: ${SERVICES_DIR?}/smokeping/config/
-  ddclient_config:
+  ddclient_config_tpl:
     file: ${SERVICES_DIR?}/ddclient/configs/ddclient.conf.tpl
 
 secrets:
