@@ -23,9 +23,7 @@ services:
       - traefik
     volumes:
       - smokeping_data:/data/
-    #configs:
-    #  - source: smokeping
-    #    target: /config/
+      - smokeping_config:/config/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -68,6 +66,11 @@ volumes:
       type: none
       o: bind
       device: ${SERVICES_DIR?}/smokeping/volumes/data/
+  smokeping_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SERVICES_DIR?}/smokeping/volumes/config/
   ddclient_data:
     driver_opts:
       type: none
@@ -85,8 +88,6 @@ volumes:
       device: ${SERVICES_DIR?}/ddclient/volumes/init/
 
 configs:
-#  smokeping:
-#    file: ${SERVICES_DIR?}/smokeping/config/
   ddclient_config_tpl:
     file: ${SERVICES_DIR?}/ddclient/configs/ddclient.conf.tpl
 
