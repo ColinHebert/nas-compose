@@ -67,28 +67,28 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${MOUNT_DIR?}/smokeping/volumes/data/
+      device: ${SERVICES_DIR?}/smokeping/volumes/data/
   ddclient_data:
     driver_opts:
       type: none
       o: bind
-      device: ${MOUNT_DIR?}/ddclient/volumes/data/
+      device: ${SERVICES_DIR?}/ddclient/volumes/data/
   ddclient_init:
     driver_opts:
       type: none
       o: bind
-      device: ${MOUNT_DIR?}/ddclient/volumes/init/
+      device: ${SERVICES_DIR?}/ddclient/volumes/init/
 
 configs:
 #  smokeping:
-#    file: ${MOUNT_DIR?}/smokeping/config/
+#    file: ${SERVICES_DIR?}/smokeping/config/
   ddclient_config:
-    file: ${MOUNT_DIR?}/ddclient/configs/ddclient.conf.tpl
+    file: ${SERVICES_DIR?}/ddclient/configs/ddclient.conf.tpl
 
 secrets:
   watchtower_gotify_token:
-    file: ${MOUNT_DIR?}/watchtower/secrets/gotify_token
+    file: ${SERVICES_DIR?}/watchtower/secrets/gotify_token
   ddclient_gotify_token:
-    file: ${MOUNT_DIR?}/ddclient/secrets/gotify_token
+    file: ${SERVICES_DIR?}/ddclient/secrets/gotify_token
   ddclient_cloudflare_token:
-    file: ${MOUNT_DIR?}/ddclient/secrets/cloudflare_token
+    file: ${SERVICES_DIR?}/ddclient/secrets/cloudflare_token

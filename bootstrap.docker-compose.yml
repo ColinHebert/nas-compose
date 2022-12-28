@@ -68,14 +68,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${MOUNT_DIR?}/portainer/volumes/data/
+      device: ${SERVICES_DIR?}/portainer/volumes/data/
     labels:
       nas-compose.boostrap: true
 
 configs:
   traefik_config:
-    file: ${MOUNT_DIR?}/traefik/configs/traefik.yml
+    file: ${SERVICES_DIR?}/traefik/configs/traefik.yml
 
 secrets:
   portainer_password:
-    file: ${MOUNT_DIR?}/portainer/secrets/portainer_password
+    file: ${SERVICES_DIR?}/portainer/secrets/portainer_password
