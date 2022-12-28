@@ -10,7 +10,7 @@ services:
       - gotify
       - traefik
     volumes:
-      - gotify:/app/data
+      - gotify_data:/app/data
     secrets:
       - admin_password
     restart: unless-stopped
@@ -25,7 +25,7 @@ networks:
     external: true
 
 volumes:
-  gotify:
+  gotify_data:
     driver_opts:
       type: none
       o: bind

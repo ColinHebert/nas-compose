@@ -40,7 +40,7 @@ services:
       - docker
       - traefik
     volumes:
-      - portainer:/data
+      - portainer_data:/data
     secrets:
       - portainer_password
     depends_on:
@@ -64,7 +64,7 @@ networks:
       nas-compose.boostrap: true
 
 volumes:
-  portainer:
+  portainer_data:
     driver_opts:
       type: none
       o: bind

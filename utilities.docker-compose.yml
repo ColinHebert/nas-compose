@@ -22,7 +22,7 @@ services:
     networks:
       - traefik
     volumes:
-      - smokeping:/data
+      - smokeping_data:/data
     #configs:
     #  - source: smokeping
     #    target: /config/
@@ -42,7 +42,7 @@ services:
     networks:
       - gotify
     volumes:
-      - ddclient:/data
+      - ddclient_data:/data
     configs:
       - source: ddclient
         target: /config/ddclient.conf.tpl
@@ -62,12 +62,12 @@ networks:
     external: true
 
 volumes:
-  smokeping:
+  smokeping_data:
     driver_opts:
       type: none
       o: bind
       device: ${MOUNT_DIR?}/smokeping/data/
-  ddclient:
+  ddclient_data:
     driver_opts:
       type: none
       o: bind
