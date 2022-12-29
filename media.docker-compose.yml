@@ -25,6 +25,12 @@ volumes:
       type: none
       o: bind
       device: ${MEDIA_DIR?}/books
+  comics:
+    name: comics
+    driver_opts:
+      type: none
+      o: bind
+      device: ${MEDIA_DIR?}/comics
   movies:
     name: movies
     driver_opts:
