@@ -6,6 +6,7 @@ services:
     entrypoint: sleep infinity
     volumes:
       - books:/books
+      - comics:/comics
       - movies:/movies
       - tv:/tv
   # TODO:
