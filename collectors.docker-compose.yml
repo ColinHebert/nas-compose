@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.bazarr.rule: HostRegexp(`mylar{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
+      traefik.http.routers.mylar.rule: HostRegexp(`mylar{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
 
   lazylibrarian:
     image: linuxserver/lazylibrarian
@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.bazarr.rule: HostRegexp(`lazylibrarian{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
+      traefik.http.routers.bazarr.lazylibrarian: HostRegexp(`lazylibrarian{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
 
   sonarr:
     image: linuxserver/sonarr
@@ -35,7 +35,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.bazarr.rule: HostRegexp(`sonarr{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
+      traefik.http.routers.sonarr.rule: HostRegexp(`sonarr{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
 
   radarr:
     image: linuxserver/radarr
@@ -47,7 +47,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.bazarr.rule: HostRegexp(`radarr{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
+      traefik.http.routers.radarr.rule: HostRegexp(`radarr{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
 
   bazarr:
     image: linuxserver/bazarr
