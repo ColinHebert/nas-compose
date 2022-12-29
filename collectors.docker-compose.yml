@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.bazarr.lazylibrarian: HostRegexp(`lazylibrarian{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
+      traefik.http.routers.lazylibrarian.rule: HostRegexp(`lazylibrarian{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
 
   sonarr:
     image: linuxserver/sonarr
