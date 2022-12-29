@@ -14,7 +14,7 @@ services:
       traefik.http.routers.bazarr.rule: HostRegexp(`mylar{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
 
   lazylibrarian:
-    image: linuxserver/lazylibraria
+    image: linuxserver/lazylibrarian
     networks:
       - traefik
     volumes:
@@ -61,6 +61,13 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.bazarr.rule: HostRegexp(`bazarr{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
+
+
+networks:
+  gotify:
+    external: true
+  traefik:
+    external: true
 
 volumes:
   books:
