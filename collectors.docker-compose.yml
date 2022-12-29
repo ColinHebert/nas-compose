@@ -79,28 +79,28 @@ volumes:
   tv:
     external: true
 
-  mylar_data:
+  mylar_config:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/mylar/volumes/data/
-  lazylibrarian_data:
+      device: ${SERVICES_DIR?}/mylar/volumes/config/
+  lazylibrarian_config:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/lazylibrarian/volumes/data/
-  sonarr_data:
+      device: ${SERVICES_DIR?}/lazylibrarian/volumes/config/
+  sonarr_config:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/sonarr/volumes/data/
-  radarr_data:
+      device: ${SERVICES_DIR?}/sonarr/volumes/config/
+  radarr_config:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/radarr/volumes/data/
-  bazarr_data:
+      device: ${SERVICES_DIR?}/radarr/volumes/config/
+  bazarr_config:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/bazarr/volumes/data/
+      device: ${SERVICES_DIR?}/bazarr/volumes/config/
