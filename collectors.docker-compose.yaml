@@ -1,0 +1,99 @@
+name: Collectors
+
+services:
+  mylar:
+    image: linuxserver/mylar3
+    networks:
+      - traefik
+    volumes:
+      - mylar_config:/config/
+      - comics:/comics
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.bazarr.rule: HostRegexp(`mylar{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
+
+  lazylibrarian:
+    image: linuxserver/lazylibraria
+    networks:
+      - traefik
+    volumes:
+      - lazylibrarian_config:/config/
+      - books:/books
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.bazarr.rule: HostRegexp(`lazylibrarian{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
+
+  sonarr:
+    image: linuxserver/sonarr
+    networks:
+      - traefik
+    volumes:
+      - sonarr_config:/config/
+      - tv:/tv
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.bazarr.rule: HostRegexp(`sonarr{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
+
+  radarr:
+    image: linuxserver/radarr
+    networks:
+      - traefik
+    volumes:
+      - radarr_config:/config/
+      - movies:/movies
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.bazarr.rule: HostRegexp(`radarr{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
+
+  bazarr:
+    image: linuxserver/bazarr
+    networks:
+      - traefik
+    volumes:
+      - bazarr_config:/config/
+      - movies:/movies
+      - tv:/tv
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.bazarr.rule: HostRegexp(`bazarr{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
+
+volumes:
+  books:
+    external: true
+  comics:
+    external: true
+  movies:
+    external: true
+  tv:
+    external: true
+
+  mylar_data:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SERVICES_DIR?}/mylar/volumes/data/
+  lazylibrarian_data:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SERVICES_DIR?}/lazylibrarian/volumes/data/
+  sonarr_data:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SERVICES_DIR?}/sonarr/volumes/data/
+  radarr_data:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SERVICES_DIR?}/radarr/volumes/data/
+  bazarr_data:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SERVICES_DIR?}/bazarr/volumes/data/
