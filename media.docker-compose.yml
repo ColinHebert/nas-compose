@@ -1,0 +1,45 @@
+name: Collectors
+
+services:
+  dummy:
+    image: alpine
+    entrypoint: sleep infinity
+    volumes:
+      - books:/books
+      - movies:/movies
+      - tv:/tv
+  # TODO:
+  # Plex
+  # Plaxt
+  # Calibre-web
+  # Komga/Kavita
+
+networks:
+  traefik:
+    external: true
+
+volumes:
+  books:
+    name: books
+    driver_opts:
+      type: none
+      o: bind
+      device: ${MEDIA_DIR?}/books
+  movies:
+    name: movies
+    driver_opts:
+      type: none
+      o: bind
+      device: ${MEDIA_DIR?}/movies
+  tv:
+    name: tv
+    driver_opts:
+      type: none
+      o: bind
+      device: ${MEDIA_DIR?}/tv
+  recycle_bin:
+    name: recycle_bin
+    driver_opts:
+      type: none
+      o: bind
+      device: ${MEDIA_DIR?}/recycle_bin
