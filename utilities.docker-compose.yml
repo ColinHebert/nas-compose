@@ -33,9 +33,9 @@ services:
     image: linuxserver/ddclient
     environment:
       GOTIFY_ADDRESS: http://gotify
-      GOTIFY_TOKEN_FILE: /run/secrets/gotify_token
+      FILE__GOTIFY_TOKEN: /run/secrets/gotify_token
       CLOUDFLARE_DOMAIN: ${DDCLIENT_CLOUDFLARE_DOMAIN-test.dedicated.contact}
-      CLOUDFLARE_TOKEN_FILE: /run/secrets/cloudflare_token
+      FILE__CLOUDFLARE_TOKEN: /run/secrets/cloudflare_token
     networks:
       - gotify
     volumes:
