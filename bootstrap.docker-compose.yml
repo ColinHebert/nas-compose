@@ -29,6 +29,9 @@ services:
     restart: unless-stopped
     labels:
       nas-compose.boostrap: true
+      traefik.enable: true
+      traefik.http.routers.traefik.rule: Host(`traefik.dev.dedicated.contact`)
+      traefik.http.routers.traefik.service: api@internal
 
   portainer:
     image: portainer/portainer-ce
