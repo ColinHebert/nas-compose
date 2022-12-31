@@ -12,6 +12,7 @@ services:
   prowlarr:
     image: linuxserver/prowlarr:develop #TODO: Move to a stable version!
     networks:
+      - default
       - traefik
       - gotify
       - downloads
@@ -21,6 +22,9 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.prowlarr.rule: HostRegexp(`prowlarr{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
+  flaresolverr:
+    image: ngosang/flaresolverr:3.0.0.beta3 #TODO: Move to a stable version!
+    restart: unless-stopped
 # TODO:
 # NZBGet
 # Transmission
