@@ -3,7 +3,7 @@ providers:
     endpoint: tcp://docker:2375
     exposedByDefault: false
     network: traefik
-    defaultRule: Host(`{{ .Name }}{subdomain:dev.dedicated.contact`)
+    defaultRule: Host(`{{ index .Labels "com.docker.compose.service" }}.dev.dedicated.contact`)
 
 serverstransport:
   insecureskipverify: true
