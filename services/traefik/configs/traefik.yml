@@ -1,0 +1,32 @@
+providers:
+  docker:
+    endpoint: tcp://docker:2375
+    exposedByDefault: false
+    network: traefik
+    defaultRule: Host(`{{ index .Labels "com.docker.compose.service" }}.dev.dedicated.contact`)
+  file:
+    directory: /etc/traefik/dynamic/
+
+serverstransport:
+  insecureskipverify: true
+
+api:
+  insecure: true
+
+accessLog: {}
+
+entryPoints:
+  web:
+    address: :80
+    http:
+#      redirections:
+#        entryPoint:
+#          to: websecure
+#          scheme: https
+  websecure:
+    address: :443
+    http:
+      tls: {}
+
+global:
+  sendAnonymousUsage: false
