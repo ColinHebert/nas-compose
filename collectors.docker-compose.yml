@@ -6,6 +6,7 @@ services:
     networks:
       - traefik
       - gotify
+      - downloads
     volumes:
       - mylar_config:/config/
       - comics:/comics
@@ -21,6 +22,7 @@ services:
     networks:
       - traefik
       - gotify
+      - downloads
     volumes:
       - lazylibrarian_config:/config/
       - books:/books
@@ -36,6 +38,7 @@ services:
     networks:
       - traefik
       - gotify
+      - downloads
     volumes:
       - sonarr_config:/config/
       - tv:/tv
@@ -51,6 +54,7 @@ services:
     networks:
       - traefik
       - gotify
+      - downloads
     volumes:
       - radarr_config:/config/
       - movies:/movies
@@ -76,9 +80,11 @@ services:
       traefik.http.routers.bazarr.rule: HostRegexp(`bazarr{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
 
 networks:
+  traefik:
+    external: true
   gotify:
     external: true
-  traefik:
+  downloads:
     external: true
 
 volumes:

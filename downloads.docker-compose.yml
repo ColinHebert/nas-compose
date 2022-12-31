@@ -9,9 +9,30 @@ services:
       - torrents_completed:/torrents/completed
       - usenet:/usenet
       - usenet_completed:/usenet/completed
+  prowlarr:
+    image: linuxserver/prowlarr:develop #TODO: Move to a stable version!
+    networks:
+      - traefik
+      - gotify
+      - downloads
+    volumes:
+      - prowlarr:/config
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.prowlarr.rule: HostRegexp(`prowlarr{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
 # TODO:
 # NZBGet
 # Transmission
+
+networks:
+  downloads:
+    name: downloads
+
+  traefik:
+    external: true
+  gotify:
+    external: true
 
 volumes:
   torrents_completed:

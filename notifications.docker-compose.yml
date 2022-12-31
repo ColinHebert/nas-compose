@@ -21,6 +21,7 @@ services:
 networks:
   gotify:
     name: gotify
+
   traefik:
     external: true
 
