@@ -16,7 +16,7 @@ services:
       - gotify
       - downloads
     volumes:
-      - prowlarr:/config
+      - prowlarr_config:/config
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -58,3 +58,9 @@ volumes:
       type: none
       o: bind
       device: ${DOWNLOADS_DIR?}/usenet
+
+  prowlarr_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SERVICES_DIR?}/prowlarr/volumes/config/
