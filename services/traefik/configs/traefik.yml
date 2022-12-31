@@ -10,9 +10,7 @@ providers:
 serverstransport:
   insecureskipverify: true
 
-api:
-  insecure: true
-
+api: {}
 accessLog: {}
 
 entryPoints:
