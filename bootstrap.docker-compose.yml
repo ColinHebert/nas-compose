@@ -17,7 +17,6 @@ services:
     ports:
       - 80:80
       - 443:443
-      - 8080:8080
     networks:
       - traefik
       - docker
@@ -29,9 +28,6 @@ services:
     restart: unless-stopped
     labels:
       nas-compose.boostrap: true
-      traefik.enable: true
-      traefik.http.routers.traefik.rule: Host(`traefik.dev.dedicated.contact`)
-      traefik.http.routers.traefik.service: api@internal
 
   portainer:
     image: portainer/portainer-ce
