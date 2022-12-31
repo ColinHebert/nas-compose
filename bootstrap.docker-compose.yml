@@ -23,9 +23,6 @@ services:
       - docker
     volumes:
       - traefik_config:/etc/traefik/
-    configs:
-      - source: traefik_config
-        target: /etc/traefik/traefik.yml
     depends_on:
       - docker
     restart: unless-stopped
@@ -79,10 +76,6 @@ volumes:
       device: ${SERVICES_DIR?}/traefik/volumes/config/
     labels:
       nas-compose.boostrap: true
-
-configs:
-  traefik_config:
-    file: ${SERVICES_DIR?}/traefik/configs/traefik.yml
 
 secrets:
   portainer_password:

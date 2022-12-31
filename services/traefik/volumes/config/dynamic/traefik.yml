@@ -1,0 +1,5 @@
+http:
+  routers:
+    traefik:
+      rule: Host(`traefik.dev.dedicated.contact`)
+      service: api@internal

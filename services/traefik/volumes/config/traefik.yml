@@ -5,12 +5,14 @@ providers:
     network: traefik
     defaultRule: Host(`{{ index .Labels "com.docker.compose.service" }}.dev.dedicated.contact`)
   file:
-    directory: /etc/traefik/dynamic
+    directory: /etc/traefik/dynamic/
 
 serverstransport:
   insecureskipverify: true
 
-api: {}
+api:
+  insecure: true
+
 accessLog: {}
 
 entryPoints:
