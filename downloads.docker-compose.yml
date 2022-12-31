@@ -21,7 +21,6 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.prowlarr.rule: HostRegexp(`prowlarr{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
   flaresolverr:
     image: ngosang/flaresolverr:3.0.0.beta3 #TODO: Move to a stable version!
     restart: unless-stopped
