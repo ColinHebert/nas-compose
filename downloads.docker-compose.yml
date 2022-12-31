@@ -5,9 +5,9 @@ services:
     image: alpine
     entrypoint: sleep infinity
     volumes:
-      - torrents:/torrents
+      - torrents:/torrents/
       - torrents_completed:/torrents/completed
-      - usenet:/usenet
+      - usenet:/usenet/
       - usenet_completed:/usenet/completed
   prowlarr:
     image: linuxserver/prowlarr:develop #TODO: Move to a stable version!
@@ -17,7 +17,7 @@ services:
       - gotify
       - downloads
     volumes:
-      - prowlarr_config:/config
+      - prowlarr_config:/config/
     restart: unless-stopped
     labels:
       traefik.enable: true

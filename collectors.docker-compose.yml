@@ -24,9 +24,9 @@ services:
       - downloads
     volumes:
       - lazylibrarian_config:/config/
-      - books:/books
-      - torrents_completed:/downloads/torrents
-      - usenet_completed:/downloads/usenet
+      - books:/books/
+      - torrents_completed:/downloads/torrents/
+      - usenet_completed:/downloads/usenet/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -39,9 +39,9 @@ services:
       - downloads
     volumes:
       - sonarr_config:/config/
-      - tv:/tv
-      - torrents_completed:/downloads/torrents
-      - usenet_completed:/downloads/usenet
+      - tv:/tv/
+      - torrents_completed:/downloads/torrents/
+      - usenet_completed:/downloads/usenet/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -54,9 +54,9 @@ services:
       - downloads
     volumes:
       - radarr_config:/config/
-      - movies:/movies
-      - torrents_completed:/downloads/torrents
-      - usenet_completed:/downloads/usenet
+      - movies:/movies/
+      - torrents_completed:/downloads/torrents/
+      - usenet_completed:/downloads/usenet/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -68,8 +68,8 @@ services:
       - gotify
     volumes:
       - bazarr_config:/config/
-      - movies:/movies
-      - tv:/tv
+      - movies:/movies/
+      - tv:/tv/
     restart: unless-stopped
     labels:
       traefik.enable: true

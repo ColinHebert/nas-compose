@@ -5,10 +5,10 @@ services:
     image: alpine
     entrypoint: sleep infinity
     volumes:
-      - books:/books
-      - comics:/comics
-      - movies:/movies
-      - tv:/tv
+      - books:/books/
+      - comics:/comics/
+      - movies:/movies/
+      - tv:/tv/
   # TODO:
   # Plex
   # Plaxt
@@ -25,28 +25,28 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${MEDIA_DIR?}/books
+      device: ${MEDIA_DIR?}/books/
   comics:
     name: comics
     driver_opts:
       type: none
       o: bind
-      device: ${MEDIA_DIR?}/comics
+      device: ${MEDIA_DIR?}/comics/
   movies:
     name: movies
     driver_opts:
       type: none
       o: bind
-      device: ${MEDIA_DIR?}/movies
+      device: ${MEDIA_DIR?}/movies/
   tv:
     name: tv
     driver_opts:
       type: none
       o: bind
-      device: ${MEDIA_DIR?}/tv
+      device: ${MEDIA_DIR?}/tv/
   recycle_bin:
     name: recycle_bin
     driver_opts:
       type: none
       o: bind
-      device: ${MEDIA_DIR?}/recycle_bin
+      device: ${MEDIA_DIR?}/recycle_bin/
