@@ -5,9 +5,12 @@ services:
     image: linuxserver/mylar3
     networks:
       - traefik
+      - gotify
     volumes:
       - mylar_config:/config/
       - comics:/comics
+      - torrents_completed:/downloads/torrents
+      - usenet_completed:/downloads/usenet
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -17,9 +20,12 @@ services:
     image: linuxserver/lazylibrarian
     networks:
       - traefik
+      - gotify
     volumes:
       - lazylibrarian_config:/config/
       - books:/books
+      - torrents_completed:/downloads/torrents
+      - usenet_completed:/downloads/usenet
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -29,9 +35,12 @@ services:
     image: linuxserver/sonarr
     networks:
       - traefik
+      - gotify
     volumes:
       - sonarr_config:/config/
       - tv:/tv
+      - torrents_completed:/downloads/torrents
+      - usenet_completed:/downloads/usenet
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -41,9 +50,12 @@ services:
     image: linuxserver/radarr
     networks:
       - traefik
+      - gotify
     volumes:
       - radarr_config:/config/
       - movies:/movies
+      - torrents_completed:/downloads/torrents
+      - usenet_completed:/downloads/usenet
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -53,6 +65,7 @@ services:
     image: linuxserver/bazarr
     networks:
       - traefik
+      - gotify
     volumes:
       - bazarr_config:/config/
       - movies:/movies
@@ -61,7 +74,6 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.bazarr.rule: HostRegexp(`bazarr{subdomain:(\.[a-z0-9-]+)?}.dedicated.contact`)
-
 
 networks:
   gotify:
@@ -77,6 +89,11 @@ volumes:
   movies:
     external: true
   tv:
+    external: true
+
+  torrents_completed:
+    external: true
+  usenet_completed:
     external: true
 
   mylar_config:
