@@ -20,6 +20,8 @@ services:
     networks:
       - traefik
       - docker
+    volumes:
+      - traefik_config:/etc/traefik/
     configs:
       - source: traefik_config
         target: /etc/traefik/traefik.yml
@@ -67,6 +69,13 @@ volumes:
       type: none
       o: bind
       device: ${SERVICES_DIR?}/portainer/volumes/data/
+    labels:
+      nas-compose.boostrap: true
+  traefik_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SERVICES_DIR?}/traefik/volumes/config/
     labels:
       nas-compose.boostrap: true
 
