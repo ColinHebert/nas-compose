@@ -22,6 +22,7 @@ services:
       - docker
     volumes:
       - traefik_dynamic_config:/etc/traefik/dynamic/
+      - traefik_tls:/etc/traefik/tls/
     configs:
       - source: traefik_config
         target: /etc/traefik/traefik.yml
@@ -76,6 +77,13 @@ volumes:
       type: none
       o: bind
       device: ${SERVICES_DIR?}/traefik/volumes/config/
+    labels:
+      nas-compose.boostrap: true
+  traefik_tls:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SERVICES_DIR?}/traefik/volumes/tls/
     labels:
       nas-compose.boostrap: true
 
