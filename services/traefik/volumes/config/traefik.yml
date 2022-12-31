@@ -3,9 +3,9 @@ http:
     traefik:
       rule: Host(`traefik.dev.dedicated.contact`)
       service: api@internal
-      middlewares: {}
-        #- traefik-auth
+      middlewares:
+        - traefik-auth
   middlewares:
     traefik-auth:
       basicAuth:
-        usersFile: /run/secrets/htpasswd
+        usersFile: /run/secrets/traefik_password
