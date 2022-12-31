@@ -26,6 +26,10 @@ services:
     configs:
       - source: traefik_config
         target: /etc/traefik/traefik.yml
+    secrets:
+      - traefik_password
+      - traefik_tls_cert
+      - traefik_tls_key
     depends_on:
       - docker
     restart: unless-stopped
@@ -92,5 +96,11 @@ configs:
     file: ${SERVICES_DIR?}/traefik/configs/traefik.yml
 
 secrets:
+  traefik_password:
+    file: ${SERVICES_DIR?}/traefik/secrets/htpasswd
+  traefik_tls_cert:
+    file: ${SERVICES_DIR?}/traefik/secrets/traefik.cert
+  traefik_tls_key:
+    file: ${SERVICES_DIR?}/traefik/secrets/traefik.key
   portainer_password:
     file: ${SERVICES_DIR?}/portainer/secrets/portainer_password
