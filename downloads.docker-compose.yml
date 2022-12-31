@@ -1,0 +1,39 @@
+name: Downloads
+
+services:
+  dummy:
+    image: alpine
+    entrypoint: sleep infinity
+    volumes:
+      - torrents:/torrents
+      - torrents_completed:/torrents/completed
+      - usenet:/usenet
+      - usenet_completed:/usenet/completed
+# TODO:
+# NZBGet
+# Transmission
+
+volumes:
+  torrents_completed:
+    name: torrents_completed
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DOWNLOADS_DIR?}/torrents/completed
+  usenet_completed:
+    name: usenet_completed
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DOWNLOADS_DIR?}/usenet/completed
+
+  torrents:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DOWNLOADS_DIR?}/torrents
+  usenet:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DOWNLOADS_DIR?}/usenet
