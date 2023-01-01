@@ -27,7 +27,7 @@ services:
 
   plaxt:
     image: xanderstrike/goplaxt
-    profle: [plaxt]
+    profiles: [plaxt]
     environment:
       TRAKT_ID: '' #TODO Define properly
       TRAKT_SECRET: '' #TODO Define properly
