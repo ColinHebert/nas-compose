@@ -3,6 +3,7 @@ name: Collectors
 services:
   mylar:
     image: linuxserver/mylar3
+    profiles: [ebooks]
     networks:
       - traefik
       - gotify
@@ -18,6 +19,7 @@ services:
 
   lazylibrarian:
     image: linuxserver/lazylibrarian
+    profiles: [ebooks]
     networks:
       - traefik
       - gotify
