@@ -25,6 +25,8 @@ entryPoints:
     address: :443
     http:
       tls: {}
+      middlewares:
+        - hsts@file
 
 global:
   sendAnonymousUsage: false
