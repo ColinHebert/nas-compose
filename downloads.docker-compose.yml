@@ -16,6 +16,9 @@ services:
       - traefik
       - gotify
       - downloads
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
     volumes:
       - prowlarr_config:/config/
     restart: unless-stopped
