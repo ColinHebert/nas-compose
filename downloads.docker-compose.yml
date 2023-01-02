@@ -53,6 +53,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
+      traefik.http.services.transmission.loadbalancer.server.port: 9091
 
 # TODO:
 # NZBGet
