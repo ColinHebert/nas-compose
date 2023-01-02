@@ -104,6 +104,6 @@ volumes:
 
 secrets:
     transmission_rpc_creds:
-        file: ${SERVICES_DIR?}/transmission/secrets/rcp_creds
+        file: ${SERVICES_DIR?}/transmission/secrets/rpc_creds
     transmission_vpn_creds:
         file: ${SERVICES_DIR?}/transmission/secrets/vpn_creds
