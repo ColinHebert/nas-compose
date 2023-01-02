@@ -29,7 +29,7 @@ services:
     restart: unless-stopped
   transmission:
     image: haugene/transmission-openvpn
-    environments:
+    environment:
       OPENVPN_PROVIDER: PIA
       OPENVPN_CONFIG: ${VPN_REGION?}
       OPENVPN_OPTS: --inactive 3600 --ping 10 --ping-exit 60
