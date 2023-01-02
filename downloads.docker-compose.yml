@@ -27,9 +27,35 @@ services:
   flaresolverr:
     image: ngosang/flaresolverr:3.0.0.beta3 #TODO: Move to a stable version!
     restart: unless-stopped
+  transmission:
+    image: haugene/transmission-openvpn
+    environments:
+      OPENVPN_PROVIDER: PIA
+      OPENVPN_CONFIG: ${VPN_REGION?}
+      OPENVPN_OPTS: --inactive 3600 --ping 10 --ping-exit 60
+      LOCAL_NETWORK: 192.168.0.0/16
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - traefik
+      - downloads
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+    volumes:
+      - transmission_config:/config/
+      - torrents:/data/
+    secrets:
+      - source: transmission_rpc_creds
+        target: rpc_creds
+      - source: transmission_vpn_creds
+        target: openvpn_creds
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+
 # TODO:
 # NZBGet
-# Transmission
 
 networks:
   downloads:
@@ -70,3 +96,14 @@ volumes:
       type: none
       o: bind
       device: ${SERVICES_DIR?}/prowlarr/volumes/config/
+  transmission_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SERVICES_DIR?}/transmission/volumes/config/
+
+secrets:
+    transmission_rpc_creds:
+        file: ${SERVICES_DIR?}/transmission/secrets/rcp_creds
+    transmission_vpn_creds:
+        file: ${SERVICES_DIR?}/transmission/secrets/vpn_creds
