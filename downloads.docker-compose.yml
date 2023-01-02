@@ -45,6 +45,7 @@ services:
       - 1.0.0.1
     volumes:
       - transmission_config:/config/
+      - transmission_scripts:/scripts/
       - torrents:/data/
     secrets:
       - source: transmission_rpc_creds
@@ -103,6 +104,11 @@ volumes:
       type: none
       o: bind
       device: ${SERVICES_DIR?}/transmission/volumes/config/
+  transmission_scripts:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SERVICES_DIR?}/transmission/volumes/scripts/
 
 secrets:
     transmission_rpc_creds:

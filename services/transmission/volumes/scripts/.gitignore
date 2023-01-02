@@ -1,0 +1,7 @@
+!/openvpn-pre-start.sh
+!/openvpn-post-config.sh
+!/transmission-pre-start.sh
+!/transmission-post-start.sh
+!/routes-post-start.sh
+!/transmission-pre-stop.sh
+!/transmission-post-stop.sh
