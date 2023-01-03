@@ -1,5 +1,28 @@
 # Bootstrap
 
+Set up a MacVLAN network
+
+As an example, with the following network setup:
+- interface to LAN: `bond0`
+- Complete LAN subnet: `192.168.0.0/23`
+- LAN gateway: `192.168.0.1`
+- DHCP range: `192.168.0.0/24` (excluding gateway)
+- MacVLAN interface name: `macvlan0` (user defined)
+- MacVLAN range: `192.168.1.0/24` (should be outside of DHCP range)
+- MacVLAN host IP: `192.168.1.1` (should be in the MacVLAN range)
+
+```
+docker network create -d macvlan -o parent=bond0 --subnet=192.168.0.0/23 --gateway=192.168.0.1 --ip-range=192.168.1.0/24 --aux-address "nas=192.168.1.1" macvlan
+ip link add macvlan0 link bond0 type macvlan mode bridge
+ip addr add 192.168.1.1/32 dev macvlan0
+ip link set macvlan0 up
+```
+
+Run portainer once
+```
+docker run --rm -p 9443:9443 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer-ce:latest
+```
+
 ### Environment variables
 - `SERVICES_DIR`: Absolute path to the `services` folder
 

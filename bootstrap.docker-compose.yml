@@ -22,6 +22,9 @@ services:
     networks:
       - traefik
       - docker
+      - macvlan
+    environment:
+      - NAS_COMPOSE_DOMAIN=${NAS_COMPOSE_DOMAIN?}
     # TODO: Move to configs?
     volumes:
       - traefik_dynamic_config:/etc/traefik/dynamic/:ro
@@ -69,6 +72,8 @@ networks:
     name: traefik
     labels:
       nas-compose.boostrap: true
+  macvlan:
+    external: true
 
 volumes:
   portainer_data:

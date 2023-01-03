@@ -1,7 +1,7 @@
 http:
   routers:
     traefik:
-      rule: Host(`traefik.dev.dedicated.contact`)
+      rule: Host(`traefik.{{ env `NAS_COMPOSE_DOMAIN` }}`)
       service: api@internal
       middlewares:
         - traefik-auth
