@@ -1,6 +1,7 @@
 name: Bootstrap
 
 services:
+  # TODO: Authenticate the services that can talk to docker
   docker:
     image: alpine/socat
     command: tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
@@ -12,6 +13,7 @@ services:
     labels:
       nas-compose.boostrap: true
 
+  # TODO: Sort out authentication method for all services (SSO). Authelia?
   traefik:
     image: traefik
     ports:
@@ -20,13 +22,14 @@ services:
     networks:
       - traefik
       - docker
+    # TODO: Move to configs?
     volumes:
-      - traefik_dynamic_config:/etc/traefik/dynamic/
+      - traefik_dynamic_config:/etc/traefik/dynamic/:ro
     configs:
       - source: traefik_config
         target: /etc/traefik/traefik.yml
     secrets:
-      - traefik_password
+      - traefik_password # TODO: Replace with SSO
       - traefik_tls_cert
       - traefik_tls_key
     depends_on:
