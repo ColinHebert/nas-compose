@@ -15,6 +15,7 @@ services:
     networks:
       - default
       - traefik
+      - macvlan
     volumes:
       - plex_data:/data
       - tv:/tv
@@ -46,6 +47,8 @@ services:
 
 networks:
   traefik:
+    external: true
+  macvlan:
     external: true
 
 volumes:
