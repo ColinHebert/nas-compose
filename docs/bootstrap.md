@@ -43,6 +43,9 @@ Useful to manage the stacks/docker-compose configuration for the NAS.
 Set up to use the port exposed via the `Docker` container. It displays information about all docker resources available on the host. \
 It excludes all resources with the tag `nas-compose.boostrap: true`.
 
+Each compose file (except the `bootstrap.docker-compose.yaml`) need to be added as a [stack](https://docs.portainer.io/user/docker/stacks/add), with the right environment variables set.
+
+
 ### 🌐 Ports
 - `9443 TCP`: HTTPs (self-signed) access to the web interface
 
