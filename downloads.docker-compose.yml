@@ -7,8 +7,14 @@ services:
     volumes:
       - torrents:/torrents/
       - torrents_completed:/torrents/completed
+  dummyusenet:
+    image: alpine
+    entrypoint: sleep infinity
+    profiles: [usenet]
+    volumes:
       - usenet:/usenet/
       - usenet_completed:/usenet/completed
+
   prowlarr:
     image: linuxserver/prowlarr
     networks:
@@ -24,9 +30,11 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
+
   flaresolverr:
     image: ngosang/flaresolverr:3.0.0.beta3 #TODO: Move to a stable version!
     restart: unless-stopped
+
   transmission:
     image: haugene/transmission-openvpn
     environment:
