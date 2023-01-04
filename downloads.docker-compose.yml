@@ -10,7 +10,7 @@ services:
       - usenet:/usenet/
       - usenet_completed:/usenet/completed
   prowlarr:
-    image: linuxserver/prowlarr:develop #TODO: Move to a stable version!
+    image: linuxserver/prowlarr
     networks:
       - default
       - traefik
