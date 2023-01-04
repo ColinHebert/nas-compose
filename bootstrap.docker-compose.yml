@@ -17,9 +17,9 @@ services:
   traefik:
     image: traefik
     networks:
+      - macvlan
       - traefik
       - docker
-      - macvlan
     ports:
       - 8080:8080
       - 8443:443
@@ -64,16 +64,16 @@ services:
       traefik.http.services.portainer.loadbalancer.server.scheme: https
 
 networks:
+  macvlan:
+    name: macvlan
+    labels:
+      nas-compose.boostrap: true
   docker:
     name: docker
     labels:
       nas-compose.boostrap: true
   traefik:
     name: traefik
-    labels:
-      nas-compose.boostrap: true
-  macvlan:
-    name: macvlan
     labels:
       nas-compose.boostrap: true
 

@@ -10,16 +10,18 @@ services:
 
   plex:
     image: plexinc/pms-docker:plexpass
+    environment:
+      PLEX_CLAIM: ${NASCOMPOSE_PLEX_CLAIM}
     ports:
       - 32400:32400
     networks:
+      - macvlan
       - default
       - traefik
-      - macvlan
     volumes:
-      - plex_data:/data
-      - tv:/tv
-      - movies:/movies
+      - plex_config:/config
+      - tv:/data/tv
+      - movies:/data/movies
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -46,9 +48,9 @@ services:
   # Komga/Kavita
 
 networks:
-  traefik:
-    external: true
   macvlan:
+    external: true
+  traefik:
     external: true
 
 volumes:
@@ -76,6 +78,7 @@ volumes:
       type: none
       o: bind
       device: ${NASCOMPOSE_MEDIA?}/tv/
+  # TODO: Manage recycle bin properly...
   recycle_bin:
     name: recycle_bin
     driver_opts:
@@ -83,11 +86,11 @@ volumes:
       o: bind
       device: ${NASCOMPOSE_MEDIA?}/recycle_bin/
 
-  plex_data:
+  plex_config:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/plex/volumes/data/
+      device: ${NASCOMPOSE_SERVICES?}/plex/volumes/config/
   plaxt_keystore:
     driver_opts:
       type: none

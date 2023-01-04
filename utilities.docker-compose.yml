@@ -31,11 +31,14 @@ services:
   duckdns:
     image: linuxserver/duckdns
     environment:
-      - SUBDOMAINS=${NASCOMPOSE_DUCKDNS?}
+      - SUBDOMAINS=${NASCOMPOSE_DUCKDNS_DOMAIN?}
       - FILE__TOKEN=/run/secrets/duckdns_token
     secrets:
       - duckdns_token
     restart: unless-stopped
+
+  # TODO: Set up heimdal?
+  # TODO: Set up synology/external services?
 
 networks:
   docker:

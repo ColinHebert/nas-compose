@@ -2,7 +2,7 @@ services:
   traefik:
     networks:
       macvlan:
-        ipv4_address: ${NASCOMPOSE_MACVLAN_TRAEFIKIP}
+        ipv4_address: ${NASCOMPOSE_MACVLAN_TRAEFIK_IP}
 
 networks:
   macvlan:
@@ -16,4 +16,4 @@ networks:
           gateway: ${NASCOMPOSE_MACVLAN_GATEWAY?}
           ip_range: ${NASCOMPOSE_MACVLAN_RANGE?}
           aux_addresses:
-            nas: ${NASCOMPOSE_MACVLAN_HOSTIP?}
+            nas: ${NASCOMPOSE_MACVLAN_HOST_IP?}
