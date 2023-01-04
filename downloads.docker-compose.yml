@@ -45,8 +45,10 @@ services:
       - 1.0.0.1
     volumes:
       - transmission_config:/config/
-      - transmission_scripts:/scripts/
       - torrents:/data/
+    configs:
+      - source: transmission_openvpn_post_config
+        target: /scripts/openvpn-post-config.sh
     secrets:
       - source: transmission_rpc_creds
         target: rpc_creds
@@ -98,20 +100,24 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/prowlarr/volumes/config/
+      device: ${NASCOMPOSE_SERVICES?}/volumes/prowlarr/config/
   transmission_config:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/transmission/volumes/config/
+      device: ${NASCOMPOSE_SERVICES?}/volumes/transmission/config/
   transmission_scripts:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/transmission/volumes/scripts/
+      device: ${NASCOMPOSE_SERVICES?}/volumes/transmission/scripts/
+
+configs:
+  transmission_openvpn_post_config:
+    file: ${NASCOMPOSE_SERVICES?}/configs/transmission/openvpn-post-config.sh
 
 secrets:
     transmission_rpc_creds:
-        file: ${NASCOMPOSE_SERVICES?}/transmission/secrets/rpc_creds
+        file: ${NASCOMPOSE_SERVICES?}/secrets/transmission/rpc_creds
     transmission_vpn_creds:
-        file: ${NASCOMPOSE_SERVICES?}/transmission/secrets/vpn_creds
+        file: ${NASCOMPOSE_SERVICES?}/secrets/transmission/vpn_creds

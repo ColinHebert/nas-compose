@@ -53,34 +53,15 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/smokeping/volumes/data/
+      device: ${NASCOMPOSE_SERVICES?}/volumes/smokeping/data/
   smokeping_config:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/smokeping/volumes/config/
-  ddclient_data:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/ddclient/volumes/data/
-  ddclient_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/ddclient/volumes/config/
-  ddclient_init:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/ddclient/volumes/init/
-
-configs:
-  ddclient_config_tpl:
-    file: ${NASCOMPOSE_SERVICES?}/ddclient/configs/ddclient.conf.tpl
+      device: ${NASCOMPOSE_SERVICES?}/volumes/smokeping/config/
 
 secrets:
   watchtower_gotify_token:
-    file: ${NASCOMPOSE_SERVICES?}/watchtower/secrets/gotify_token
+    file: ${NASCOMPOSE_SERVICES?}/secrets/watchtower/gotify_token
   duckdns_token:
-    file: ${NASCOMPOSE_SERVICES?}/ddclient/secrets/duckdns_token
+    file: ${NASCOMPOSE_SERVICES?}/secrets/duckdns/duckdns_token

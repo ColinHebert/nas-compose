@@ -29,8 +29,8 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/gotify/volumes/data/
+      device: ${NASCOMPOSE_SERVICES?}/volumes/gotify/data/
 
 secrets:
   gotify_admin_password:
-    file: ${NASCOMPOSE_SERVICES?}/gotify/secrets/admin_password
+    file: ${NASCOMPOSE_SERVICES?}/secrets/gotify/admin_password

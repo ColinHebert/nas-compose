@@ -29,8 +29,14 @@ services:
     volumes:
       - traefik_dynamic_config:/etc/traefik/dynamic/:ro
     configs:
-      - source: traefik_config
+      - source: traefik_static
         target: /etc/traefik/traefik.yml
+      - source: traefik_dynamic
+        target: /etc/traefik/dynamic/traefik.yml
+      - source: traefik_tls
+        target: /etc/traefik/dynamic/tls.yml
+      - source: traefik_hsts
+        target: /etc/traefik/dynamic/hsts.yml
     secrets:
       - traefik_password # TODO: Replace with SSO
       - traefik_tls_cert
@@ -82,27 +88,26 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/portainer/volumes/data/
-    labels:
-      nas-compose.boostrap: true
-  traefik_dynamic_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/traefik/volumes/config/
+      device: ${NASCOMPOSE_SERVICES?}/volumes/portainer/data/
     labels:
       nas-compose.boostrap: true
 
 configs:
-  traefik_config:
-    file: ${NASCOMPOSE_SERVICES?}/traefik/configs/traefik.yml
+  traefik_static:
+    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/traefik.yml
+  traefik_dynamic:
+    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/traefik.yml
+  traefik_tls:
+    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/tls.yml
+  traefik_hsts:
+    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/hsts.yml
 
 secrets:
   traefik_password:
-    file: ${NASCOMPOSE_SERVICES?}/traefik/secrets/htpasswd
+    file: ${NASCOMPOSE_SERVICES?}/secrets/traefik/htpasswd
   traefik_tls_cert:
-    file: ${NASCOMPOSE_SERVICES?}/traefik/secrets/traefik.cert
+    file: ${NASCOMPOSE_SERVICES?}/secrets/traefik/traefik.cert
   traefik_tls_key:
-    file: ${NASCOMPOSE_SERVICES?}/traefik/secrets/traefik.key
+    file: ${NASCOMPOSE_SERVICES?}/secrets/traefik/traefik.key
   portainer_password:
-    file: ${NASCOMPOSE_SERVICES?}/portainer/secrets/portainer_password
+    file: ${NASCOMPOSE_SERVICES?}/secrets/portainer/portainer_password

@@ -90,9 +90,9 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/plex/volumes/config/
+      device: ${NASCOMPOSE_SERVICES?}/volumes/plex/config/
   plaxt_keystore:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/plaxt/volumes/keystore/
+      device: ${NASCOMPOSE_SERVICES?}/volumes/plaxt/keystore/
