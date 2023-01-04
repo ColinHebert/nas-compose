@@ -10,9 +10,9 @@ services:
       - downloads
     volumes:
       - mylar_config:/config/
-      - comics:/comics
-      - torrents_completed:/downloads/torrents
-      - usenet_completed:/downloads/usenet
+      - comics:/comics/
+      - torrents_completed:/downloads/torrents/
+      - usenet_completed:/downloads/usenet/
     restart: unless-stopped
     labels:
       traefik.enable: true

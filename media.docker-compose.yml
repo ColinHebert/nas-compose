@@ -19,9 +19,9 @@ services:
       - default
       - traefik
     volumes:
-      - plex_config:/config
-      - tv:/data/tv
-      - movies:/data/movies
+      - plex_config:/config/
+      - tv:/data/tv/
+      - movies:/data/movies/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -38,7 +38,7 @@ services:
       - default
       - traefik
     volumes:
-      - plaxt_keystore:/app/keystore
+      - plaxt_keystore:/app/keystore/
     restart: unless-stopped
     labels:
       traefik.enable: true

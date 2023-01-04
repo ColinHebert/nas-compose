@@ -85,24 +85,24 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_DOWNLOADS?}/torrents/completed
+      device: ${NASCOMPOSE_DOWNLOADS?}/torrents/completed/
   usenet_completed:
     name: usenet_completed
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_DOWNLOADS?}/usenet/completed
+      device: ${NASCOMPOSE_DOWNLOADS?}/usenet/completed/
 
   torrents:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_DOWNLOADS?}/torrents
+      device: ${NASCOMPOSE_DOWNLOADS?}/torrents/
   usenet:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_DOWNLOADS?}/usenet
+      device: ${NASCOMPOSE_DOWNLOADS?}/usenet/
 
   prowlarr_config:
     driver_opts:
