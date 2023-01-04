@@ -30,6 +30,8 @@ services:
         target: /etc/traefik/traefik.yml
       - source: traefik_dynamic
         target: /etc/traefik/dynamic/traefik.yml
+      - source: traefik_synology
+        target: /etc/traefik/dynamic/synology.yml
       - source: traefik_tls
         target: /etc/traefik/dynamic/tls.yml
       - source: traefik_hsts
@@ -94,6 +96,8 @@ configs:
     file: ${NASCOMPOSE_SERVICES?}/configs/traefik/traefik.yml
   traefik_dynamic:
     file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/traefik.yml
+  traefik_synology:
+    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/synology.yml
   traefik_tls:
     file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/tls.yml
   traefik_hsts:
