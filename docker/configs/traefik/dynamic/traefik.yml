@@ -1,7 +1,7 @@
 http:
   routers:
     traefik:
-      rule: Host(`traefik.{{ env `NASCOMPOSE_TRAEFIK_DOMAIN` }}`)
+      rule: Host(`traefik`) || Host(`traefik.{{ env `NASCOMPOSE_TRAEFIK_DOMAIN` }}`)
       service: api@internal
       middlewares:
         - traefik-auth
