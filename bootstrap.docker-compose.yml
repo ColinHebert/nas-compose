@@ -25,9 +25,6 @@ services:
       - 8443:443
     environment:
       - NASCOMPOSE_TRAEFIK_DOMAIN=${NASCOMPOSE_TRAEFIK_DOMAIN?}
-    # TODO: Move to configs?
-    volumes:
-      - traefik_dynamic_config:/etc/traefik/dynamic/:ro
     configs:
       - source: traefik_static
         target: /etc/traefik/traefik.yml
