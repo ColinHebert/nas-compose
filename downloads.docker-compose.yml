@@ -75,43 +75,43 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${DOWNLOADS_DIR?}/torrents/completed
+      device: ${NASCOMPOSE_DOWNLOADS?}/torrents/completed
   usenet_completed:
     name: usenet_completed
     driver_opts:
       type: none
       o: bind
-      device: ${DOWNLOADS_DIR?}/usenet/completed
+      device: ${NASCOMPOSE_DOWNLOADS?}/usenet/completed
 
   torrents:
     driver_opts:
       type: none
       o: bind
-      device: ${DOWNLOADS_DIR?}/torrents
+      device: ${NASCOMPOSE_DOWNLOADS?}/torrents
   usenet:
     driver_opts:
       type: none
       o: bind
-      device: ${DOWNLOADS_DIR?}/usenet
+      device: ${NASCOMPOSE_DOWNLOADS?}/usenet
 
   prowlarr_config:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/prowlarr/volumes/config/
+      device: ${NASCOMPOSE_SERVICES?}/prowlarr/volumes/config/
   transmission_config:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/transmission/volumes/config/
+      device: ${NASCOMPOSE_SERVICES?}/transmission/volumes/config/
   transmission_scripts:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/transmission/volumes/scripts/
+      device: ${NASCOMPOSE_SERVICES?}/transmission/volumes/scripts/
 
 secrets:
     transmission_rpc_creds:
-        file: ${SERVICES_DIR?}/transmission/secrets/rpc_creds
+        file: ${NASCOMPOSE_SERVICES?}/transmission/secrets/rpc_creds
     transmission_vpn_creds:
-        file: ${SERVICES_DIR?}/transmission/secrets/vpn_creds
+        file: ${NASCOMPOSE_SERVICES?}/transmission/secrets/vpn_creds

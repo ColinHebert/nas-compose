@@ -24,7 +24,7 @@ services:
       - docker
       - macvlan
     environment:
-      - NAS_COMPOSE_DOMAIN=${NAS_COMPOSE_DOMAIN?}
+      - NASCOMPOSE_DOMAIN=${NASCOMPOSE_DOMAIN?}
     # TODO: Move to configs?
     volumes:
       - traefik_dynamic_config:/etc/traefik/dynamic/:ro
@@ -80,27 +80,27 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/portainer/volumes/data/
+      device: ${NASCOMPOSE_SERVICES?}/portainer/volumes/data/
     labels:
       nas-compose.boostrap: true
   traefik_dynamic_config:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/traefik/volumes/config/
+      device: ${NASCOMPOSE_SERVICES?}/traefik/volumes/config/
     labels:
       nas-compose.boostrap: true
 
 configs:
   traefik_config:
-    file: ${SERVICES_DIR?}/traefik/configs/traefik.yml
+    file: ${NASCOMPOSE_SERVICES?}/traefik/configs/traefik.yml
 
 secrets:
   traefik_password:
-    file: ${SERVICES_DIR?}/traefik/secrets/htpasswd
+    file: ${NASCOMPOSE_SERVICES?}/traefik/secrets/htpasswd
   traefik_tls_cert:
-    file: ${SERVICES_DIR?}/traefik/secrets/traefik.cert
+    file: ${NASCOMPOSE_SERVICES?}/traefik/secrets/traefik.cert
   traefik_tls_key:
-    file: ${SERVICES_DIR?}/traefik/secrets/traefik.key
+    file: ${NASCOMPOSE_SERVICES?}/traefik/secrets/traefik.key
   portainer_password:
-    file: ${SERVICES_DIR?}/portainer/secrets/portainer_password
+    file: ${NASCOMPOSE_SERVICES?}/portainer/secrets/portainer_password

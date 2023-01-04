@@ -57,39 +57,39 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${MEDIA_DIR?}/books/
+      device: ${NASCOMPOSE_MEDIA?}/books/
   comics:
     name: comics
     driver_opts:
       type: none
       o: bind
-      device: ${MEDIA_DIR?}/comics/
+      device: ${NASCOMPOSE_MEDIA?}/comics/
   movies:
     name: movies
     driver_opts:
       type: none
       o: bind
-      device: ${MEDIA_DIR?}/movies/
+      device: ${NASCOMPOSE_MEDIA?}/movies/
   tv:
     name: tv
     driver_opts:
       type: none
       o: bind
-      device: ${MEDIA_DIR?}/tv/
+      device: ${NASCOMPOSE_MEDIA?}/tv/
   recycle_bin:
     name: recycle_bin
     driver_opts:
       type: none
       o: bind
-      device: ${MEDIA_DIR?}/recycle_bin/
+      device: ${NASCOMPOSE_MEDIA?}/recycle_bin/
 
   plex_data:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/plex/volumes/data/
+      device: ${NASCOMPOSE_SERVICES?}/plex/volumes/data/
   plaxt_keystore:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/plaxt/volumes/keystore/
+      device: ${NASCOMPOSE_SERVICES?}/plaxt/volumes/keystore/

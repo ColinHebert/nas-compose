@@ -24,7 +24,7 @@ docker run --rm -p 9443:9443 -v /var/run/docker.sock:/var/run/docker.sock portai
 ```
 
 ### Environment variables
-- `SERVICES_DIR`: Absolute path to the `services` folder
+- `NASCOMPOSE_SERVICES`: Absolute path to the `services` folder
 
 ## Docker
 [`alpine/socat`](https://hub.docker.com/r/alpine/socat/) exposes the docker socket as a port.

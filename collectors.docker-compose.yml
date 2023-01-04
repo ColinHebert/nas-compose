@@ -112,29 +112,29 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/mylar/volumes/config/
+      device: ${NASCOMPOSE_SERVICES?}/mylar/volumes/config/
   lazylibrarian_config:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/lazylibrarian/volumes/config/
+      device: ${NASCOMPOSE_SERVICES?}/lazylibrarian/volumes/config/
   sonarr_config:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/sonarr/volumes/config/
+      device: ${NASCOMPOSE_SERVICES?}/sonarr/volumes/config/
   radarr_config:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/radarr/volumes/config/
+      device: ${NASCOMPOSE_SERVICES?}/radarr/volumes/config/
   bazarr_config:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/bazarr/volumes/config/
+      device: ${NASCOMPOSE_SERVICES?}/bazarr/volumes/config/
   ombi_config:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/ombi/volumes/config/
+      device: ${NASCOMPOSE_SERVICES?}/ombi/volumes/config/

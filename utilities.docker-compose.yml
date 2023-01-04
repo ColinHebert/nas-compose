@@ -31,7 +31,7 @@ services:
   duckdns:
     image: linuxserver/duckdns
     environment:
-      - SUBDOMAINS=${DUCK_DNS_DOMAIN?}
+      - SUBDOMAINS=${NASCOMPOSE_DUCKDNS?}
       - FILE__TOKEN=/run/secrets/duckdns_token
     secrets:
       - duckdns_token
@@ -50,34 +50,34 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/smokeping/volumes/data/
+      device: ${NASCOMPOSE_SERVICES?}/smokeping/volumes/data/
   smokeping_config:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/smokeping/volumes/config/
+      device: ${NASCOMPOSE_SERVICES?}/smokeping/volumes/config/
   ddclient_data:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/ddclient/volumes/data/
+      device: ${NASCOMPOSE_SERVICES?}/ddclient/volumes/data/
   ddclient_config:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/ddclient/volumes/config/
+      device: ${NASCOMPOSE_SERVICES?}/ddclient/volumes/config/
   ddclient_init:
     driver_opts:
       type: none
       o: bind
-      device: ${SERVICES_DIR?}/ddclient/volumes/init/
+      device: ${NASCOMPOSE_SERVICES?}/ddclient/volumes/init/
 
 configs:
   ddclient_config_tpl:
-    file: ${SERVICES_DIR?}/ddclient/configs/ddclient.conf.tpl
+    file: ${NASCOMPOSE_SERVICES?}/ddclient/configs/ddclient.conf.tpl
 
 secrets:
   watchtower_gotify_token:
-    file: ${SERVICES_DIR?}/watchtower/secrets/gotify_token
+    file: ${NASCOMPOSE_SERVICES?}/watchtower/secrets/gotify_token
   duckdns_token:
-    file: ${SERVICES_DIR?}/ddclient/secrets/duckdns_token
+    file: ${NASCOMPOSE_SERVICES?}/ddclient/secrets/duckdns_token
