@@ -6,6 +6,7 @@ services:
 
 networks:
   macvlan:
+    name: macvlan
     driver: macvlan
     driver_opts:
       parent: ${NASCOMPOSE_MACVLAN_IFACE?}
