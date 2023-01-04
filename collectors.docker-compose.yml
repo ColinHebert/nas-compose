@@ -76,6 +76,15 @@ services:
     labels:
       traefik.enable: true
 
+  ombi:
+    image: linuxserver/ombi
+    networks:
+      - traefik
+      - downloads
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+
 networks:
   traefik:
     external: true
@@ -124,3 +133,8 @@ volumes:
       type: none
       o: bind
       device: ${SERVICES_DIR?}/bazarr/volumes/config/
+  ombi_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SERVICES_DIR?}/ombi/volumes/config/
