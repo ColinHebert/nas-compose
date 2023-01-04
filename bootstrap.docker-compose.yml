@@ -17,11 +17,9 @@ services:
   traefik:
     image: traefik
     networks:
-      traefik: {}
-      docker: {}
-      macvlan:
-        ipv4_address: ${NASCOMPOSE_TRAEFIK_IP}
-
+      - traefik
+      - docker
+      - macvlan
     environment:
       - NASCOMPOSE_DOMAIN=${NASCOMPOSE_DOMAIN?}
     # TODO: Move to configs?
@@ -72,7 +70,9 @@ networks:
     labels:
       nas-compose.boostrap: true
   macvlan:
-    external: true
+    name: macvlan
+    labels:
+      nas-compose.boostrap: true
 
 volumes:
   portainer_data:
