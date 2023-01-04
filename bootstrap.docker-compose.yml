@@ -25,6 +25,7 @@ services:
       - 8443:443
     environment:
       - NASCOMPOSE_TRAEFIK_DOMAIN=${NASCOMPOSE_TRAEFIK_DOMAIN?}
+      - NASCOMPOSE_MACVLAN_HOST_IP=${NASCOMPOSE_MACVLAN_HOST_IP?}
     configs:
       - source: traefik_static
         target: /etc/traefik/traefik.yml
