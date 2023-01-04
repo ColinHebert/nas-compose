@@ -17,9 +17,11 @@ services:
   traefik:
     image: traefik
     networks:
-      - traefik
-      - docker
-      - macvlan
+      traefik: {}
+      docker: {}
+      macvlan:
+        ipv4_address: ${NASCOMPOSE_TRAEFIK_IP}
+
     environment:
       - NASCOMPOSE_DOMAIN=${NASCOMPOSE_DOMAIN?}
     # TODO: Move to configs?
