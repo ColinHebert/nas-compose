@@ -16,9 +16,6 @@ services:
   # TODO: Sort out authentication method for all services (SSO). Authelia?
   traefik:
     image: traefik
-    ports:
-      - 8080:80
-      - 8443:443
     networks:
       - traefik
       - docker
