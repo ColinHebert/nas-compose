@@ -1,0 +1,10 @@
+http:
+  routers:
+    synology:
+      rule: Host(`nas.{{ env `NASCOMPOSE_TRAEFIK_DOMAIN` }}`)
+      service: synology@file
+  services:
+    synology:
+      loadBalancer:
+        servers:
+          - url: https://{{ env `NASCOMPOSE_MACVLAN_HOST_IP` }}:5001/
