@@ -28,6 +28,13 @@ services:
     labels:
       traefik.enable: true
 
+  duckdns:
+    image: linuxserver/duckdns
+    environment:
+      - FILE__SUBDOMAINS=subdomain1,subdomain2
+      - FILE__TOKEN=token
+    restart: unless-stopped
+
   ddclient:
     image: linuxserver/ddclient
     environment:
