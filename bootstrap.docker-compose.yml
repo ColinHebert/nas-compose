@@ -24,7 +24,7 @@ services:
       - 8080:8080
       - 8443:443
     environment:
-      - NASCOMPOSE_DOMAIN=${NASCOMPOSE_DOMAIN?}
+      - NASCOMPOSE_TRAEFIK_DOMAIN=${NASCOMPOSE_TRAEFIK_DOMAIN?}
     # TODO: Move to configs?
     volumes:
       - traefik_dynamic_config:/etc/traefik/dynamic/:ro
