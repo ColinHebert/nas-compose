@@ -1,5 +1,0 @@
-services:
-  plex:
-    networks:
-      macvlan:
-        ipv4_address: ${NASCOMPOSE_MACVLAN_PLEXIP}
