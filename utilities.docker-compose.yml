@@ -42,7 +42,7 @@ services:
     networks:
       - traefik
     volumes:
-      - heimdall_data:/data/
+      - heimdall_config:/config/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -68,11 +68,11 @@ volumes:
       type: none
       o: bind
       device: ${NASCOMPOSE_SERVICES?}/volumes/smokeping/config/
-  heimdall_data:
+  heimdall_config:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/volumes/heimdall/data/
+      device: ${NASCOMPOSE_SERVICES?}/volumes/heimdall/config/
 
 secrets:
   watchtower_gotify_token:
