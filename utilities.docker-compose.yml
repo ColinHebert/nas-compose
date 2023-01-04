@@ -31,31 +31,10 @@ services:
   duckdns:
     image: linuxserver/duckdns
     environment:
-      - FILE__SUBDOMAINS=subdomain1,subdomain2
-      - FILE__TOKEN=token
-    restart: unless-stopped
-
-  ddclient:
-    image: linuxserver/ddclient
-    environment:
-      GOTIFY_ADDRESS: http://gotify
-      FILE__GOTIFY_TOKEN: /run/secrets/gotify_token
-      CLOUDFLARE_DOMAIN: ${DDCLIENT_CLOUDFLARE_DOMAIN-test.dedicated.contact}
-      FILE__CLOUDFLARE_TOKEN: /run/secrets/cloudflare_token
-    networks:
-      - gotify
-    volumes:
-      - ddclient_data:/data/
-      - ddclient_config:/config/
-      - ddclient_init:/config/custom-cont-init.d/:ro #TODO: Move to /custom-cont-init.d/
-    configs:
-      - source: ddclient_config_tpl
-        target: /config/ddclient.conf.tpl
+      - SUBDOMAINS=${DUCK_DNS_DOMAIN?}
+      - FILE__TOKEN=/run/secrets/duckdns_token
     secrets:
-      - source: ddclient_gotify_token
-        target: gotify_token
-      - source: ddclient_cloudflare_token
-        target: cloudflare_token
+      - duckdns_token
     restart: unless-stopped
 
 networks:
@@ -100,7 +79,5 @@ configs:
 secrets:
   watchtower_gotify_token:
     file: ${SERVICES_DIR?}/watchtower/secrets/gotify_token
-  ddclient_gotify_token:
-    file: ${SERVICES_DIR?}/ddclient/secrets/gotify_token
-  ddclient_cloudflare_token:
-    file: ${SERVICES_DIR?}/ddclient/secrets/cloudflare_token
+  duckdns_token:
+    file: ${SERVICES_DIR?}/ddclient/secrets/duckdns_token
