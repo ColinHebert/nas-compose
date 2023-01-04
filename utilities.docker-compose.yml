@@ -37,7 +37,16 @@ services:
       - duckdns_token
     restart: unless-stopped
 
-  # TODO: Set up heimdal?
+  heimdall:
+    image: linuxserver/heimdall
+    networks:
+      - traefik
+    volumes:
+      - heimdall_data:/data/
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+
   # TODO: Set up synology/external services?
 
 networks:
@@ -59,6 +68,11 @@ volumes:
       type: none
       o: bind
       device: ${NASCOMPOSE_SERVICES?}/volumes/smokeping/config/
+  heimdall_data:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/volumes/heimdall/data/
 
 secrets:
   watchtower_gotify_token:
