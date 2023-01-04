@@ -11,7 +11,7 @@ services:
   plex:
     image: plexinc/pms-docker:plexpass
     ports:
-      - 32400:32400 #TODO Use MacVLAN instead
+      - 32400:32400
     networks:
       - default
       - traefik

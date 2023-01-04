@@ -16,6 +16,7 @@ docker network create -d macvlan -o parent=bond0 --subnet=192.168.0.0/23 --gatew
 ip link add macvlan0 link bond0 type macvlan mode bridge
 ip addr add 192.168.1.1/32 dev macvlan0
 ip link set macvlan0 up
+ip route add 192.168.1.0/24 dev macvlan0
 ```
 
 Run portainer once
