@@ -75,7 +75,7 @@ services:
       YTDL_OPTIONS: >
         {
           "writesubtitles": true,
-          "subtitleslangs": ["en", "-live_chat"],
+          "subtitleslangs": ["en", "-live_chat"]
         }
     networks:
       - traefik
