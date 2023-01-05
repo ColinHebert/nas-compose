@@ -72,6 +72,11 @@ services:
     environment:
       UID: ${NASCOMPOSE_UID?}
       GID: ${NASCOMPOSE_GID?}
+      YTDL_OPTIONS: >
+        {
+          "writesubtitles": true,
+          "subtitleslangs": ["en", "-live_chat"],
+        }
     networks:
       - traefik
     volumes:
