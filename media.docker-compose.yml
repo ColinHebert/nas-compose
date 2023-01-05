@@ -22,6 +22,7 @@ services:
       - traefik
     volumes:
       - plex_config:/config/
+      - /tmp/plex/:/transcode/
       - tv:/data/tv/
       - movies:/data/movies/
     restart: unless-stopped
