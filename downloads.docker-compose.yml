@@ -17,6 +17,9 @@ services:
 
   prowlarr:
     image: linuxserver/prowlarr
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
     networks:
       - default
       - traefik
@@ -38,6 +41,8 @@ services:
   transmission:
     image: haugene/transmission-openvpn
     environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
       OPENVPN_PROVIDER: PIA
       OPENVPN_CONFIG: ${NASCOMPOSE_TRANSMISSION_VPNREGION?}
       OPENVPN_OPTS: --inactive 3600 --ping 10 --ping-exit 60

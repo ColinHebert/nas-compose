@@ -6,6 +6,7 @@ services:
     entrypoint: ./data/entrypoint.sh
     environment:
       GOTIFY_DEFAULTUSER_PASS_FILE: /run/secrets/admin_password
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     networks:
       - gotify
       - traefik

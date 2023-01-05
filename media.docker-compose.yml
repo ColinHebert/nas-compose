@@ -11,6 +11,8 @@ services:
   plex:
     image: plexinc/pms-docker:plexpass
     environment:
+      PLEX_UID: ${NASCOMPOSE_UID?}
+      PLEX_GID: ${NASCOMPOSE_GID?}
       PLEX_CLAIM: ${NASCOMPOSE_PLEX_CLAIM}
     ports:
       - 32400:32400
@@ -31,6 +33,7 @@ services:
   plaxt:
     image: xanderstrike/goplaxt
     profiles: [plaxt]
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     environment:
       TRAKT_ID: '' #TODO Define properly
       TRAKT_SECRET: '' #TODO Define properly

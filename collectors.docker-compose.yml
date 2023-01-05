@@ -4,6 +4,9 @@ services:
   mylar:
     image: linuxserver/mylar3
     profiles: [ebooks]
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
     networks:
       - traefik
       - gotify
@@ -20,6 +23,9 @@ services:
   lazylibrarian:
     image: linuxserver/lazylibrarian
     profiles: [ebooks]
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
     networks:
       - traefik
       - gotify
@@ -35,6 +41,9 @@ services:
 
   sonarr:
     image: linuxserver/sonarr
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
     networks:
       - traefik
       - gotify
@@ -50,6 +59,9 @@ services:
 
   radarr:
     image: linuxserver/radarr
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
     networks:
       - traefik
       - gotify
@@ -65,6 +77,9 @@ services:
 
   bazarr:
     image: linuxserver/bazarr
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
     networks:
       - traefik
       - gotify
@@ -78,6 +93,9 @@ services:
 
   ombi:
     image: linuxserver/ombi
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
     networks:
       - traefik
       - downloads
