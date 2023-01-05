@@ -7,11 +7,6 @@ services:
     volumes:
       - torrents:/torrents/
       - torrents_completed:/torrents/completed
-  dummyusenet:
-    image: alpine
-    entrypoint: sleep infinity
-    profiles: [usenet]
-    volumes:
       - usenet:/usenet/
       - usenet_completed:/usenet/completed
 
