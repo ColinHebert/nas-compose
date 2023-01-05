@@ -53,8 +53,6 @@ services:
     labels:
       traefik.enable: true
 
-  # TODO: Set up synology/external services?
-
 networks:
   docker:
     external: true
