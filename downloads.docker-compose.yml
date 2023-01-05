@@ -67,6 +67,19 @@ services:
       traefik.enable: true
       traefik.http.services.transmission.loadbalancer.server.port: 9091
 
+  youtube-dl:
+    image: alexta69/metube
+    environment:
+      UID: ${NASCOMPOSE_UID?}
+      GID: ${NASCOMPOSE_GID?}
+    networks:
+      - traefik
+    volumes:
+      - youtube:/downloads
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+
 # TODO:
 # NZBGet
 
@@ -103,6 +116,11 @@ volumes:
       type: none
       o: bind
       device: ${NASCOMPOSE_DOWNLOADS?}/usenet/
+  youtube:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_DOWNLOADS?}/youtube/
 
   prowlarr_config:
     driver_opts:
