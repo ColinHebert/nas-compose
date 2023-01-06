@@ -21,8 +21,8 @@ services:
       - default
       - traefik
     volumes:
+      - /tmp/plex/:/transcode/ # Mount in tmpfs
       - plex_config:/config/
-      - /tmp/plex/:/transcode/
       - tv:/data/tv/
       - movies:/data/movies/
     restart: unless-stopped

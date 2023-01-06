@@ -12,9 +12,8 @@ As an example, with the following network setup:
 - MacVLAN host IP: `192.168.1.1` (should be in the MacVLAN range)
 
 ```
-docker network create -d macvlan -o parent=bond0 --subnet=192.168.0.0/23 --gateway=192.168.0.1 --ip-range=192.168.1.0/24 --aux-address "nas=192.168.1.1" macvlan
 ip link add macvlan0 link bond0 type macvlan mode bridge
-ip addr add 192.168.1.1/32 dev macvlan0
+ip addr add 192.168.1.0/32 dev macvlan0
 ip link set macvlan0 up
 ip route add 192.168.1.0/24 dev macvlan0
 ```
