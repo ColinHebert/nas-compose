@@ -9,7 +9,6 @@ services:
     networks:
       - default
       - traefik
-      - gotify
       - downloads
     dns:
       - 1.1.1.1
@@ -85,8 +84,6 @@ networks:
     name: downloads
 
   traefik:
-    external: true
-  gotify:
     external: true
 
 volumes:

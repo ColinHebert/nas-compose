@@ -9,7 +9,6 @@ services:
       PGID: ${NASCOMPOSE_GID?}
     networks:
       - traefik
-      - gotify
       - downloads
     volumes:
       - mylar_config:/config/
@@ -26,7 +25,6 @@ services:
       PGID: ${NASCOMPOSE_GID?}
     networks:
       - traefik
-      - gotify
       - downloads
     volumes:
       - lazylibrarian_config:/config/
@@ -42,7 +40,6 @@ services:
       PGID: ${NASCOMPOSE_GID?}
     networks:
       - traefik
-      - gotify
       - downloads
     volumes:
       - sonarr_config:/config/
@@ -58,7 +55,6 @@ services:
       PGID: ${NASCOMPOSE_GID?}
     networks:
       - traefik
-      - gotify
       - downloads
     volumes:
       - radarr_config:/config/
@@ -74,7 +70,6 @@ services:
       PGID: ${NASCOMPOSE_GID?}
     networks:
       - traefik
-      - gotify
     volumes:
       - bazarr_config:/config/
       - data:/data
@@ -98,8 +93,6 @@ services:
 
 networks:
   traefik:
-    external: true
-  gotify:
     external: true
   downloads:
     external: true

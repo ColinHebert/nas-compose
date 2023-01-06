@@ -6,15 +6,9 @@ services:
       WATCHTOWER_INCLUDE_RESTARTING: true
       WATCHTOWER_INCLUDE_STOPPED: true
       WATCHTOWER_MONITOR_ONLY: true
-      WATCHTOWER_NOTIFICATIONS: gotify
-      WATCHTOWER_NOTIFICATION_GOTIFY_URL: http://gotify
-      WATCHTOWER_NOTIFICATION_GOTIFY_TOKEN: /run/secrets/gotify_token
+      # TODO: Set notification to Discord
     networks:
       - docker
-      - gotify
-    secrets:
-      - source: watchtower_gotify_token
-        target: gotify_token
     restart: unless-stopped
 
   smokeping:
@@ -56,8 +50,6 @@ services:
 networks:
   docker:
     external: true
-  gotify:
-    external: true
   traefik:
     external: true
 
@@ -79,7 +71,5 @@ volumes:
       device: ${NASCOMPOSE_SERVICES?}/volumes/heimdall/config/
 
 secrets:
-  watchtower_gotify_token:
-    file: ${NASCOMPOSE_SERVICES?}/secrets/watchtower/gotify_token
   duckdns_token:
     file: ${NASCOMPOSE_SERVICES?}/secrets/duckdns/duckdns_token
