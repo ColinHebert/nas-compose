@@ -13,9 +13,7 @@ services:
       - downloads
     volumes:
       - mylar_config:/config/
-      - comics:/comics/
-      - torrents_completed:/downloads/torrents/
-      - usenet_completed:/downloads/usenet/
+      - data:/data
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -32,9 +30,7 @@ services:
       - downloads
     volumes:
       - lazylibrarian_config:/config/
-      - books:/books/
-      - torrents_completed:/downloads/torrents/
-      - usenet_completed:/downloads/usenet/
+      - data:/data
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -50,9 +46,7 @@ services:
       - downloads
     volumes:
       - sonarr_config:/config/
-      - tv:/tv/
-      - torrents_completed:/downloads/torrents/
-      - usenet_completed:/downloads/usenet/
+      - data:/data
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -68,9 +62,7 @@ services:
       - downloads
     volumes:
       - radarr_config:/config/
-      - movies:/movies/
-      - torrents_completed:/downloads/torrents/
-      - usenet_completed:/downloads/usenet/
+      - data:/data
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -85,8 +77,7 @@ services:
       - gotify
     volumes:
       - bazarr_config:/config/
-      - movies:/movies/
-      - tv:/tv/
+      - data:/data
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -114,19 +105,11 @@ networks:
     external: true
 
 volumes:
-  books:
-    external: true
-  comics:
-    external: true
-  movies:
-    external: true
-  tv:
-    external: true
-
-  torrents_completed:
-    external: true
-  usenet_completed:
-    external: true
+  data:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_DATA?}
 
   mylar_config:
     driver_opts:

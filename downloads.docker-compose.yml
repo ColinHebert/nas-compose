@@ -1,15 +1,6 @@
 name: Downloads
 
 services:
-  dummy:
-    image: alpine
-    entrypoint: sleep infinity
-    volumes:
-      - torrents:/torrents/
-      - torrents_completed:/torrents/completed
-      - usenet:/usenet/
-      - usenet_completed:/usenet/completed
-
   prowlarr:
     image: linuxserver/prowlarr
     environment:
@@ -99,34 +90,21 @@ networks:
     external: true
 
 volumes:
-  torrents_completed:
-    name: torrents_completed
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DOWNLOADS?}/torrents/completed/
-  usenet_completed:
-    name: usenet_completed
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DOWNLOADS?}/usenet/completed/
-
   torrents:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_DOWNLOADS?}/torrents/
+      device: ${NASCOMPOSE_DATA?}/torrents/
   usenet:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_DOWNLOADS?}/usenet/
+      device: ${NASCOMPOSE_DATA?}/usenet/
   youtube:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_DOWNLOADS?}/youtube/
+      device: ${NASCOMPOSE_DATA?}/youtube/
 
   prowlarr_config:
     driver_opts:
