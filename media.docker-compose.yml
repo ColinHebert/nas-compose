@@ -1,13 +1,6 @@
 name: Collectors
 
 services:
-  dummy:
-    image: alpine
-    entrypoint: sleep infinity
-    volumes:
-      - books:/books/
-      - comics:/comics/
-
   plex:
     image: plexinc/pms-docker:plexpass
     environment:
