@@ -90,6 +90,6 @@ volumes:
 
 secrets:
   postgres_passwd:
-    file: ${NASCOMPOSE_SERVICES?}/secrets/authentik/postgress_passwd
+    file: ${NASCOMPOSE_SERVICES?}/secrets/authentik/postgres_passwd
   secret_key:
     file: ${NASCOMPOSE_SERVICES?}/secrets/authentik/secret_key
