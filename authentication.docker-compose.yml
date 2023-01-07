@@ -32,7 +32,7 @@ services:
       - redis:/data
     restart: unless-stopped
 
-  server:
+  authentik:
     image: ghcr.io/goauthentik/server:2022.12.2
     command: server
     environment:
@@ -43,7 +43,7 @@ services:
       AUTHENTIK_POSTGRESQL__PASSWORD: file:///run/secrets/postgres_passwd
       AUTHENTIK_SECRET_KEY: file:///run/secrets/secret_key
     expose:
-      - 9443
+      - 9000
     networks:
       - default
       - traefik
