@@ -18,6 +18,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
+      traefik.http.routers.prowlarr.middlewares: authentik@file
 
   flaresolverr:
     image: ngosang/flaresolverr:3.0.0.beta3 #TODO: Move to a stable version!
@@ -56,6 +57,7 @@ services:
     labels:
       traefik.enable: true
       traefik.http.services.transmission.loadbalancer.server.port: 9091
+      traefik.http.routers.transmission.middlewares: authentik@file
 
   youtube-dl:
     image: alexta69/metube
@@ -75,6 +77,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
+      traefik.http.routers.youtube-dl.middlewares: authentik@file
 
 # TODO:
 # NZBGet

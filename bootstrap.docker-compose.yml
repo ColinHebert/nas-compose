@@ -71,6 +71,7 @@ services:
       traefik.enable: true
       traefik.http.services.portainer.loadbalancer.server.port: 9443
       traefik.http.services.portainer.loadbalancer.server.scheme: https
+      traefik.http.routers.portainer.middlewares: authentik@file
 
 networks:
   macvlan:

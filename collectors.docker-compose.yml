@@ -16,6 +16,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
+      traefik.http.routers.mylar.middlewares: authentik@file
 
   lazylibrarian:
     image: linuxserver/lazylibrarian
@@ -32,6 +33,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
+      traefik.http.routers.lazylibrarian.middlewares: authentik@file
 
   sonarr:
     image: linuxserver/sonarr
@@ -47,6 +49,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
+      traefik.http.routers.sonarr.middlewares: authentik@file
 
   radarr:
     image: linuxserver/radarr
@@ -62,6 +65,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
+      traefik.http.routers.radarr.middlewares: authentik@file
 
   bazarr:
     image: linuxserver/bazarr
@@ -76,6 +80,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
+      traefik.http.routers.bazarr.middlewares: authentik@file
 
   ombi:
     image: linuxserver/ombi
@@ -90,6 +95,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
+      traefik.http.routers.ombi.middlewares: authentik@file
 
 networks:
   traefik:
