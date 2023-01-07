@@ -17,7 +17,7 @@ services:
   traefik:
     image: traefik
     ports:
-      - 8080:8080
+      - 8080:80
       - 8443:443
     networks:
       - macvlan
