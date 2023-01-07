@@ -4,9 +4,9 @@ services:
   postgresql:
     image: postgres:12-alpine
     environment:
-      - POSTGRES_PASSWORD=authentik
       - POSTGRES_USER=authentik
       - POSTGRES_DB=authentik
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_passwd
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
       start_period: 20s
@@ -15,6 +15,8 @@ services:
       timeout: 5s
     volumes:
       - database:/var/lib/postgresql/data
+    secrets:
+      - postgres_passwd
     restart: unless-stopped
 
   redis:
@@ -38,7 +40,8 @@ services:
       AUTHENTIK_POSTGRESQL__HOST: postgresql
       AUTHENTIK_POSTGRESQL__USER: authentik
       AUTHENTIK_POSTGRESQL__NAME: authentik
-      AUTHENTIK_POSTGRESQL__PASSWORD: authentik
+      AUTHENTIK_POSTGRESQL__PASSWORD: file:///run/secrets/postgres_passwd
+      AUTHENTIK_SECRET_KEY: file:///run/secrets/secret_key
     networks:
       - default
       - traefik
@@ -47,6 +50,9 @@ services:
     volumes:
       - media:/media
       - custom-templates:/templates
+    secrets:
+      - postgres_passwd
+      - secret_key
     labels:
       traefik.enable: true
 
@@ -58,12 +64,22 @@ services:
       AUTHENTIK_POSTGRESQL__HOST: postgresql
       AUTHENTIK_POSTGRESQL__USER: authentik
       AUTHENTIK_POSTGRESQL__NAME: authentik
-      AUTHENTIK_POSTGRESQL__PASSWORD: authentik
+      AUTHENTIK_POSTGRESQL__PASSWORD: file:///run/secrets/postgres_passwd
+      AUTHENTIK_SECRET_KEY: file:///run/secrets/secret_key
     volumes:
       - media:/media
       - certs:/certs
       - custom-templates:/templates
+    secrets:
+      - postgres_passwd
+      - secret_key
     restart: unless-stopped
+
+networks:
+  macvlan:
+    external: true
+  traefik:
+    external: true
 
 volumes:
   database:
@@ -72,8 +88,8 @@ volumes:
   certs:
   custom-templates:
 
-networks:
-  macvlan:
-    external: true
-  traefik:
-    external: true
+secrets:
+  postgres_passwd:
+    file: ${NASCOMPOSE_SERVICES?}/secrets/authentik/postgress_passwd
+  secret_key:
+    file: ${NASCOMPOSE_SERVICES?}/secrets/authentik/secret_key
