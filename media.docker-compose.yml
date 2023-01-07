@@ -6,7 +6,6 @@ services:
     environment:
       PLEX_UID: ${NASCOMPOSE_UID?}
       PLEX_GID: ${NASCOMPOSE_GID?}
-      PLEX_CLAIM: ${NASCOMPOSE_PLEX_CLAIM}
     ports:
       - 32400:32400
     networks:
@@ -29,13 +28,16 @@ services:
     profiles: [plaxt]
     user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     environment:
-      TRAKT_ID: '' #TODO Define properly
-      TRAKT_SECRET: '' #TODO Define properly
+      TRAKT_ID_FILE: /run/secrets/trakt_id
+      TRAKT_SECRET_FILE: /run/secrets/trakt_secret
     networks:
       - default
       - traefik
     volumes:
       - plaxt_keystore:/app/keystore/
+    secrets:
+      - trakt_id
+      - trakt_secret
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -94,3 +96,9 @@ volumes:
       type: none
       o: bind
       device: ${NASCOMPOSE_SERVICES?}/volumes/plaxt/keystore/
+
+secrets:
+  trakt_id:
+    file: ${NASCOMPOSE_SERVICES?}/secrets/plaxt/trakt_id
+  trakt_secret:
+    file: ${NASCOMPOSE_SERVICES?}/secrets/plaxt/trakt_secret
