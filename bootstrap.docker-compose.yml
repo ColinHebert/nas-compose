@@ -37,6 +37,8 @@ services:
         target: /etc/traefik/dynamic/tls.yml
       - source: traefik_hsts
         target: /etc/traefik/dynamic/hsts.yml
+      - source: traefik_authentik
+        target: /etc/traefik/dynamic/authentik.yml
     secrets:
       - traefik_password # TODO: Replace with SSO
       - traefik_tls_cert
@@ -104,6 +106,8 @@ configs:
     file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/tls.yml
   traefik_hsts:
     file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/hsts.yml
+  traefik_authentik:
+    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/authentik.yml
 
 secrets:
   traefik_password:
