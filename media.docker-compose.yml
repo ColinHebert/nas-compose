@@ -41,7 +41,6 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.plaxt.middlewares: authentik@file
 
   # TODO:
   # Calibre-web

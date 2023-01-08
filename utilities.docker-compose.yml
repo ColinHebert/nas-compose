@@ -24,7 +24,6 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      #traefik.http.routers.smokeping.middlewares: authentik@file
 
   duckdns:
     image: linuxserver/duckdns
@@ -47,7 +46,6 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      #traefik.http.routers.heimdall.middlewares: authentik@file
 
 networks:
   docker:
