@@ -19,9 +19,7 @@ http:
           - Authorization
 
   routers:
-      middlewares:
-        - authentik@file
     general-auth:
       rule: PathPrefix(`/outpost.goauthentik.io/`)
       service: authentik-authentication@docker
-      priority: 1000
+      priority: 10000
