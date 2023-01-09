@@ -16,6 +16,9 @@ services:
   # TODO: Sort out authentication method for all services (SSO). Authelia?
   traefik:
     image: traefik
+    environment:
+      - NASCOMPOSE_TRAEFIK_DOMAINS=${NASCOMPOSE_TRAEFIK_DOMAINS?}
+      - NASCOMPOSE_MACVLAN_HOST_IP=${NASCOMPOSE_MACVLAN_HOST_IP}
     ports:
       - 8080:80
       - 8443:443
@@ -23,9 +26,6 @@ services:
       - macvlan
       - traefik
       - docker
-    environment:
-      - NASCOMPOSE_TRAEFIK_DOMAINS=${NASCOMPOSE_TRAEFIK_DOMAINS?}
-      - NASCOMPOSE_MACVLAN_HOST_IP=${NASCOMPOSE_MACVLAN_HOST_IP}
     configs:
       - source: traefik_static
         target: /etc/traefik/traefik.yml
