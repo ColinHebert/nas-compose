@@ -25,6 +25,7 @@ services:
 
   transmission:
     image: haugene/transmission-openvpn
+    profiles: [usenet]
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
