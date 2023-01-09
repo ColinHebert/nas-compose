@@ -80,8 +80,8 @@ services:
   nzbget:
     image: linuxserver/nzbget
     environment:
-      UID: ${NASCOMPOSE_UID?}
-      GID: ${NASCOMPOSE_GID?}
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
     networks:
       - traefik
       - downloads
