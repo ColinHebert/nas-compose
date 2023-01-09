@@ -13,15 +13,15 @@ services:
       - default
       - traefik
     volumes:
-      - /tmp/plex/:/transcode/ # Mount in tmpfs
+      - plex_transcode:/transcode/
       - plex_config:/config/
       - tv:/data/tv/
       - movies:/data/movies/
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.services.plex.loadbalancer.server.port: 32400 #TODO: Check if needed
-      traefik.http.services.plex.loadbalancer.server.scheme: https #TODO: Check if needed
+      traefik.http.services.plex.loadbalancer.server.port: 32400
+      traefik.http.services.plex.loadbalancer.server.scheme: https
 
   plaxt:
     image: xanderstrike/goplaxt
@@ -85,6 +85,7 @@ volumes:
       o: bind
       device: ${NASCOMPOSE_DATA?}/media/recycle_bin/
 
+  plex_transcode:
   plex_config:
     driver_opts:
       type: none
