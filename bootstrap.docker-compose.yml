@@ -24,7 +24,7 @@ services:
       - traefik
       - docker
     environment:
-      - NASCOMPOSE_TRAEFIK_DOMAIN=${NASCOMPOSE_TRAEFIK_DOMAIN?}
+      - NASCOMPOSE_TRAEFIK_DOMAINS=${NASCOMPOSE_TRAEFIK_DOMAINS?}
       - NASCOMPOSE_MACVLAN_HOST_IP=${NASCOMPOSE_MACVLAN_HOST_IP}
     configs:
       - source: traefik_static

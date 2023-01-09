@@ -1,7 +1,7 @@
 http:
   routers:
     synology:
-      rule: Host(`nas.{{ env `NASCOMPOSE_TRAEFIK_DOMAIN` }}`)
+      rule: '{{ $s := "nas" }}{{ range $i, $d := splitList "," (env `NASCOMPOSE_TRAEFIK_DOMAINS`) }}{{ if $i }} || {{end}}Host(`{{ $s }}.{{ $d }}`){{ end }}'
       service: synology@file
   services:
     synology:

@@ -3,7 +3,7 @@ providers:
     endpoint: tcp://docker:2375
     exposedByDefault: false
     network: traefik
-    defaultRule: Host(`{{ index .Labels "com.docker.compose.service" }}.{{ env `NASCOMPOSE_TRAEFIK_DOMAIN` }}`)
+    defaultRule: '{{ range $i, $e := splitList "," (env `NASCOMPOSE_TRAEFIK_DOMAINS`) }}{{ if $i }} || {{end}}Host(`{{ $e }}`){{ end }}'
   file:
     directory: /etc/traefik/dynamic/
 
