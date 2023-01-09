@@ -76,8 +76,20 @@ services:
     labels:
       traefik.enable: true
 
-# TODO:
-# NZBGet
+  nzbget:
+    image: linuxserver/nzbget
+    environment:
+      UID: ${NASCOMPOSE_UID?}
+      GID: ${NASCOMPOSE_GID?}
+    networks:
+      - traefik
+      - downloads
+    volumes:
+      - nzbget_config:/config
+      - usenet:/downloads
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
 
 networks:
   downloads:
@@ -118,6 +130,11 @@ volumes:
       type: none
       o: bind
       device: ${NASCOMPOSE_SERVICES?}/volumes/transmission/scripts/
+  nzbget_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/volumes/nzbget/config/
 
 configs:
   transmission_openvpn_post_config:
