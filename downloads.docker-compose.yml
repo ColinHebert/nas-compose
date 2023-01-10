@@ -20,7 +20,7 @@ services:
       traefik.enable: true
 
   flaresolverr:
-    image: ngosang/flaresolverr:3.0.0.beta3 #TODO: Move to a stable version!
+    image: flaresolverr/flaresolverr
     restart: unless-stopped
 
   transmission:
