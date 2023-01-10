@@ -7,7 +7,7 @@ services:
       NASCOMPOSE_TRAEFIK_DOMAINS: ${NASCOMPOSE_TRAEFIK_DOMAINS?}
       AUTHELIA_DEFAULT_REDIRECTION_URL: "" #Heimdall
       AUTHELIA_JWT_SECRET_FILE: /run/secrets/jwt_secret
-      X_AUTHELIA_CONFIG: /etc/authelia/
+      X_AUTHELIA_CONFIG: /etc/authelia/configuration.yml,/etc/authelia/access.yml,/etc/authelia/authentication.yml
     networks:
       - traefik
     volumes:

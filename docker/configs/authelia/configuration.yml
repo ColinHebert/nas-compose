@@ -3,10 +3,6 @@
 ## The theme to display: light, dark, grey, auto.
 theme: auto
 
-## The secret used to generate JWT tokens when validating user identity by email confirmation. JWT Secret can also be
-## set using a secret: https://www.authelia.com/c/secrets
-jwt_secret: a_very_important_secret
-
 ##
 ## Storage Provider Configuration
 ##
@@ -27,7 +23,7 @@ storage:
   ##
   local:
     ## Path to the SQLite3 Database.
-    path: /data/db.sqlite3
+    path: /config/db.sqlite3
 
 ##
 ## Notification Provider
@@ -41,4 +37,4 @@ notifier:
   ## Important: Kubernetes (or HA) users must read https://www.authelia.com/t/statelessness
   ##
   filesystem:
-    filename: /data/notification.txt
+    filename: /config/notification.txt
