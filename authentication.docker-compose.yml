@@ -30,6 +30,10 @@ networks:
 
 volumes:
   config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/volumes/authelia/config/
 
 configs:
   authelia_configuration:
