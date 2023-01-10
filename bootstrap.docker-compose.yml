@@ -17,8 +17,8 @@ services:
   traefik:
     image: traefik
     environment:
-      - NASCOMPOSE_TRAEFIK_DOMAINS=${NASCOMPOSE_TRAEFIK_DOMAINS?}
-      - NASCOMPOSE_MACVLAN_HOST_IP=${NASCOMPOSE_MACVLAN_HOST_IP}
+      NASCOMPOSE_TRAEFIK_DOMAINS: ${NASCOMPOSE_TRAEFIK_DOMAINS?}
+      NASCOMPOSE_MACVLAN_HOST_IP: ${NASCOMPOSE_MACVLAN_HOST_IP}
     ports:
       - 8080:80
       - 8443:443
@@ -37,8 +37,8 @@ services:
         target: /etc/traefik/dynamic/tls.yml
       - source: traefik_hsts
         target: /etc/traefik/dynamic/hsts.yml
-      - source: traefik_authentik
-        target: /etc/traefik/dynamic/authentik.yml
+      - source: traefik_authelia
+        target: /etc/traefik/dynamic/authelia.yml
     secrets:
       - traefik_password # TODO: Replace with SSO
       - traefik_tls_cert
@@ -106,8 +106,8 @@ configs:
     file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/tls.yml
   traefik_hsts:
     file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/hsts.yml
-  traefik_authentik:
-    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/authentik.yml
+  traefik_authelia:
+    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/authelia.yml
 
 secrets:
   traefik_password:

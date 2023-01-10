@@ -1,0 +1,40 @@
+##
+## TOTP Configuration
+##
+## Parameters used for TOTP generation.
+totp:
+  ## The issuer name displayed in the Authenticator application of your choice.
+  issuer: authelia.com
+
+##
+## Authentication Backend Provider Configuration
+##
+## Used for verifying user passwords and retrieve information such as email address and groups users belong to.
+##
+## The available providers are: `file`, `ldap`. You must use only one of these providers.
+authentication_backend:
+  ##
+  ## File (Authentication Provider)
+  ##
+  ## With this backend, the users database is stored in a file which is updated when users reset their passwords.
+  ## Therefore, this backend is meant to be used in a dev environment and not in production since it prevents Authelia
+  ## to be scaled to more than one instance. The options under 'password' have sane defaults, and as it has security
+  ## implications it is highly recommended you leave the default values. Before considering changing these settings
+  ## please read the docs page below:
+  ## https://www.authelia.com/r/passwords#tuning
+  ##
+  ## Important: Kubernetes (or HA) users must read https://www.authelia.com/t/statelessness
+  ##
+  file:
+    path: /data/users_database.yml
+    watch: true
+
+##
+## Password Policy Configuration.
+##
+password_policy:
+  ## zxcvbn is a well known and used password strength algorithm. It does not have tunable settings.
+  zxcvbn:
+    enabled: true
+    ## Configures the minimum score allowed.
+    min_score: 4
