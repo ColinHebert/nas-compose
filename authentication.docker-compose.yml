@@ -22,6 +22,7 @@ services:
         target: /etc/authelia/authentication.yml
     secrets:
       - jwt_secret
+      - storage_key
     labels:
       traefik.enable: true
 
