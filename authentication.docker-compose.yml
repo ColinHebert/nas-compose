@@ -8,6 +8,7 @@ services:
       NASCOMPOSE_TRAEFIK_DOMAINS: ${NASCOMPOSE_TRAEFIK_DOMAINS?}
       AUTHELIA_DEFAULT_REDIRECTION_URL: "" #Heimdall
       AUTHELIA_JWT_SECRET_FILE: /run/secrets/jwt_secret
+      AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE: /run/secrets/storage_key
     networks:
       - traefik
     volumes:
@@ -46,3 +47,5 @@ configs:
 secrets:
   jwt_secret:
     file: ${NASCOMPOSE_SERVICES?}/secrets/authelia/jwt_secret
+  storage_key:
+    file: ${NASCOMPOSE_SERVICES?}/secrets/authelia/storage_key

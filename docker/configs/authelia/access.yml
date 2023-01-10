@@ -28,3 +28,6 @@
 ## Note: the order of the rules is important. The first policy matching (domain, resource, subject) applies.
 access_control:
   default_policy: two_factor
+
+session:
+  domain: {{ (env `NASCOMPOSE_TRAEFIK_DOMAINS` | split)._0 }}
