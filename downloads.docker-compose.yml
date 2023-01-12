@@ -68,7 +68,8 @@ services:
           "subtitleslangs": ["all", "-live_chat"],
           "subtitlesformat": "ass/srt/best",
           "postprocessors": [
-            { "key": "FFmpegEmbedSubtitle" }
+            { "key": "FFmpegEmbedSubtitle" },
+            { "key": "FFmpegMetadata" }
           ]
         }
     networks:
