@@ -67,7 +67,9 @@ services:
           "writesubtitles": true,
           "subtitleslangs": ["all", "-live_chat"],
           "subtitlesformat": "ass/srt/best",
-          "postprocessors": ["FFmpegEmbedSubtitlePP"]
+          "postprocessors": [
+            { "key": "FFmpegEmbedSubtitlePP" }
+          ]
         }
     networks:
       - traefik
