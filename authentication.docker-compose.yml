@@ -33,6 +33,7 @@ services:
       - smtp_password
     labels:
       traefik.enable: true
+      traefik.http.routers.smokeping.middlewares: authelia@file
 
 networks:
   traefik:
