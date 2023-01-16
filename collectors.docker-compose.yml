@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.sonarr.middlewares: authelia@file
+      traefik.http.routers.mylar.middlewares: authelia@file
 
   lazylibrarian:
     image: linuxserver/lazylibrarian
@@ -33,7 +33,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.sonarr.middlewares: authelia@file
+      traefik.http.routers.lazylibrarian.middlewares: authelia@file
 
   sonarr:
     image: linuxserver/sonarr
@@ -65,7 +65,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.sonarr.middlewares: authelia@file
+      traefik.http.routers.radarr.middlewares: authelia@file
 
   bazarr:
     image: linuxserver/bazarr
@@ -80,7 +80,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.sonarr.middlewares: authelia@file
+      traefik.http.routers.bazarr.middlewares: authelia@file
 
   ombi:
     image: linuxserver/ombi

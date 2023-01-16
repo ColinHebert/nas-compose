@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.sonarr.middlewares: authelia@file
+      traefik.http.routers.prowlarr.middlewares: authelia@file
 
   flaresolverr:
     image: flaresolverr/flaresolverr
