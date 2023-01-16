@@ -1,5 +1,6 @@
 services:
   plex:
+    ports: []
     networks:
       macvlan:
         ipv4_address: ${NASCOMPOSE_MACVLAN_PLEX_IP}
