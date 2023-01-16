@@ -32,7 +32,6 @@ services:
       OPENVPN_CONFIG: ${NASCOMPOSE_TRANSMISSION_VPNREGION?}
       OPENVPN_OPTS: --inactive 3600 --ping 10 --ping-exit 60
       LOCAL_NETWORK: 192.168.0.0/16
-      TRANSMISSION_RPC_AUTHENTICATION_REQUIRED: true
     cap_add:
       - NET_ADMIN
     networks:
@@ -44,12 +43,7 @@ services:
     volumes:
       - transmission_config:/config/
       - torrents:/data/
-    configs:
-      - source: transmission_openvpn_post_config
-        target: /scripts/openvpn-post-config.sh
     secrets:
-      - source: transmission_rpc_creds
-        target: rpc_creds
       - source: transmission_vpn_creds
         target: openvpn_creds
     restart: unless-stopped
@@ -132,23 +126,12 @@ volumes:
       type: none
       o: bind
       device: ${NASCOMPOSE_SERVICES?}/volumes/transmission/config/
-  transmission_scripts:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/volumes/transmission/scripts/
   nzbget_config:
     driver_opts:
       type: none
       o: bind
       device: ${NASCOMPOSE_SERVICES?}/volumes/nzbget/config/
 
-configs:
-  transmission_openvpn_post_config:
-    file: ${NASCOMPOSE_SERVICES?}/configs/transmission/openvpn-post-config.sh
-
 secrets:
-    transmission_rpc_creds:
-        file: ${NASCOMPOSE_SERVICES?}/secrets/transmission/rpc_creds
     transmission_vpn_creds:
         file: ${NASCOMPOSE_SERVICES?}/secrets/transmission/vpn_creds
