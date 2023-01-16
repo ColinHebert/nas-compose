@@ -50,7 +50,9 @@ services:
     labels:
       traefik.enable: true
       traefik.http.services.transmission.loadbalancer.server.port: 9091
-      traefik.http.routers.transmission.middlewares: authelia-basic@file
+      traefik.http.routers.transmission.middlewares: authelia@file
+      traefik.http.routers.transmission-api.rule: '{{ $s := `transmission-api` }}{{ range $i, $d := splitList "," (env `NASCOMPOSE_TRAEFIK_DOMAINS`) }}{{ if $i }} || {{end}}Host(`{{ $s }}.{{ $d }}`){{ end }}'
+      traefik.http.routers.transmission-api.middlewares: authelia-basic@file
 
   youtube-dl:
     image: alexta69/metube

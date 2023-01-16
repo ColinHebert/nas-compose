@@ -31,7 +31,7 @@ access_control:
   rules:
     # Support for one factor for transmission API
     # Only users in "transmission-basic" should be allowed to do so
-    - domain_regex: '^transmission\..*'
+    - domain_regex: '^transmission-api\..*'
       policy: one_factor
       subject:
         - 'group:transmission-basic'
