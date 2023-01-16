@@ -19,17 +19,3 @@ storage:
   local:
     ## Path to the SQLite3 Database.
     path: /config/db.sqlite3
-
-##
-## Notification Provider
-##
-## Notifications are sent to users when they require a password reset, a Webauthn registration or a TOTP registration.
-## The available providers are: filesystem, smtp. You must use only one of these providers.
-notifier:
-  ##
-  ## File System (Notification Provider)
-  ##
-  ## Important: Kubernetes (or HA) users must read https://www.authelia.com/t/statelessness
-  ##
-  filesystem:
-    filename: /config/notification.txt
