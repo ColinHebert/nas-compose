@@ -79,7 +79,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.smokeping.middlewares: authelia@file
+      traefik.http.routers.youtube-dl.middlewares: authelia@file
 
   nzbget:
     image: linuxserver/nzbget

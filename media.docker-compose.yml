@@ -41,7 +41,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.smokeping.middlewares: authelia@file
+      traefik.http.routers.plaxt.middlewares: authelia@file
 
   # TODO:
   # Calibre-web
