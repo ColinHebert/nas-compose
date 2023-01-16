@@ -49,7 +49,6 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.smokeping.middlewares: authelia@file
 
 networks:
   docker:

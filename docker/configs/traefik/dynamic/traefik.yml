@@ -4,8 +4,4 @@ http:
       rule: '{{ $s := "traefik" }}{{ range $i, $d := splitList "," (env `NASCOMPOSE_TRAEFIK_DOMAINS`) }}{{ if $i }} || {{end}}Host(`{{ $s }}.{{ $d }}`){{ end }}'
       service: api@internal
       middlewares:
-        - traefik-auth
-  middlewares:
-    traefik-auth:
-      basicAuth:
-        usersFile: /run/secrets/traefik_password
+        - authelia@file
