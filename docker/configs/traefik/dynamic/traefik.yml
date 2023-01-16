@@ -1,7 +1,7 @@
 http:
   routers:
     traefik:
-      rule: '{{ $s := "traefik" }}{{ range $i, $d := splitList "," (env `NASCOMPOSE_TRAEFIK_DOMAINS`) }}{{ if $i }} || {{end}}Host(`{{ $s }}.{{ $d }}`){{ end }}'
+      rule: '{{ $s := "traefik" }}{{ range $i, $d := splitList "," (env `NASCOMPOSE_TRAEFIK_DOMAINS`) }}{{ if $i }} || {{end}}Host(`{{ $s }}.{{ $d }}`){{ end }} || {{ $s }}'
       service: api@internal
       middlewares:
         - authelia@file
