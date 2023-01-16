@@ -5,6 +5,8 @@ services:
     image: authelia/authelia
     command: --config /etc/authelia/configuration.yml,/etc/authelia/access.yml,/etc/authelia/authentication.yml
     environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
       NASCOMPOSE_TRAEFIK_DOMAINS: ${NASCOMPOSE_TRAEFIK_DOMAINS?}
       AUTHELIA_DEFAULT_REDIRECTION_URL: "" #Heimdall
       AUTHELIA_JWT_SECRET_FILE: /run/secrets/jwt_secret
@@ -14,7 +16,6 @@ services:
       AUTHELIA_NOTIFIER_SMTP_USERNAME: ${NASCOMPOSE_AUTHELIA_SMTP_USERNAME?}
       AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE: /run/secrets/smtp_password
       AUTHELIA_NOTIFIER_SMTP_SENDER: ${NASCOMPOSE_AUTHELIA_SMTP_SENDER?}
-
     networks:
       - traefik
     volumes:
