@@ -30,6 +30,4 @@ access_control:
   default_policy: two_factor
 
 session:
-  cookies:
-    -
-      domain: '{{ (env `NASCOMPOSE_TRAEFIK_DOMAINS` | split `,`)._0 }}'
+  domain: '{{ (env `NASCOMPOSE_TRAEFIK_DOMAINS` | split `,`)._0 }}'
