@@ -37,6 +37,8 @@ services:
         target: /etc/traefik/dynamic/tls.yml
       - source: traefik_hsts
         target: /etc/traefik/dynamic/hsts.yml
+      - source: traefik_transmission-api
+        target: /etc/traefik/dynamic/transmission-api.yml
       - source: traefik_authelia
         target: /etc/traefik/dynamic/authelia.yml
     secrets:
@@ -108,6 +110,8 @@ configs:
     file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/hsts.yml
   traefik_authelia:
     file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/authelia.yml
+  traefik_transmission-api:
+    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/transmission-api.yml
 
 secrets:
   traefik_password:
