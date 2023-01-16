@@ -49,7 +49,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.heimdall.middlewares: authelia-basic@file
+      traefik.http.routers.heimdall.middlewares: authelia@file
 
 networks:
   docker:
