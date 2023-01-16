@@ -56,6 +56,7 @@ services:
     labels:
       traefik.enable: true
       traefik.http.services.transmission.loadbalancer.server.port: 9091
+      traefik.http.routers.transmission.middlewares: authelia@file
 
   youtube-dl:
     image: alexta69/metube
