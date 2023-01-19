@@ -42,7 +42,6 @@ services:
       - source: traefik_authelia
         target: /etc/traefik/dynamic/authelia.yml
     secrets:
-      - traefik_password # TODO: Replace with SSO
       - traefik_tls_cert
       - traefik_tls_key
     depends_on:
@@ -114,8 +113,6 @@ configs:
     file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/transmission-api.yml
 
 secrets:
-  traefik_password:
-    file: ${NASCOMPOSE_SERVICES?}/secrets/traefik/htpasswd
   traefik_tls_cert:
     file: ${NASCOMPOSE_SERVICES?}/secrets/traefik/traefik.cert
   traefik_tls_key:
