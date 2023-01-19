@@ -7,8 +7,8 @@ services:
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
-      AUTHELIA_SESSION_DOMAIN: ${NASCOMPOSE_AUTHELIA_DOMAIN?}
-      AUTHELIA_DEFAULT_REDIRECTION_URL: "" #Heimdall
+      AUTHELIA_SESSION_DOMAIN: ${NASCOMPOSE_AUTHELIA_DOMAIN?} # Will be deprecated with newer versions of Authelia, which will support multiple domains
+      AUTHELIA_DEFAULT_REDIRECTION_URL: "https://heimdall.${NASCOMPOSE_AUTHELIA_DOMAIN?}"
       AUTHELIA_JWT_SECRET_FILE: /run/secrets/jwt_secret
       AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE: /run/secrets/storage_key
       AUTHELIA_NOTIFIER_SMTP_HOST: ${NASCOMPOSE_AUTHELIA_SMTP_HOST?}
