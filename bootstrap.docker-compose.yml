@@ -19,9 +19,6 @@ services:
     environment:
       NASCOMPOSE_TRAEFIK_DOMAINS: ${NASCOMPOSE_TRAEFIK_DOMAINS?}
       NASCOMPOSE_MACVLAN_HOST_IP: ${NASCOMPOSE_MACVLAN_HOST_IP}
-    ports:
-      - 80:80
-      - 443:443
     networks:
       - macvlan
       - traefik
