@@ -1,12 +1,4 @@
 ##
-## TOTP Configuration
-##
-## Parameters used for TOTP generation.
-totp:
-  ## The issuer name displayed in the Authenticator application of your choice.
-  issuer: authelia.com
-
-##
 ## Authentication Backend Provider Configuration
 ##
 ## Used for verifying user passwords and retrieve information such as email address and groups users belong to.
