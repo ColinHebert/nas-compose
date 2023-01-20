@@ -17,3 +17,5 @@ networks:
           ip_range: ${NASCOMPOSE_MACVLAN_RANGE?}
           aux_addresses:
             nas: ${NASCOMPOSE_MACVLAN_HOST_IP?}
+    labels:
+      nas-compose.boostrap: true

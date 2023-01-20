@@ -1,0 +1,4 @@
+services:
+  portainer:
+    ports:
+      - 32400:32400

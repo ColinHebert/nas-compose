@@ -6,10 +6,7 @@ services:
     environment:
       PLEX_UID: ${NASCOMPOSE_UID?}
       PLEX_GID: ${NASCOMPOSE_GID?}
-    ports:
-      - 32400:32400
     networks:
-      - macvlan
       - default
       - traefik
     volumes:
@@ -48,8 +45,6 @@ services:
   # Komga/Kavita
 
 networks:
-  macvlan:
-    external: true
   traefik:
     external: true
 

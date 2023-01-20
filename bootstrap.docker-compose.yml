@@ -33,10 +33,6 @@ services:
       nas-compose.boostrap: true
 
 networks:
-  macvlan:
-    name: macvlan
-    labels:
-      nas-compose.boostrap: true
   docker:
     name: docker
     labels:
