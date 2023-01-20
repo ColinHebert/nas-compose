@@ -13,40 +13,6 @@ services:
     labels:
       nas-compose.boostrap: true
 
-  # TODO: Sort out authentication method for all services (SSO). Authelia?
-  traefik:
-    image: traefik
-    environment:
-      NASCOMPOSE_TRAEFIK_DOMAINS: ${NASCOMPOSE_TRAEFIK_DOMAINS?}
-      NASCOMPOSE_MACVLAN_HOST_IP: ${NASCOMPOSE_MACVLAN_HOST_IP}
-    networks:
-      - macvlan
-      - traefik
-      - docker
-    configs:
-      - source: traefik_static
-        target: /etc/traefik/traefik.yml
-      - source: traefik_dynamic
-        target: /etc/traefik/dynamic/traefik.yml
-      - source: traefik_synology
-        target: /etc/traefik/dynamic/synology.yml
-      - source: traefik_tls
-        target: /etc/traefik/dynamic/tls.yml
-      - source: traefik_hsts
-        target: /etc/traefik/dynamic/hsts.yml
-      - source: traefik_transmission-api
-        target: /etc/traefik/dynamic/transmission-api.yml
-      - source: traefik_authelia
-        target: /etc/traefik/dynamic/authelia.yml
-    secrets:
-      - traefik_tls_cert
-      - traefik_tls_key
-    depends_on:
-      - docker
-    restart: unless-stopped
-    labels:
-      nas-compose.boostrap: true
-
   portainer:
     image: portainer/portainer-ce
     command: >
@@ -56,7 +22,6 @@ services:
     user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     networks:
       - docker
-      - traefik
     volumes:
       - portainer_data:/data/
     secrets:
@@ -66,9 +31,6 @@ services:
     restart: unless-stopped
     labels:
       nas-compose.boostrap: true
-      traefik.enable: true
-      traefik.http.services.portainer.loadbalancer.server.port: 9443
-      traefik.http.services.portainer.loadbalancer.server.scheme: https
 
 networks:
   macvlan:
@@ -77,10 +39,6 @@ networks:
       nas-compose.boostrap: true
   docker:
     name: docker
-    labels:
-      nas-compose.boostrap: true
-  traefik:
-    name: traefik
     labels:
       nas-compose.boostrap: true
 
@@ -93,26 +51,6 @@ volumes:
     labels:
       nas-compose.boostrap: true
 
-configs:
-  traefik_static:
-    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/traefik.yml
-  traefik_dynamic:
-    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/traefik.yml
-  traefik_synology:
-    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/synology.yml
-  traefik_tls:
-    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/tls.yml
-  traefik_hsts:
-    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/hsts.yml
-  traefik_authelia:
-    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/authelia.yml
-  traefik_transmission-api:
-    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/transmission-api.yml
-
 secrets:
-  traefik_tls_cert:
-    file: ${NASCOMPOSE_SERVICES?}/secrets/traefik/traefik.cert
-  traefik_tls_key:
-    file: ${NASCOMPOSE_SERVICES?}/secrets/traefik/traefik.key
   portainer_password:
     file: ${NASCOMPOSE_SERVICES?}/secrets/portainer/portainer_password

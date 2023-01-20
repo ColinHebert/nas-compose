@@ -1,0 +1,57 @@
+name: Traefik
+
+services:
+  traefik:
+    image: traefik
+    environment:
+      NASCOMPOSE_TRAEFIK_DOMAINS: ${NASCOMPOSE_TRAEFIK_DOMAINS?}
+    networks:
+      - traefik
+      - docker
+    configs:
+      - source: traefik_static
+        target: /etc/traefik/traefik.yml
+
+      - source: traefik_dynamic
+        target: /etc/traefik/dynamic/traefik.yml
+      - source: traefik_tls
+        target: /etc/traefik/dynamic/tls.yml
+      - source: traefik_hsts
+        target: /etc/traefik/dynamic/hsts.yml
+
+      - source: traefik_authelia
+        target: /etc/traefik/dynamic/authelia.yml
+      - source: traefik_transmission-api
+        target: /etc/traefik/dynamic/transmission-api.yml
+    secrets:
+      - traefik_tls_cert
+      - traefik_tls_key
+    depends_on:
+      - docker
+    restart: unless-stopped
+
+networks:
+  docker:
+    external: true
+  traefik:
+    name: traefik
+
+configs:
+  traefik_static:
+    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/traefik.yml
+  traefik_dynamic:
+    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/traefik.yml
+  traefik_tls:
+    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/tls.yml
+  traefik_hsts:
+    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/hsts.yml
+  traefik_authelia:
+    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/authelia.yml
+  traefik_transmission-api:
+    file: ${NASCOMPOSE_SERVICES?}/configs/traefik/dynamic/transmission-api.yml
+
+secrets:
+  traefik_tls_cert:
+    file: ${NASCOMPOSE_SERVICES?}/secrets/traefik/traefik.cert
+  traefik_tls_key:
+    file: ${NASCOMPOSE_SERVICES?}/secrets/traefik/traefik.key

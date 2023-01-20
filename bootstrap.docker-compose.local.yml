@@ -1,5 +1,4 @@
 services:
-  traefik:
+  portainer:
     ports:
-      - 80:80
-      - 443:443
+      - 9443:9443
