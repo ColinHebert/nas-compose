@@ -33,7 +33,7 @@ services:
 
 networks:
   reverse-proxy:
-    name: traefik
+    name: reverse-proxy
 
   docker:
     external: true
