@@ -1,7 +1,6 @@
 name: Bootstrap
 
 services:
-  # TODO: Authenticate the services that can talk to docker
   docker:
     image: alpine/socat
     command: tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock

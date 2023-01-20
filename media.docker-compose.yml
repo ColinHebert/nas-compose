@@ -73,13 +73,6 @@ volumes:
       type: none
       o: bind
       device: ${NASCOMPOSE_DATA?}/media/tv/
-  # TODO: Manage recycle bin properly...
-  recycle_bin:
-    name: recycle_bin
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DATA?}/media/recycle_bin/
 
   plex_transcode:
   plex_config:
