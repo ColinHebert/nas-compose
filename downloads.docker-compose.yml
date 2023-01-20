@@ -49,11 +49,6 @@ networks:
     external: true
 
 volumes:
-  torrents:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DATA?}/torrents/
   usenet:
     driver_opts:
       type: none
@@ -65,22 +60,8 @@ volumes:
       o: bind
       device: ${NASCOMPOSE_DATA?}/youtube/
 
-  prowlarr_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/volumes/prowlarr/config/
-  transmission_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/volumes/transmission/config/
   nzbget_config:
     driver_opts:
       type: none
       o: bind
       device: ${NASCOMPOSE_SERVICES?}/volumes/nzbget/config/
-
-secrets:
-    transmission_vpn_creds:
-        file: ${NASCOMPOSE_SERVICES?}/secrets/transmission/vpn_creds
