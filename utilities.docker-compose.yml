@@ -28,15 +28,6 @@ services:
       traefik.enable: true
       traefik.http.routers.smokeping.middlewares: authelia@file
 
-  duckdns:
-    image: linuxserver/duckdns
-    environment:
-      - SUBDOMAINS=${NASCOMPOSE_DUCKDNS_DOMAIN?}
-      - FILE__TOKEN=/run/secrets/duckdns_token
-    secrets:
-      - duckdns_token
-    restart: unless-stopped
-
   heimdall:
     image: linuxserver/heimdall
     environment:

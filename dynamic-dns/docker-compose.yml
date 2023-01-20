@@ -1,0 +1,15 @@
+name: Dynamic DNS
+
+services:
+  duckdns:
+    image: linuxserver/duckdns
+    environment:
+      - SUBDOMAINS=${NASCOMPOSE_DUCKDNS_DOMAIN?}
+      - FILE__TOKEN=/run/secrets/duckdns_token
+    secrets:
+      - duckdns_token
+    restart: unless-stopped
+
+secrets:
+  duckdns_token:
+    file: ${NASCOMPOSE_SERVICES?}/dynamic-dns/secrets/duckdns_token
