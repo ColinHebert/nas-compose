@@ -1,0 +1,41 @@
+name: Scrobbler
+
+services:
+  plaxt:
+    image: xanderstrike/goplaxt
+    profiles: [plaxt]
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    environment:
+      TRAKT_ID_FILE: /run/secrets/trakt_id
+      TRAKT_SECRET_FILE: /run/secrets/trakt_secret
+    networks:
+      - traefik
+      - media-player
+    volumes:
+      - plaxt_keystore:/app/keystore/
+    secrets:
+      - trakt_id
+      - trakt_secret
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.plaxt.middlewares: authelia@file
+
+networks:
+  traefik:
+    external: true
+  media-player:
+    external: true
+
+volumes:
+  plaxt_keystore:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/scrobbler/volumes/plaxt_keystore/
+
+secrets:
+  trakt_id:
+    file: ${NASCOMPOSE_SERVICES?}/scrobbler/secrets/trakt_id
+  trakt_secret:
+    file: ${NASCOMPOSE_SERVICES?}/scrobbler/secrets/trakt_secret
