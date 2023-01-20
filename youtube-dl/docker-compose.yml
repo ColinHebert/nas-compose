@@ -1,0 +1,40 @@
+name: Youtube-DL
+
+services:
+  youtube-dl:
+    image: alexta69/metube
+    environment:
+      UID: ${NASCOMPOSE_UID?}
+      GID: ${NASCOMPOSE_GID?}
+      YTDL_OPTIONS: >
+        {
+          "writesubtitles": true,
+          "subtitleslangs": ["all", "-live_chat"],
+          "subtitlesformat": "ass/srt/best",
+          "postprocessors": [
+            { "key": "FFmpegEmbedSubtitle" },
+            { "key": "FFmpegMetadata" }
+          ]
+        }
+    networks:
+      - traefik
+    volumes:
+      - youtub-dl:/downloads
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.youtube-dl.middlewares: authelia@file
+
+networks:
+  youtube-dl:
+    name: youtube-dl
+
+  traefik:
+    external: true
+
+volumes:
+  youtube-dl:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_DATA?}/youtub-dl/

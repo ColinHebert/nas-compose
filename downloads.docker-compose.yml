@@ -1,30 +1,6 @@
 name: Downloads
 
 services:
-  youtube-dl:
-    image: alexta69/metube
-    environment:
-      UID: ${NASCOMPOSE_UID?}
-      GID: ${NASCOMPOSE_GID?}
-      YTDL_OPTIONS: >
-        {
-          "writesubtitles": true,
-          "subtitleslangs": ["all", "-live_chat"],
-          "subtitlesformat": "ass/srt/best",
-          "postprocessors": [
-            { "key": "FFmpegEmbedSubtitle" },
-            { "key": "FFmpegMetadata" }
-          ]
-        }
-    networks:
-      - traefik
-    volumes:
-      - youtube:/downloads
-    restart: unless-stopped
-    labels:
-      traefik.enable: true
-      traefik.http.routers.youtube-dl.middlewares: authelia@file
-
   nzbget:
     image: linuxserver/nzbget
     profiles: [usenet]
@@ -54,11 +30,6 @@ volumes:
       type: none
       o: bind
       device: ${NASCOMPOSE_DATA?}/usenet/
-  youtube:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DATA?}/youtube/
 
   nzbget_config:
     driver_opts:
