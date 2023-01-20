@@ -7,10 +7,11 @@ services:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
     networks:
+      - reverse-proxy
       - default
-      - traefik
       - indexer
       - torrents
+      - usenet
     dns:
       # Work around DNS blocks in various regions
       - 1.1.1.1
@@ -30,9 +31,11 @@ networks:
   indexer:
     name: indexer
 
-  traefik:
+  reverse-proxy:
     external: true
   torrents:
+    external: true
+  usenet:
     external: true
 
 volumes:

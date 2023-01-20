@@ -7,7 +7,7 @@ services:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
     networks:
-      - traefik
+      - reverse-proxy
     volumes:
       - smokeping_data:/data/
       - smokeping_config:/config/
@@ -17,7 +17,7 @@ services:
       traefik.http.routers.smokeping.middlewares: authelia@file
 
 networks:
-  traefik:
+  reverse-proxy:
     external: true
 
 volumes:

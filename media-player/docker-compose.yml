@@ -7,8 +7,8 @@ services:
       PLEX_UID: ${NASCOMPOSE_UID?}
       PLEX_GID: ${NASCOMPOSE_GID?}
     networks:
-      - default
-      - traefik
+      - reverse-proxy
+      - scrobbler
     volumes:
       - plex_transcode:/transcode/
       - plex_config:/config/
@@ -21,7 +21,9 @@ services:
       traefik.http.services.plex.loadbalancer.server.scheme: https
 
 networks:
-  traefik:
+  reverse-proxy:
+    external: true
+  scrobbler:
     external: true
 
 volumes:

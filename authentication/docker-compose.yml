@@ -17,7 +17,7 @@ services:
       AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE: /run/secrets/smtp_password
       AUTHELIA_NOTIFIER_SMTP_SENDER: ${NASCOMPOSE_AUTHELIA_SMTP_SENDER?}
     networks:
-      - traefik
+      - reverse-proxy
     volumes:
       - config:/config
     configs:
@@ -36,7 +36,7 @@ services:
       traefik.enable: true
 
 networks:
-  traefik:
+  reverse-proxy:
     external: true
 
 volumes:

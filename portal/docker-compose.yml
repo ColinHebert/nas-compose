@@ -7,7 +7,7 @@ services:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
     networks:
-      - traefik
+      - reverse-proxy
     volumes:
       - heimdall_config:/config/
     restart: unless-stopped
@@ -16,7 +16,7 @@ services:
       traefik.http.routers.heimdall.middlewares: authelia@file
 
 networks:
-  traefik:
+  reverse-proxy:
     external: true
 
 volumes:

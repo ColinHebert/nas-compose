@@ -13,8 +13,8 @@ services:
     cap_add:
       - NET_ADMIN
     networks:
-      - traefik
-      - downloads
+      - reverse-proxy
+      - torrents
     dns:
       # Work around DNS blocks in various regions
       - 1.1.1.1
@@ -35,7 +35,7 @@ networks:
   torrents:
     name: torrents
 
-  traefik:
+  reverse-proxy:
     external: true
 
 volumes:

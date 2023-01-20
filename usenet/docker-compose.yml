@@ -14,8 +14,8 @@ services:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
     networks:
-      - traefik
-      - downloads
+      - reverse-proxy
+      - usenet
     volumes:
       - sabnzbd_config:/config
       - usenet:/downloads
@@ -27,7 +27,7 @@ networks:
   usenet:
     name: usenet
 
-  traefik:
+  reverse-proxy:
     external: true
 
 volumes:

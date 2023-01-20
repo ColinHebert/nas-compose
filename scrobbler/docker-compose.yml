@@ -9,8 +9,8 @@ services:
       TRAKT_ID_FILE: /run/secrets/trakt_id
       TRAKT_SECRET_FILE: /run/secrets/trakt_secret
     networks:
-      - traefik
-      - media-player
+      - reverse-proxy
+      - scrobbler
     volumes:
       - plaxt_keystore:/app/keystore/
     secrets:
@@ -22,9 +22,10 @@ services:
       traefik.http.routers.plaxt.middlewares: authelia@file
 
 networks:
-  traefik:
-    external: true
-  media-player:
+  scrobbler:
+    name: scrobbler
+
+  reverse-proxy:
     external: true
 
 volumes:

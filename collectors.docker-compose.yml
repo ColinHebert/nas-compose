@@ -8,8 +8,7 @@ services:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
     networks:
-      - traefik
-      - downloads
+      - reverse-proxy
     volumes:
       - mylar_config:/config/
       - data:/data
@@ -25,8 +24,7 @@ services:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
     networks:
-      - traefik
-      - downloads
+      - reverse-proxy
     volumes:
       - lazylibrarian_config:/config/
       - data:/data
@@ -41,8 +39,7 @@ services:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
     networks:
-      - traefik
-      - downloads
+      - reverse-proxy
       - torrents
       - usenet
     volumes:
@@ -59,8 +56,7 @@ services:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
     networks:
-      - traefik
-      - downloads
+      - reverse-proxy
       - torrents
       - usenet
     volumes:
@@ -77,7 +73,7 @@ services:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
     networks:
-      - traefik
+      - reverse-proxy
     volumes:
       - bazarr_config:/config/
       - data:/data
@@ -92,8 +88,9 @@ services:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
     networks:
-      - traefik
-      - downloads
+      - reverse-proxy
+      # TODO: connect directly to sonarr/radarr
+      - media-player
     volumes:
       - ombi_config:/config/
     restart: unless-stopped
@@ -101,9 +98,13 @@ services:
       traefik.enable: true
 
 networks:
-  traefik:
+  reverse-proxy:
     external: true
-  downloads:
+  torrents:
+    external: true
+  usenet:
+    external: true
+  media-player:
     external: true
 
 volumes:

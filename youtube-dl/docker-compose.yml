@@ -17,7 +17,7 @@ services:
           ]
         }
     networks:
-      - traefik
+      - reverse-proxy
     volumes:
       - youtub-dl:/downloads
     restart: unless-stopped
@@ -26,10 +26,7 @@ services:
       traefik.http.routers.youtube-dl.middlewares: authelia@file
 
 networks:
-  youtube-dl:
-    name: youtube-dl
-
-  traefik:
+  reverse-proxy:
     external: true
 
 volumes:
