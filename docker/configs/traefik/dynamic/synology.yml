@@ -7,4 +7,4 @@ http:
     synology:
       loadBalancer:
         servers:
-          - url: https://{{ env `NASCOMPOSE_MACVLAN_HOST_IP` }}:5001/
+          - url: https://{{ env `NASCOMPOSE_MACVLAN_SYNOLOGY_IP` }}:5001/
