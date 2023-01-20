@@ -42,10 +42,10 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/volumes/portainer/data/
+      device: ${NASCOMPOSE_SERVICES?}/portainer/volumes/data/
     labels:
       nas-compose.boostrap: true
 
 secrets:
   portainer_password:
-    file: ${NASCOMPOSE_SERVICES?}/secrets/portainer/portainer_password
+    file: ${NASCOMPOSE_SERVICES?}/portainer/secrets/portainer_password
