@@ -1,3 +1,5 @@
+name: Docker monitoring
+
 services:
   watchtower:
     image: containrrr/watchtower
@@ -19,4 +21,4 @@ networks:
 
 secrets:
   watchtower_notification_url:
-    file: ${NASCOMPOSE_SERVICES?}/secrets/watchtower/notification_url
+    file: ${NASCOMPOSE_SERVICES?}/docker-monitoring/secrets/notification_url
