@@ -1,36 +1,6 @@
 name: Downloads
 
 services:
-  transmission:
-    image: haugene/transmission-openvpn
-    environment:
-      PUID: ${NASCOMPOSE_UID?}
-      PGID: ${NASCOMPOSE_GID?}
-      OPENVPN_PROVIDER: PIA
-      OPENVPN_CONFIG: ${NASCOMPOSE_TRANSMISSION_VPNREGION?}
-      OPENVPN_OPTS: --inactive 3600 --ping 10 --ping-exit 60
-      LOCAL_NETWORK: 192.168.0.0/16
-    cap_add:
-      - NET_ADMIN
-    networks:
-      - traefik
-      - downloads
-    dns:
-      # Work around DNS blocks in various regions
-      - 1.1.1.1
-      - 1.0.0.1
-    volumes:
-      - transmission_config:/config/
-      - torrents:/data/
-    secrets:
-      - source: transmission_vpn_creds
-        target: openvpn_creds
-    restart: unless-stopped
-    labels:
-      traefik.enable: true
-      traefik.http.services.transmission.loadbalancer.server.port: 9091
-      traefik.http.routers.transmission.middlewares: authelia@file
-
   youtube-dl:
     image: alexta69/metube
     environment:

@@ -10,6 +10,7 @@ services:
       - default
       - traefik
       - indexer
+      - torrents
     dns:
       # Work around DNS blocks in various regions
       - 1.1.1.1
@@ -30,6 +31,8 @@ networks:
     name: indexer
 
   traefik:
+    external: true
+  torrents:
     external: true
 
 volumes:
