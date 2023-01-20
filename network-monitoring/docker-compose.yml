@@ -1,0 +1,33 @@
+name: Network monitoring
+
+services:
+  smokeping:
+    image: linuxserver/smokeping
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - traefik
+    volumes:
+      - smokeping_data:/data/
+      - smokeping_config:/config/
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.smokeping.middlewares: authelia@file
+
+networks:
+  traefik:
+    external: true
+
+volumes:
+  smokeping_data:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/volumes/smokeping/data/
+  smokeping_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/volumes/smokeping/config/
