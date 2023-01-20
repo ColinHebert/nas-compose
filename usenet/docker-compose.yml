@@ -1,0 +1,44 @@
+name: Usenet
+
+services:
+  # Always create the usenet network even if the usenet profile is disabled
+  dummy:
+    image: tianon/true
+    networks:
+      - usenet
+
+  sabnzbd:
+    image: linuxserver/sabnzbd
+    profiles: [usenet]
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - traefik
+      - downloads
+    volumes:
+      - sabnzbd_config:/config
+      - usenet:/downloads
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+
+networks:
+  usenet:
+    name: usenet
+
+  traefik:
+    external: true
+
+volumes:
+  usenet:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_DATA?}/usenet/
+
+  sabnzbd_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/usenet/volumes/sabnzbd_config/

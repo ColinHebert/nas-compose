@@ -43,6 +43,8 @@ services:
     networks:
       - traefik
       - downloads
+      - torrents
+      - usenet
     volumes:
       - sonarr_config:/config/
       - data:/data
@@ -59,6 +61,8 @@ services:
     networks:
       - traefik
       - downloads
+      - torrents
+      - usenet
     volumes:
       - radarr_config:/config/
       - data:/data
