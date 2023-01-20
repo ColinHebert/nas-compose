@@ -1,4 +1,4 @@
-name: authentication
+name: Authentication
 
 services:
   authelia:

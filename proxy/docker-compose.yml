@@ -1,4 +1,4 @@
-name: Traefik
+name: Proxy
 
 services:
   traefik:
