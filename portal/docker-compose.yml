@@ -1,0 +1,27 @@
+name: Portal
+
+services:
+  heimdall:
+    image: linuxserver/heimdall
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - traefik
+    volumes:
+      - heimdall_config:/config/
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.heimdall.middlewares: authelia@file
+
+networks:
+  traefik:
+    external: true
+
+volumes:
+ heimdall_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/portal/volumes/heimdall_config/
