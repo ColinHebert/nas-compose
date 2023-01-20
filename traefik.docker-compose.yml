@@ -27,6 +27,9 @@ services:
       - traefik_tls_cert
       - traefik_tls_key
     restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.traefik.service: api@internal
 
 networks:
   docker:
