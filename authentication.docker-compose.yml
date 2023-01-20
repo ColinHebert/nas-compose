@@ -31,6 +31,7 @@ services:
       - jwt_secret
       - storage_key
       - smtp_password
+    restart: unless-stopped
     labels:
       traefik.enable: true
 
