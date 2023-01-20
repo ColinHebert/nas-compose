@@ -1,0 +1,40 @@
+name: Indexer
+
+services:
+  prowlarr:
+    image: linuxserver/prowlarr
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - default
+      - traefik
+      - indexer
+    dns:
+      # Work around DNS blocks in various regions
+      - 1.1.1.1
+      - 1.0.0.1
+    volumes:
+      - prowlarr_config:/config/
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.prowlarr.middlewares: authelia@file
+
+  flaresolverr:
+    image: flaresolverr/flaresolverr
+    restart: unless-stopped
+
+networks:
+  indexer:
+    name: indexer
+
+  traefik:
+    external: true
+
+volumes:
+  prowlarr_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/indexer/volumes/prowlarr_config/
