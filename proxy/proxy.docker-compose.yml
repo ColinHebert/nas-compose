@@ -39,20 +39,20 @@ networks:
 
 configs:
   traefik_static:
-    file: ${NASCOMPOSE_SERVICES?}/traefik/configs/traefik.yml
+    file: ${NASCOMPOSE_SERVICES?}/proxy/configs/traefik.yml
   traefik_dynamic:
-    file: ${NASCOMPOSE_SERVICES?}/traefik/configs/dynamic/traefik.yml
+    file: ${NASCOMPOSE_SERVICES?}/proxy/configs/dynamic/traefik.yml
   traefik_tls:
-    file: ${NASCOMPOSE_SERVICES?}/traefik/configs/dynamic/tls.yml
+    file: ${NASCOMPOSE_SERVICES?}/proxy/configs/dynamic/tls.yml
   traefik_hsts:
-    file: ${NASCOMPOSE_SERVICES?}/traefik/configs/dynamic/hsts.yml
+    file: ${NASCOMPOSE_SERVICES?}/proxy/configs/dynamic/hsts.yml
   traefik_authelia:
-    file: ${NASCOMPOSE_SERVICES?}/traefik/configs/dynamic/authelia.yml
+    file: ${NASCOMPOSE_SERVICES?}/proxy/configs/dynamic/authelia.yml
   traefik_transmission-api:
-    file: ${NASCOMPOSE_SERVICES?}/traefik/configs/dynamic/transmission-api.yml
+    file: ${NASCOMPOSE_SERVICES?}/proxy/configs/dynamic/transmission-api.yml
 
 secrets:
   traefik_tls_cert:
-    file: ${NASCOMPOSE_SERVICES?}/traefik/secrets/traefik.cert
+    file: ${NASCOMPOSE_SERVICES?}/proxy/secrets/traefik.cert
   traefik_tls_key:
-    file: ${NASCOMPOSE_SERVICES?}/traefik/secrets/traefik.key
+    file: ${NASCOMPOSE_SERVICES?}/proxy/secrets/traefik.key
