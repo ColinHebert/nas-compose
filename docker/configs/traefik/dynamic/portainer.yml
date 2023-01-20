@@ -4,7 +4,7 @@ http:
       rule: '{{ $s := "portainer" }}{{ range $i, $d := splitList "," (env `NASCOMPOSE_TRAEFIK_DOMAINS`) }}{{ if $i }} || {{end}}Host(`{{ $s }}.{{ $d }}`){{ end }}'
       service: portainer@file
   services:
-    synology:
+    portainer:
       loadBalancer:
         servers:
           - url: https://{{ env `NASCOMPOSE_MACVLAN_PORTAINER_IP` }}:9443/
