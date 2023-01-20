@@ -44,20 +44,20 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/volumes/authelia/config/
+      device: ${NASCOMPOSE_SERVICES?}/authentication/volumes/authelia_config/
 
 configs:
   authelia_configuration:
-    file: ${NASCOMPOSE_SERVICES?}/configs/authelia/configuration.yml
+    file: ${NASCOMPOSE_SERVICES?}/authentication/configs/configuration.yml
   authelia_access:
-    file: ${NASCOMPOSE_SERVICES?}/configs/authelia/access.yml
+    file: ${NASCOMPOSE_SERVICES?}/authentication/configs/access.yml
   authelia_authentication:
-    file: ${NASCOMPOSE_SERVICES?}/configs/authelia/authentication.yml
+    file: ${NASCOMPOSE_SERVICES?}/authentication/configs/authentication.yml
 
 secrets:
   jwt_secret:
-    file: ${NASCOMPOSE_SERVICES?}/secrets/authelia/jwt_secret
+    file: ${NASCOMPOSE_SERVICES?}/authentication/secrets/jwt_secret
   storage_key:
-    file: ${NASCOMPOSE_SERVICES?}/secrets/authelia/storage_key
+    file: ${NASCOMPOSE_SERVICES?}/authentication/secrets/storage_key
   smtp_password:
-    file: ${NASCOMPOSE_SERVICES?}/secrets/authelia/smtp_password
+    file: ${NASCOMPOSE_SERVICES?}/authentication/secrets/smtp_password
