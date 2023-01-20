@@ -26,8 +26,6 @@ services:
     secrets:
       - traefik_tls_cert
       - traefik_tls_key
-    depends_on:
-      - docker
     restart: unless-stopped
 
 networks:
