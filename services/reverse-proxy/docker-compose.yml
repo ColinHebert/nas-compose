@@ -2,7 +2,7 @@ name: Reverse proxy
 
 services:
   traefik:
-    image: traefik
+    image: traefik:3.0 #TODO: Return to stable version
     environment:
       NASCOMPOSE_TRAEFIK_DOMAINS: ${NASCOMPOSE_TRAEFIK_DOMAINS?}
     networks:
