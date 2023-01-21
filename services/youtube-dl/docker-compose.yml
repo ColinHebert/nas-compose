@@ -19,7 +19,7 @@ services:
     networks:
       - reverse-proxy
     volumes:
-      - youtub-dl:/downloads
+      - youtube-dl:/downloads
     restart: unless-stopped
     labels:
       traefik.enable: true
