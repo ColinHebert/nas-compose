@@ -2,6 +2,7 @@ name: Network monitoring
 
 services:
   smokeping:
+    hostname: smokeping
     image: linuxserver/smokeping
     environment:
       PUID: ${NASCOMPOSE_UID?}

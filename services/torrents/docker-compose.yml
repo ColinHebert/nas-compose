@@ -2,6 +2,7 @@ name: Torrents
 
 services:
   transmission:
+    hostname: transmission
     image: haugene/transmission-openvpn
     environment:
       PUID: ${NASCOMPOSE_UID?}

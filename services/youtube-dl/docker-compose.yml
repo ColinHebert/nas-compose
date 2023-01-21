@@ -2,6 +2,7 @@ name: Youtube-DL
 
 services:
   youtube-dl:
+    hostname: youtube-dl
     image: alexta69/metube
     environment:
       UID: ${NASCOMPOSE_UID?}

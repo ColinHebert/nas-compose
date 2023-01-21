@@ -2,6 +2,7 @@ name: Book collector
 
 services:
   lazylibrarian:
+    hostname: lazylibrarian
     image: linuxserver/lazylibrarian
     profiles: [ebooks]
     environment:

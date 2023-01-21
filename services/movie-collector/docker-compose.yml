@@ -2,6 +2,7 @@ name: Movie collector
 
 services:
   radarr:
+    hostname: radarr
     image: linuxserver/radarr
     environment:
       PUID: ${NASCOMPOSE_UID?}

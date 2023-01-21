@@ -2,6 +2,7 @@ name: Bootstrap
 
 services:
   docker:
+    hostname: docker
     image: alpine/socat
     command: tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
     networks:
@@ -13,6 +14,7 @@ services:
       nas-compose.boostrap: true
 
   portainer:
+    hostname: portainer
     image: portainer/portainer-ce
     command: >
       --host tcp://docker:2375

@@ -2,6 +2,7 @@ name: Authentication
 
 services:
   authelia:
+    hostname: authelia
     image: authelia/authelia
     command: --config /etc/authelia/configuration.yml,/etc/authelia/access.yml,/etc/authelia/authentication.yml
     environment:

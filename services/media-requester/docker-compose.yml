@@ -2,6 +2,7 @@ name: Media requester
 
 services:
   ombi:
+    hostname: ombi
     image: linuxserver/ombi
     environment:
       PUID: ${NASCOMPOSE_UID?}

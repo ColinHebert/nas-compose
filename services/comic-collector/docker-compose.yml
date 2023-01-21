@@ -2,6 +2,7 @@ name: Comic collector
 
 services:
   mylar:
+    hostname: mylar
     image: linuxserver/mylar3
     profiles: [ebooks]
     environment:

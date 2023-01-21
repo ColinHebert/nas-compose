@@ -2,6 +2,7 @@ name: Scrobbler
 
 services:
   plaxt:
+    hostname: plaxt
     image: xanderstrike/goplaxt
     profiles: [plaxt]
     user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}

@@ -8,6 +8,7 @@ services:
       - usenet
 
   sabnzbd:
+    hostname: sabnzbd
     image: linuxserver/sabnzbd
     profiles: [usenet]
     environment:

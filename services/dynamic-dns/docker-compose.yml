@@ -2,6 +2,7 @@ name: Dynamic DNS
 
 services:
   duckdns:
+    hostname: duckdns
     image: linuxserver/duckdns
     environment:
       - SUBDOMAINS=${NASCOMPOSE_DUCKDNS_DOMAIN?}

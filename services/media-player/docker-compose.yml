@@ -2,6 +2,7 @@ name: Media-Player
 
 services:
   plex:
+    hostname: plex
     image: plexinc/pms-docker:plexpass
     environment:
       PLEX_UID: ${NASCOMPOSE_UID?}

@@ -2,6 +2,7 @@ name: TV collector
 
 services:
   sonarr:
+    hostname: sonarr
     image: linuxserver/sonarr
     environment:
       PUID: ${NASCOMPOSE_UID?}

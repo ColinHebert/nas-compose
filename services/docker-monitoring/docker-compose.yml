@@ -2,6 +2,7 @@ name: Docker monitoring
 
 services:
   watchtower:
+    hostname: watchtower
     image: containrrr/watchtower
     environment:
       DOCKER_HOST: tcp://docker:2375
