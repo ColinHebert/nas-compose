@@ -21,6 +21,7 @@ services:
 
 networks:
   tv-collector:
+    name: tv-collector
 
   reverse-proxy:
     external: true

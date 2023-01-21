@@ -21,6 +21,7 @@ services:
 
 networks:
   movie-collector:
+    name: movie-collector
 
   reverse-proxy:
     external: true

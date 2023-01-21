@@ -1,4 +1,0 @@
-secrets/*/*
-!secrets/*/README.md
-volumes/*/*/*
-!volumes/*/*/.gitkeep
