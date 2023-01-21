@@ -25,9 +25,9 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/volumes/smokeping/data/
+      device: ${NASCOMPOSE_SERVICES?}/network-monitoring/volumes/smokeping_data/
   smokeping_config:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/volumes/smokeping/config/
+      device: ${NASCOMPOSE_SERVICES?}/network-monitoring/volumes/smokeping_config/
