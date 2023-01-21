@@ -45,4 +45,4 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/volumes/plex/config/
+      device: ${NASCOMPOSE_SERVICES?}/media-player/volumes/plex_config/
