@@ -41,4 +41,4 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/volumes/radarr/config/
+      device: ${NASCOMPOSE_SERVICES?}/volumes/radarr_config/
