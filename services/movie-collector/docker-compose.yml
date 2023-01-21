@@ -1,0 +1,43 @@
+name: Movie collector
+
+services:
+  radarr:
+    image: linuxserver/radarr
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy
+      - movie-collector
+      - torrents
+      - usenet
+    volumes:
+      - radarr_config:/config/
+      - data:/data
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.radarr.middlewares: authelia@file
+
+networks:
+  movie-collector:
+
+  reverse-proxy:
+    external: true
+  torrents:
+    external: true
+  usenet:
+    external: true
+
+volumes:
+  data:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_DATA?}
+
+  radarr_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/volumes/radarr/config/

@@ -1,0 +1,41 @@
+name: Comic collector
+
+services:
+  mylar:
+    image: linuxserver/mylar3
+    profiles: [ebooks]
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy
+      - torrents
+      - usenet
+    volumes:
+      - mylar_config:/config/
+      - data:/data
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.mylar.middlewares: authelia@file
+
+networks:
+  reverse-proxy:
+    external: true
+  torrents:
+    external: true
+  usenet:
+    external: true
+
+volumes:
+  data:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_DATA?}
+
+  mylar_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/comic-collector/volumes/mylar_config/

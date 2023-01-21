@@ -1,0 +1,41 @@
+name: Book collector
+
+services:
+  lazylibrarian:
+    image: linuxserver/lazylibrarian
+    profiles: [ebooks]
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy
+      - torrents
+      - usenet
+    volumes:
+      - lazylibrarian_config:/config/
+      - data:/data
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.lazylibrarian.middlewares: authelia@file
+
+networks:
+  reverse-proxy:
+    external: true
+  torrents:
+    external: true
+  usenet:
+    external: true
+
+volumes:
+  data:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_DATA?}
+
+  lazylibrarian_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/book-collector/volumes/lazylibrarian_config/

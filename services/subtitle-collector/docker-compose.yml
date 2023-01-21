@@ -1,0 +1,41 @@
+name: Subtitle collector
+
+services:
+  bazarr:
+    image: linuxserver/bazarr
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy
+      - movie-collector
+      - tv-collector
+    volumes:
+      - bazarr_config:/config/
+      - data:/data
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.bazarr.middlewares: authelia@file
+
+networks:
+  reverse-proxy:
+    external: true
+  movie-collector:
+    external: true
+  tv-collector:
+    external: true
+
+volumes:
+  data:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_DATA?}
+
+  bazarr_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/subtitle-collector/volumes/bazarr_config/
+  

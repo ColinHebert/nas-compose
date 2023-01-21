@@ -1,0 +1,45 @@
+name: TV collector
+
+services:
+  sonarr:
+    image: linuxserver/sonarr
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy
+      - tv-collector
+      - torrents
+      - usenet
+    volumes:
+      - sonarr_config:/config/
+      - data:/data
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.sonarr.middlewares: authelia@file
+
+networks:
+  tv-collector:
+
+  reverse-proxy:
+    external: true
+  torrents:
+    external: true
+  usenet:
+    external: true
+  media-player:
+    external: true
+
+volumes:
+  data:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_DATA?}
+
+  sonarr_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/tv-collector/volumes/sonarr_config/

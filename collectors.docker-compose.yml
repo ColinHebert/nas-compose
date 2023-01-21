@@ -1,87 +1,6 @@
 name: Collectors
 
 services:
-  mylar:
-    image: linuxserver/mylar3
-    profiles: [ebooks]
-    environment:
-      PUID: ${NASCOMPOSE_UID?}
-      PGID: ${NASCOMPOSE_GID?}
-    networks:
-      - reverse-proxy
-    volumes:
-      - mylar_config:/config/
-      - data:/data
-    restart: unless-stopped
-    labels:
-      traefik.enable: true
-      traefik.http.routers.mylar.middlewares: authelia@file
-
-  lazylibrarian:
-    image: linuxserver/lazylibrarian
-    profiles: [ebooks]
-    environment:
-      PUID: ${NASCOMPOSE_UID?}
-      PGID: ${NASCOMPOSE_GID?}
-    networks:
-      - reverse-proxy
-    volumes:
-      - lazylibrarian_config:/config/
-      - data:/data
-    restart: unless-stopped
-    labels:
-      traefik.enable: true
-      traefik.http.routers.lazylibrarian.middlewares: authelia@file
-
-  sonarr:
-    image: linuxserver/sonarr
-    environment:
-      PUID: ${NASCOMPOSE_UID?}
-      PGID: ${NASCOMPOSE_GID?}
-    networks:
-      - reverse-proxy
-      - torrents
-      - usenet
-    volumes:
-      - sonarr_config:/config/
-      - data:/data
-    restart: unless-stopped
-    labels:
-      traefik.enable: true
-      traefik.http.routers.sonarr.middlewares: authelia@file
-
-  radarr:
-    image: linuxserver/radarr
-    environment:
-      PUID: ${NASCOMPOSE_UID?}
-      PGID: ${NASCOMPOSE_GID?}
-    networks:
-      - reverse-proxy
-      - torrents
-      - usenet
-    volumes:
-      - radarr_config:/config/
-      - data:/data
-    restart: unless-stopped
-    labels:
-      traefik.enable: true
-      traefik.http.routers.radarr.middlewares: authelia@file
-
-  bazarr:
-    image: linuxserver/bazarr
-    environment:
-      PUID: ${NASCOMPOSE_UID?}
-      PGID: ${NASCOMPOSE_GID?}
-    networks:
-      - reverse-proxy
-    volumes:
-      - bazarr_config:/config/
-      - data:/data
-    restart: unless-stopped
-    labels:
-      traefik.enable: true
-      traefik.http.routers.bazarr.middlewares: authelia@file
-
   ombi:
     image: linuxserver/ombi
     environment:
@@ -89,8 +8,9 @@ services:
       PGID: ${NASCOMPOSE_GID?}
     networks:
       - reverse-proxy
-      # TODO: connect directly to sonarr/radarr
       - media-player
+      - tv-collector
+      - movie-collector
     volumes:
       - ombi_config:/config/
     restart: unless-stopped
@@ -100,45 +20,14 @@ services:
 networks:
   reverse-proxy:
     external: true
-  torrents:
+  tv-collector:
     external: true
-  usenet:
+  movie-collector:
     external: true
   media-player:
     external: true
 
 volumes:
-  data:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DATA?}
-
-  mylar_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/volumes/mylar/config/
-  lazylibrarian_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/volumes/lazylibrarian/config/
-  sonarr_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/volumes/sonarr/config/
-  radarr_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/volumes/radarr/config/
-  bazarr_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/volumes/bazarr/config/
   ombi_config:
     driver_opts:
       type: none
