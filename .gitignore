@@ -1,5 +1,1 @@
 *.nas-compose.env
-*/secrets/*
-!*/secrets/.gitkeep
-*/volumes/*/*
-!*/volumes/*/.gitkeep

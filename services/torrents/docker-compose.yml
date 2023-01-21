@@ -49,8 +49,8 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/volumes/transmission/config/
+      device: ${NASCOMPOSE_SERVICES?}/torrents/volumes/transmission_config/
 
 secrets:
     transmission_vpn_creds:
-        file: ${NASCOMPOSE_SERVICES?}/secrets/transmission/vpn_creds
+        file: ${NASCOMPOSE_SERVICES?}/torrents/secrets/vpn_creds
