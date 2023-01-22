@@ -22,6 +22,23 @@ services:
       traefik.http.services.plex.loadbalancer.server.port: 32400
       traefik.http.services.plex.loadbalancer.server.scheme: https
 
+  audiobookshelf:
+    hostname: audiobookshelf
+    image: advplyr/audiobookshelf
+    environment:
+      AUDIOBOOKSHELF_UID: ${NASCOMPOSE_UID?}
+      AUDIOBOOKSHELF_GID: ${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy
+    volumes:
+      - audiobookshelf_config:/config/
+      - audiobookshelf_metadata:/metadata/
+      - audiobooks:/audiobooks/
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.audiobookshelf.middlewares: authelia@file
+
 networks:
   media-player:
     name: media-player
@@ -44,6 +61,12 @@ volumes:
       type: none
       o: bind
       device: ${NASCOMPOSE_DATA?}/media/tv/
+  audiobooks:
+    name: audiobooks
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_DATA?}/media/audiobooks/
 
   plex_transcode:
   plex_config:
