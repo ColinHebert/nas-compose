@@ -18,8 +18,8 @@ services:
       - reverse-proxy
       - usenet
     volumes:
-      - sabnzbd_config:/config
-      - usenet:/downloads
+      - sabnzbd_config:/config/
+      - usenet:/data/
     restart: unless-stopped
     labels:
       traefik.enable: true

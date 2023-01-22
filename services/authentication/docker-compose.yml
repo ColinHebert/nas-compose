@@ -20,7 +20,7 @@ services:
     networks:
       - reverse-proxy
     volumes:
-      - config:/config
+      - authelia_config:/config/
     configs:
       - source: authelia_configuration
         target: /etc/authelia/configuration.yml
@@ -41,7 +41,7 @@ networks:
     external: true
 
 volumes:
-  config:
+  authelia_config:
     driver_opts:
       type: none
       o: bind

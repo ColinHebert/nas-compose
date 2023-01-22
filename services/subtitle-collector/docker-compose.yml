@@ -13,7 +13,7 @@ services:
       - tv-collector
     volumes:
       - bazarr_config:/config/
-      - data:/data
+      - data:/data/media/ # TODO: Just mount TV/Movies?
     restart: unless-stopped
     labels:
       traefik.enable: true

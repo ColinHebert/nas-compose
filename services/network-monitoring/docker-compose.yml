@@ -10,8 +10,8 @@ services:
     networks:
       - reverse-proxy
     volumes:
-      - smokeping_data:/data/
       - smokeping_config:/config/
+      - smokeping_data:/data/
     restart: unless-stopped
     labels:
       traefik.enable: true

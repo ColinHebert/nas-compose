@@ -14,7 +14,7 @@ services:
       - usenet
     volumes:
       - lazylibrarian_config:/config/
-      - data:/data
+      - data:/data/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -33,7 +33,7 @@ services:
       - usenet
     volumes:
       - readarr_config:/config/
-      - data:/data
+      - data:/data/
     restart: unless-stopped
     labels:
       traefik.enable: true
