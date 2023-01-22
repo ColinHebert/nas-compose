@@ -74,3 +74,13 @@ volumes:
       type: none
       o: bind
       device: ${NASCOMPOSE_SERVICES?}/media-player/volumes/plex_config/
+  audiobookshelf_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/media-player/volumes/audiobookshelf_config/
+  audiobookshelf_metadata:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/media-player/volumes/audiobookshelf_metadata/
