@@ -13,7 +13,7 @@ services:
       - torrents
       - usenet
     volumes:
-      - readarr_config:/config/
+      - readarr-audiobook_config:/config/
       - data:/data/
     restart: unless-stopped
     labels:
@@ -32,7 +32,7 @@ services:
       - torrents
       - usenet
     volumes:
-      - readarr_config:/config/
+      - readarr-ebook_config:/config/
       - data:/data/
     restart: unless-stopped
     labels:
