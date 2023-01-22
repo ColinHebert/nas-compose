@@ -1,0 +1,61 @@
+name: Media-Player
+
+services:
+  calibre:
+    hostname: calibre
+    image: linuxserver/calibre
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy
+      - calibre
+    volumes:
+      - calibre_config:/config
+      - ebooks:/ebooks
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.services.calibre.loadbalancer.server.port: 8081
+      traefik.http.services.calibre-ui.loadbalancer.server.port: 8080
+
+  calibre-web:
+    hostname: calibre-web
+    image: linuxserver/calibre-web
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy
+      - calibre
+    volumes:
+      - calibre-web_config:/config
+      - ebooks:/ebooks
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+
+networks:
+  calibre:
+    name: calibre
+
+  reverse-proxy:
+    external: true
+
+volumes:
+  ebooks:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_DATA?}/media/ebooks/
+
+  calibre_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/ebook-viewer/volumes/calibre_config/
+  calibre-web_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/ebook-viewer/volumes/calibre-web_config/
