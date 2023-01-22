@@ -20,6 +20,25 @@ services:
       traefik.enable: true
       traefik.http.routers.lazylibrarian.middlewares: authelia@file
 
+  readarr:
+    hostname: readarr
+    image: linuxserver/readarr
+    profiles: [ebooks]
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy
+      - torrents
+      - usenet
+    volumes:
+      - readarr_config:/config/
+      - data:/data
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.readarr.middlewares: authelia@file
+
 networks:
   reverse-proxy:
     external: true
@@ -40,3 +59,8 @@ volumes:
       type: none
       o: bind
       device: ${NASCOMPOSE_SERVICES?}/book-collector/volumes/lazylibrarian_config/
+  readarr_config:
+    driver_opts:
+      type: none
+      o: bind
+      device: ${NASCOMPOSE_SERVICES?}/book-collector/volumes/readarr_config/
