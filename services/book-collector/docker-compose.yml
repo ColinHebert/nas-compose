@@ -22,7 +22,7 @@ services:
 
   readarr:
     hostname: readarr
-    image: linuxserver/readarr
+    image: linuxserver/readarr:develop # TODO: Move to a stable version
     profiles: [ebooks]
     environment:
       PUID: ${NASCOMPOSE_UID?}
