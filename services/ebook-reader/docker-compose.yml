@@ -1,4 +1,4 @@
-name: Media-Player
+name: eBook-Reader
 
 services:
   calibre:
@@ -53,9 +53,9 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/ebook-viewer/volumes/calibre_config/
+      device: ${NASCOMPOSE_SERVICES?}/ebook-reader/volumes/calibre_config/
   calibre-web_config:
     driver_opts:
       type: none
       o: bind
-      device: ${NASCOMPOSE_SERVICES?}/ebook-viewer/volumes/calibre-web_config/
+      device: ${NASCOMPOSE_SERVICES?}/ebook-reader/volumes/calibre-web_config/
