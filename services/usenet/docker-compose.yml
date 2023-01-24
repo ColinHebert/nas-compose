@@ -23,6 +23,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
+      traefik.http.routers.transmission.middlewares: authelia@file
 
 networks:
   usenet:
