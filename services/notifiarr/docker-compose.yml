@@ -7,7 +7,6 @@ services:
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
-      DN_UI_PASSWORD: webauth
       DN_MODE: ${NASCOMPOSE_NOTIFIARR_MODE?}
     networks:
       - reverse-proxy
