@@ -1,0 +1,9 @@
+http:
+  middlewares:
+    notifiarr-authelia:
+      plugin:
+        htransformation:
+          Rules:
+            - Type: Rename
+              Header: Remote-User
+              Value: X-WebAuth-User

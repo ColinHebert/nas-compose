@@ -34,8 +34,9 @@ access_control:
       policy: one_factor
       subject:
         - 'group:transmission-basic'
-    # Disable authentication on API protected by API keys
-    - domain_regex: '^(bazarr|prowlarr|radarr|sonarr)\.'
+    # Disable authentication on API protected by API keys.
+    # Note those are behind authelia, therefore external access to the API; internal access doesn't require a bypass
+    - domain_regex: '^(prowlarr|radarr|sonarr|notifiarr)\.'
       policy: bypass
       resources:
         - '^/api$'

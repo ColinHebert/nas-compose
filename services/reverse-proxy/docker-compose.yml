@@ -19,6 +19,8 @@ services:
         target: /etc/traefik/dynamic/tls.yml
       - source: traefik_hsts
         target: /etc/traefik/dynamic/hsts.yml
+      - source: traefik_htransformation
+        target: /etc/traefik/dynamic/htransformation.yml
 
       - source: traefik_authelia
         target: /etc/traefik/dynamic/authelia.yml
@@ -49,6 +51,8 @@ configs:
     file: ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/dynamic/tls.yml
   traefik_hsts:
     file: ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/dynamic/hsts.yml
+  traefik_htransformation:
+    file: ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/dynamic/htransformation.yml
   traefik_authelia:
     file: ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/dynamic/authelia.yml
   traefik_transmission-api:
