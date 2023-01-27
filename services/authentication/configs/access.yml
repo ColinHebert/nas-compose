@@ -40,7 +40,7 @@ access_control:
       policy: bypass
       resources:
         - '^/api$'
-        - '^/api/'
+        - '^/api(/|\?)'
     # Effective default policy, only allow admins with two-factor
     - domain_regex: '.*'
       policy: two_factor
