@@ -1,6 +1,6 @@
 volumes:
   plex_transcode:
-    driver: local
     driver_opts:
       type: tmpfs
+      o: o=
       device: tmpfs
