@@ -14,3 +14,7 @@ services:
       traefik.enable: true
       traefik.tcp.routers.endlessh.entryPoints: ssh
       traefik.tcp.services.endlessh.loadbalancer.server.port: 2222
+
+networks:
+  reverse-proxy:
+    external: true
