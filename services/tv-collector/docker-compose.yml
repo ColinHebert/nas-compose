@@ -3,7 +3,7 @@ name: TV collector
 services:
   sonarr:
     hostname: sonarr
-    image: linuxserver/sonarr
+    image: linuxserver/sonarr:develop # TODO: Move back to latest
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
