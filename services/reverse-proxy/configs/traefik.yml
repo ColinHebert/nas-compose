@@ -27,6 +27,8 @@ entryPoints:
       tls: {}
       middlewares:
         - hsts@file
+  ssh:
+    address: :22
 
 global:
   sendAnonymousUsage: false
