@@ -13,7 +13,7 @@ services:
     labels:
       traefik.enable: true
       traefik.tcp.routers.endlessh.entryPoints: ssh
-      traefik.tcp.routers.endlessh.service: endlessh
+      traefik.tcp.routers.endlessh.rule: HostSNI(`*`)
       traefik.tcp.services.endlessh.loadbalancer.server.port: 2222
 
 networks:
