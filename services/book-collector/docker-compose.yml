@@ -2,7 +2,7 @@ name: Book collector
 
 services:
   readarr-audiobook:
-    hostname: readaarr-audiobook
+    hostname: readarr-audiobook
     image: linuxserver/readarr:develop # TODO: Move to a stable version
     profiles: [ebooks]
     environment:
@@ -21,7 +21,7 @@ services:
       traefik.http.routers.readarr-audiobook.middlewares: authelia@file
 
   readarr-ebook:
-    hostname: raeadarr-ebook
+    hostname: readarr-ebook
     image: linuxserver/readarr:develop # TODO: Move to a stable version
     profiles: [ebooks]
     environment:
