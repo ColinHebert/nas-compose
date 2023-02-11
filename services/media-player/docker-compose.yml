@@ -10,6 +10,7 @@ services:
     networks:
       - reverse-proxy
       - media-player
+      - scrobbler
     volumes:
       - plex_transcode:/transcode/
       - plex_config:/config/
@@ -44,6 +45,8 @@ networks:
     name: media-player
 
   reverse-proxy:
+    external: true
+  scrobbler:
     external: true
 
 volumes:

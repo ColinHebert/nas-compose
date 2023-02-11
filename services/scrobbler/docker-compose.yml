@@ -1,6 +1,12 @@
 name: Scrobbler
 
 services:
+  # Always create the usenet network even if the usenet profile is disabled
+  dummy:
+    image: tianon/true
+    networks:
+      - scrobbler
+
   plaxt:
     hostname: plaxt
     image: xanderstrike/goplaxt
@@ -11,7 +17,7 @@ services:
       TRAKT_SECRET_FILE: /run/secrets/trakt_secret
     networks:
       - reverse-proxy
-      - media-player
+      - scrobbler
     volumes:
       - plaxt_keystore:/app/keystore/
     secrets:
@@ -23,9 +29,10 @@ services:
       traefik.http.routers.plaxt.middlewares: authelia@file
 
 networks:
+  scrobbler:
+    name: scrobbler
+
   reverse-proxy:
-    external: true
-  media-player:
     external: true
 
 volumes:
