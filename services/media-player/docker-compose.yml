@@ -23,9 +23,9 @@ services:
       traefik.http.services.plex.loadbalancer.server.scheme: https
 
   audiobookshelf:
-    profiles: [ebooks]
     hostname: audiobookshelf
     image: advplyr/audiobookshelf
+    profiles: [ebooks]
     environment:
       AUDIOBOOKSHELF_UID: ${NASCOMPOSE_UID?}
       AUDIOBOOKSHELF_GID: ${NASCOMPOSE_GID?}
