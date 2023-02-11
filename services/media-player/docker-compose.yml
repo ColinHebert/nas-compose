@@ -22,6 +22,7 @@ services:
       traefik.http.services.plex.loadbalancer.server.scheme: https
 
   audiobookshelf:
+    profiles: [ebooks]
     hostname: audiobookshelf
     image: advplyr/audiobookshelf
     environment:
