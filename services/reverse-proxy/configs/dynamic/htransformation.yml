@@ -1,5 +1,6 @@
 http:
   middlewares:
+    #TODO: Convert to inline configuration for notifiarr
     notifiarr-authelia:
       plugin:
         htransformation:

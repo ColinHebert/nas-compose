@@ -1,4 +1,7 @@
 http:
+  #TODO: Convert to inline configuration for traefik
+  # Allows internal services to use `http://traefik/` to use the traefik interface.
+  # Useful for tools like Heimdall which use the traefik API.
   routers:
     traefik-internal:
       rule: Host(`traefik`)

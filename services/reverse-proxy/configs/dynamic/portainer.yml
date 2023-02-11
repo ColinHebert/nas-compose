@@ -1,4 +1,5 @@
 http:
+  #TODO: Convert to inline configuration for portainer
   routers:
     portainer:
       rule: '{{ $s := "portainer" }}{{ range $i, $d := splitList "," (env `NASCOMPOSE_TRAEFIK_DOMAINS`) }}{{ if $i }} || {{end}}Host(`{{ $s }}.{{ $d }}`){{ end }}'
