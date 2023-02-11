@@ -11,7 +11,7 @@ services:
       TRAKT_SECRET_FILE: /run/secrets/trakt_secret
     networks:
       - reverse-proxy
-      - scrobbler
+      - media-player
     volumes:
       - plaxt_keystore:/app/keystore/
     secrets:
@@ -23,10 +23,9 @@ services:
       traefik.http.routers.plaxt.middlewares: authelia@file
 
 networks:
-  scrobbler:
-    name: scrobbler
-
   reverse-proxy:
+    external: true
+  media-player:
     external: true
 
 volumes:
