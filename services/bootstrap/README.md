@@ -1,9 +1,10 @@
 # Bootstrap
+Initial setup of the NAS ecosystem, allow services to be managed via docker.
 
-Set up a MacVLAN network
+## Pre-requisites
 
-As an example, with the following network setup:
-- interface to LAN: `bond0`
+When exposing ports via MacVLAN instances, set up a MacVLAN network. As an example, with the following network setup:
+- Interface to LAN: `bond0`
 - Complete LAN subnet: `192.168.0.0/23`
 - LAN gateway: `192.168.0.1`
 - DHCP range: `192.168.0.0/24` (excluding gateway)
@@ -18,13 +19,21 @@ ip link set macvlan0 up
 ip route add 192.168.1.0/24 dev macvlan0
 ```
 
-Run portainer once
+To run the boostrap stack, use a temporary portainer container:
 ```
 docker run --rm -p 9443:9443 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer-ce:latest
 ```
 
 ### Environment variables
 - `NASCOMPOSE_SERVICES`: Absolute path to the `services` folder
+
+When using MacVLAN:
+- `NASCOMPOSE_MACVLAN_IFACE`: Interface to use as MacVLAN bridge (`bond0`)
+- `NASCOMPOSE_MACVLAN_SUBNET`: Subnet used by the interface (`192.168.0.0/23`)
+- `NASCOMPOSE_MACVLAN_GATEWAY`: LAN gateway (`192.168.0.1`)
+- `NASCOMPOSE_MACVLAN_RANGE`: MacVLAN range (`192.168.1.0/24`)
+- `NASCOMPOSE_MACVLAN_HOST_IP`: MacVLAN host IP (`192.168.1.0`)
+- `NASCOMPOSE_MACVLAN_PORTAINER_IP`: IP adress reserved for portainer (`192.168.1.3`)
 
 ## Docker
 [`alpine/socat`](https://hub.docker.com/r/alpine/socat/) exposes the docker socket as a port.
@@ -38,27 +47,6 @@ docker run --rm -p 9443:9443 -v /var/run/docker.sock:/var/run/docker.sock portai
 ### 📒 Documentation
 - [socat](https://linux.die.net/man/1/socat) manual
 
-## Traefik
-[`traefik`](https://hub.docker.com/_/traefik) is a reverse proxy for docker services.
-
-### 🌐 Ports
-- `80 TCP`: HTTP access. Should always redirect to HTTPs
-- `443 TCP`: HTTPs access
-
-### 📂 Volumes
-- `traefik_dynamic_config`: Folder containing the dynamic configuration for `File` provider. See [traefik documentation](https://doc.traefik.io/traefik/providers/file/).
-
-### 📝 Configs
-- `traefik_config`: Static configuration from `File` provider. See [traefik documentation](https://doc.traefik.io/traefik/providers/file/).
-
-### 🔒 Secrets
-- `traefik_password`: Basic Auth username/password to access Traefik. Encoded using htpasswd (or [equivalent](https://hostingcanada.org/htpasswd-generator/)), use BCrypt at least.
-- `traefik_tls_cert`: Self-signed certificate for Traefik. Particularly useful in development to avoid generating new certificates on each restart.
-- `traefik_tls_key`: Self-signed private key for Traefik. Used with `traefik_tls_cert`.
-
-### 📒 Documentation
-- [Traefik](https://doc.traefik.io/) official documentation
-
 ## Portainer
 [`portainer/portainer-ce`](https://hub.docker.com/r/portainer/portainer-ce) is a docker instance manager.
 Useful to manage the stacks/docker-compose configuration for the NAS.
@@ -66,10 +54,10 @@ Useful to manage the stacks/docker-compose configuration for the NAS.
 Set up to use the port exposed via the `Docker` container. It displays information about all docker resources available on the host. \
 It excludes all resources with the tag `nas-compose.boostrap: true`.
 
-Each compose file (except the `bootstrap.docker-compose.yaml`) need to be added as a [stack](https://docs.portainer.io/user/docker/stacks/add), with the right environment variables set.
-
+Each service (except `bootstrap/docker-compose.yaml`) needs to be added as a [stack](https://docs.portainer.io/user/docker/stacks/add), with the right environment variables set.
 
 ### 🌐 Ports
+The instance is exposed either directly (when using `MacVLAN`), otherwise it is exposed from the host machine
 - `9443 TCP`: HTTPs (self-signed) access to the web interface
 
 ### 📂 Volumes
