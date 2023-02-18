@@ -12,8 +12,9 @@ services:
       - movie-collector
       - tv-collector
     volumes:
-      - bazarr_config:/config/
-      - data:/data/media/ # TODO: Just mount TV/Movies?
+      - ${NASCOMPOSE_SERVICES?}/subtitle-collector/volumes/bazarr_config/:/config/
+      - ${NASCOMPOSE_DATA?}/media/movies/:/data/media/movies/
+      - ${NASCOMPOSE_DATA?}/media/tv/:/data/media/tv/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -26,17 +27,3 @@ networks:
     external: true
   tv-collector:
     external: true
-
-volumes:
-  data:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DATA?}
-
-  bazarr_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/subtitle-collector/volumes/bazarr_config/
-  
