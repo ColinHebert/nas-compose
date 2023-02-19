@@ -44,7 +44,7 @@ access_control:
     - domain_regex: '^prowlarr\.'
       policy: bypass
       resources:
-        - '^/\d+/api\?' # Allow Torznab/Newznab access
+        - '^/[0-9]+/api\?' # Allow Torznab/Newznab access
     # Effective default policy, only allow admins with two-factor
     - domain_regex: '.*'
       policy: two_factor
