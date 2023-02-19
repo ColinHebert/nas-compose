@@ -20,7 +20,7 @@ services:
     networks:
       - reverse-proxy
     volumes:
-      - authelia_config:/config/
+      - ${NASCOMPOSE_SERVICES?}/authentication/volumes/authelia_config/:/config/
     configs:
       - source: authelia_configuration
         target: /etc/authelia/configuration.yml
@@ -39,13 +39,6 @@ services:
 networks:
   reverse-proxy:
     external: true
-
-volumes:
-  authelia_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/authentication/volumes/authelia_config/
 
 configs:
   authelia_configuration:
