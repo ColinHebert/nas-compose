@@ -24,7 +24,7 @@ services:
     networks:
       - docker
     volumes:
-      - portainer_data:/data/
+      - ${NASCOMPOSE_SERVICES?}/bootstrap/volumes/portainer_data/:/data/
     secrets:
       - portainer_password
     depends_on:
@@ -36,15 +36,6 @@ services:
 networks:
   docker:
     name: docker
-    labels:
-      nas-compose.boostrap: true
-
-volumes:
-  portainer_data:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/bootstrap/volumes/portainer_data/
     labels:
       nas-compose.boostrap: true
 

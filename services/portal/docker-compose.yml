@@ -10,7 +10,7 @@ services:
     networks:
       - reverse-proxy
     volumes:
-      - heimdall_config:/config/
+      - ${NASCOMPOSE_SERVICES?}/portal/volumes/heimdall_config/:/config/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -19,10 +19,3 @@ services:
 networks:
   reverse-proxy:
     external: true
-
-volumes:
- heimdall_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/portal/volumes/heimdall_config/

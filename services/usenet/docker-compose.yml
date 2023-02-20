@@ -18,8 +18,8 @@ services:
       - reverse-proxy
       - usenet
     volumes:
-      - sabnzbd_config:/config/
-      - usenet:/data/
+      - ${NASCOMPOSE_SERVICES?}/usenet/volumes/sabnzbd_config/:/config/
+      - ${NASCOMPOSE_DATA?}/usenet/:/data/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -31,16 +31,3 @@ networks:
 
   reverse-proxy:
     external: true
-
-volumes:
-  usenet:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DATA?}/usenet/
-
-  sabnzbd_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/usenet/volumes/sabnzbd_config/

@@ -19,7 +19,7 @@ services:
       - reverse-proxy
       - scrobbler
     volumes:
-      - plaxt_keystore:/app/keystore/
+      - ${NASCOMPOSE_SERVICES?}/scrobbler/volumes/plaxt_keystore/:/app/keystore/
     secrets:
       - trakt_id
       - trakt_secret
@@ -34,13 +34,6 @@ networks:
 
   reverse-proxy:
     external: true
-
-volumes:
-  plaxt_keystore:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/scrobbler/volumes/plaxt_keystore/
 
 secrets:
   trakt_id:

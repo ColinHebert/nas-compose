@@ -10,8 +10,8 @@ services:
     networks:
       - reverse-proxy
     volumes:
-      - smokeping_config:/config/
-      - smokeping_data:/data/
+      - ${NASCOMPOSE_SERVICES?}/network-monitoring/volumes/smokeping_config/:/config/
+      - ${NASCOMPOSE_SERVICES?}/network-monitoring/volumes/smokeping_data/:/data/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -20,15 +20,3 @@ services:
 networks:
   reverse-proxy:
     external: true
-
-volumes:
-  smokeping_data:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/network-monitoring/volumes/smokeping_data/
-  smokeping_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/network-monitoring/volumes/smokeping_config/

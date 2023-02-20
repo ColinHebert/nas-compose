@@ -18,7 +18,7 @@ services:
       - 1.1.1.1
       - 1.0.0.1
     volumes:
-      - prowlarr_config:/config/
+      - ${NASCOMPOSE_SERVICES?}/indexer/volumes/prowlarr_config/:/config/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -39,10 +39,3 @@ networks:
     external: true
   usenet:
     external: true
-
-volumes:
-  prowlarr_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/indexer/volumes/prowlarr_config/

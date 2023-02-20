@@ -13,7 +13,7 @@ services:
       - tv-collector
       - movie-collector
     volumes:
-      - ombi_config:/config/
+      - ${NASCOMPOSE_SERVICES?}/media-requester/volumes/ombi_config/:/config/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -27,10 +27,3 @@ networks:
     external: true
   media-player:
     external: true
-
-volumes:
-  ombi_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/media-requester/volumes/ombi_config/

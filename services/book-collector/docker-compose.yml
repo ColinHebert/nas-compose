@@ -13,8 +13,8 @@ services:
       - torrents
       - usenet
     volumes:
-      - readarr-audiobook_config:/config/
-      - data:/data/
+      - ${NASCOMPOSE_SERVICES?}/book-collector/volumes/readarr-audiobook_config/:/config/
+      - ${NASCOMPOSE_DATA?}/:/data/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -32,8 +32,8 @@ services:
       - torrents
       - usenet
     volumes:
-      - readarr-ebook_config:/config/
-      - data:/data/
+      - ${NASCOMPOSE_SERVICES?}/book-collector/volumes/readarr-ebook_config/:/config/
+      - ${NASCOMPOSE_DATA?}/:/data/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -46,21 +46,3 @@ networks:
     external: true
   usenet:
     external: true
-
-volumes:
-  data:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DATA?}
-
-  readarr-audiobook_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/book-collector/volumes/readarr-audiobook_config/
-  readarr-ebook_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/book-collector/volumes/readarr-ebook_config/

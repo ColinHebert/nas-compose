@@ -11,8 +11,8 @@ services:
       - reverse-proxy
       - calibre
     volumes:
-      - calibre_config:/config
-      - ebooks:/ebooks
+      - ${NASCOMPOSE_SERVICES?}/ebook-reader/volumes/calibre_config/:/config/
+      - ${NASCOMPOSE_DATA?}/media/ebooks/:/ebooks/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -29,8 +29,8 @@ services:
       - reverse-proxy
       - calibre
     volumes:
-      - calibre-web_config:/config
-      - ebooks:/ebooks
+      - ${NASCOMPOSE_SERVICES?}/ebook-reader/volumes/calibre-web_config/:/config/
+      - ${NASCOMPOSE_DATA?}/media/ebooks/:/ebooks/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -41,21 +41,3 @@ networks:
 
   reverse-proxy:
     external: true
-
-volumes:
-  ebooks:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DATA?}/media/ebooks/
-
-  calibre_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/ebook-reader/volumes/calibre_config/
-  calibre-web_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/ebook-reader/volumes/calibre-web_config/

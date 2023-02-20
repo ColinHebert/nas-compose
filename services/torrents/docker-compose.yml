@@ -21,8 +21,8 @@ services:
       - 1.1.1.1
       - 1.0.0.1
     volumes:
-      - transmission_config:/config/
-      - torrents:/data/
+      - ${NASCOMPOSE_SERVICES?}/torrents/volumes/transmission_config/:/config/
+      - ${NASCOMPOSE_DATA?}/torrents/:/data/
     secrets:
       - source: transmission_vpn_creds
         target: openvpn_creds
@@ -38,19 +38,6 @@ networks:
 
   reverse-proxy:
     external: true
-
-volumes:
-  torrents:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DATA?}/torrents/
-
-  transmission_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/torrents/volumes/transmission_config/
 
 secrets:
     transmission_vpn_creds:

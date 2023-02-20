@@ -20,7 +20,7 @@ services:
     networks:
       - reverse-proxy
     volumes:
-      - youtube-dl:/downloads
+      - ${NASCOMPOSE_DATA?}/ytdl/:/downloads/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -29,10 +29,3 @@ services:
 networks:
   reverse-proxy:
     external: true
-
-volumes:
-  youtube-dl:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DATA?}/youtube-dl/

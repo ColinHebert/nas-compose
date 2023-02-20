@@ -13,9 +13,9 @@ services:
       - scrobbler
     volumes:
       - plex_transcode:/transcode/
-      - plex_config:/config/
-      - tv:/data/tv/
-      - movies:/data/movies/
+      - ${NASCOMPOSE_SERVICES?}/media-player/volumes/plex_config/:/config/
+      - ${NASCOMPOSE_DATA?}/media/tv/:/data/tv/:ro
+      - ${NASCOMPOSE_DATA?}/media/movies/:/data/movies/:ro
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -32,9 +32,9 @@ services:
     networks:
       - reverse-proxy
     volumes:
-      - audiobookshelf_config:/config/
-      - audiobookshelf_metadata:/metadata/
-      - audiobooks:/audiobooks/
+      - ${NASCOMPOSE_SERVICES?}/media-player/volumes/audiobookshelf_config/:/config/
+      - ${NASCOMPOSE_SERVICES?}/media-player/volumes/audiobookshelf_metadata/:/metadata/
+      - ${NASCOMPOSE_DATA?}/media/audiobooks/:/audiobooks/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -50,38 +50,4 @@ networks:
     external: true
 
 volumes:
-  movies:
-    name: movies
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DATA?}/media/movies/
-  tv:
-    name: tv
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DATA?}/media/tv/
-  audiobooks:
-    name: audiobooks
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DATA?}/media/audiobooks/
-
   plex_transcode:
-  plex_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/media-player/volumes/plex_config/
-  audiobookshelf_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/media-player/volumes/audiobookshelf_config/
-  audiobookshelf_metadata:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/media-player/volumes/audiobookshelf_metadata/

@@ -13,8 +13,8 @@ services:
       - torrents
       - usenet
     volumes:
-      - sonarr_config:/config/
-      - data:/data/
+      - ${NASCOMPOSE_SERVICES?}/tv-collector/volumes/sonarr_config/:/config/
+      - ${NASCOMPOSE_DATA?}/:/data/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -32,16 +32,3 @@ networks:
     external: true
   media-player:
     external: true
-
-volumes:
-  data:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DATA?}
-
-  sonarr_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/tv-collector/volumes/sonarr_config/

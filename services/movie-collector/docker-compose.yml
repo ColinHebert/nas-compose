@@ -13,8 +13,8 @@ services:
       - torrents
       - usenet
     volumes:
-      - radarr_config:/config/
-      - data:/data/
+      - ${NASCOMPOSE_SERVICES?}/movie-collector/volumes/radarr_config/:/config/
+      - ${NASCOMPOSE_DATA?}/:/data/
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -30,16 +30,3 @@ networks:
     external: true
   usenet:
     external: true
-
-volumes:
-  data:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_DATA?}
-
-  radarr_config:
-    driver_opts:
-      type: none
-      o: bind
-      device: ${NASCOMPOSE_SERVICES?}/movie-collector/volumes/radarr_config/
