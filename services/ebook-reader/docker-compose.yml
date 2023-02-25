@@ -16,8 +16,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.services.calibre.loadbalancer.server.port: 8081
-      traefik.http.services.calibre-ui.loadbalancer.server.port: 8080
+      traefik.http.services.calibre.loadbalancer.server.port: 8080
 
   calibre-web:
     hostname: calibre-web
