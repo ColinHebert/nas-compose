@@ -17,6 +17,7 @@ services:
     labels:
       traefik.enable: true
       traefik.http.services.calibre.loadbalancer.server.port: 8080
+      traefik.http.routers.calibre.middlewares: authelia@file
 
   calibre-web:
     hostname: calibre-web
@@ -33,6 +34,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
+      traefik.http.routers.calibre-web.middlewares: authelia@file
 
 networks:
   calibre:
