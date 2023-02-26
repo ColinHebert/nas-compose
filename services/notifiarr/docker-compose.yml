@@ -15,7 +15,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.notifiarr.middlewares: authelia@file, notifiarr-authelia@file
+      traefik.http.routers.notifiarr.middlewares: authelia@file
 
 networks:
   reverse-proxy:

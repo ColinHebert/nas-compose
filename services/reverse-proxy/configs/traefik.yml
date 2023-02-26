@@ -32,9 +32,3 @@ entryPoints:
 
 global:
   sendAnonymousUsage: false
-
-experimental:
-  plugins:
-    htransformation:
-      moduleName: github.com/tomMoulard/htransformation
-      version: v0.2.7
