@@ -36,7 +36,7 @@ access_control:
         - 'group:transmission-basic'
     # Disable authentication on API protected by API keys.
     # Note those are behind authelia, therefore external access to the API; internal access doesn't require a bypass
-    - domain_regex: '^(sabnzbd|prowlarr|radarr|sonarr|notifiarr|readarr-audiobook|readarr-ebook)\.'
+    - domain_regex: '^(sabnzbd|prowlarr|radarr|sonarr|bazarr|notifiarr|readarr-audiobook|readarr-ebook)\.'
       policy: bypass
       resources:
         - '^/api$'
