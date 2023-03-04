@@ -47,6 +47,8 @@ services:
     networks:
       - reverse-proxy
       - torrents
+    devices:
+      - /dev/net/tun:/dev/net/tun
     dns:
       # Work around DNS blocks in various regions
       - 1.1.1.1
