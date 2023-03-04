@@ -39,20 +39,15 @@ services:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
       VPN_ENABLED: true
-      VPN_LAN_NETWORK: 192.168.0.0/16
+      VPN_LAN_NETWORK: 192.168.0.0/23
     cap_add:
       - NET_ADMIN
     sysctls:
       net.ipv4.conf.all.src_valid_mark: 1
     networks:
       - reverse-proxy
-      - torrents
     devices:
       - /dev/net/tun:/dev/net/tun
-    dns:
-      # Work around DNS blocks in various regions
-      - 1.1.1.1
-      - 1.0.0.1
     volumes:
       - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbittorrent_config/:/config/
       - ${NASCOMPOSE_DATA?}/torrents/:/data/
