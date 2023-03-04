@@ -39,7 +39,6 @@ services:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
       VPN_ENABLED: true
-      VPN_LAN_NETWORK: 192.168.0.0/23
     cap_add:
       - NET_ADMIN
     sysctls:
@@ -58,26 +57,6 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.qbittorrent.middlewares: authelia@file
-
-  wireguard:
-    hostname: wireguard
-    image: linuxserver/wireguard
-    environment:
-      PUID: ${NASCOMPOSE_UID?}
-      PGID: ${NASCOMPOSE_GID?}
-    cap_add:
-      - NET_ADMIN
-    sysctls:
-      net.ipv4.conf.all.src_valid_mark: 1
-    networks:
-      - reverse-proxy
-    configs:
-      - source: qbittorrent_vpn_settings
-        target: /config/wg0.conf
-    restart: unless-stopped
-    labels:
-      traefik.enable: true
-      traefik.http.routers.wireguard.middlewares: authelia@file
 
 networks:
   torrents:
