@@ -42,6 +42,8 @@ services:
       VPN_LAN_NETWORK: 192.168.0.0/16
     cap_add:
       - NET_ADMIN
+    sysctls:
+      net.ipv4.conf.all.src_valid_mark: 1
     networks:
       - reverse-proxy
       - torrents
