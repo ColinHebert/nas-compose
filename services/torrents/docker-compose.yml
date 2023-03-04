@@ -40,7 +40,6 @@ services:
       PGID: ${NASCOMPOSE_GID?}
       VPN_ENABLED: true
       VPN_LAN_NETWORK: 192.168.0.0/16
-      VPN_CONF: wg0
     cap_add:
       - NET_ADMIN
     networks:
@@ -53,9 +52,9 @@ services:
     volumes:
       - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbittorrent_config/:/config/
       - ${NASCOMPOSE_DATA?}/torrents/:/data/
-    secrets:
-      - source: transmission_vpn_creds
-        target: openvpn_creds
+    configs:
+      - source: qbittorrent_vpn_settings
+        target: /config/wireguard/wg0.conf
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -68,6 +67,10 @@ networks:
   reverse-proxy:
     external: true
 
+configs:
+  qbittorrent_vpn_settings:
+    file: ${NASCOMPOSE_SERVICES?}/torrents/secrets/wg0.conf
+
 secrets:
-    transmission_vpn_creds:
-        file: ${NASCOMPOSE_SERVICES?}/torrents/secrets/vpn_creds
+  transmission_vpn_creds:
+      file: ${NASCOMPOSE_SERVICES?}/torrents/secrets/vpn_creds
