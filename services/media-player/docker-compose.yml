@@ -22,6 +22,22 @@ services:
       traefik.http.services.plex.loadbalancer.server.port: 32400
       traefik.http.services.plex.loadbalancer.server.scheme: https
 
+  tautulli:
+    hostname: tautulli
+    image: tautulli/tautulli
+    environment:
+      PLEX_UID: ${NASCOMPOSE_UID?}
+      PLEX_GID: ${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy
+      - media-player
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/media-player/volumes/tautulli_config/:/config/
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.tautulli.middlewares: authelia@file
+
   audiobookshelf:
     hostname: audiobookshelf
     image: advplyr/audiobookshelf
