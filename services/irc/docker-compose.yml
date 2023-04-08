@@ -1,0 +1,21 @@
+name: IRC
+
+services:
+  thelounge:
+    hostname: thelounge
+    image: lscr.io/linuxserver/thelounge
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/irc/volumes/thelounge_config/:/config/
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.qbittorrent.middlewares: authelia@file
+
+networks:
+  reverse-proxy:
+    external: true
