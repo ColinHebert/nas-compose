@@ -14,7 +14,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.qbittorrent.middlewares: authelia@file
+      traefik.http.routers.thelounge.middlewares: authelia@file
 
 networks:
   reverse-proxy:
