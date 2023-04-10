@@ -15,7 +15,6 @@ services:
       net.ipv4.conf.all.src_valid_mark: 1
     networks:
       - reverse-proxy
-      - torrents
     devices:
       - /dev/net/tun:/dev/net/tun
     volumes:
@@ -38,6 +37,7 @@ services:
     networks:
       - torrents
       - indexer
+      - reverse-proxy
     volumes:
         - ${NASCOMPOSE_SERVICES?}/torrents/volumes/cross-seed_config/:/config
         - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbittorrent_config/data/BT_backup/:/torrents:ro
@@ -49,6 +49,7 @@ services:
     image: bobokun/qbit_manage
     networks:
       - torrents
+      - reverse-proxy
     volumes:
       - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbitmanage_config/:/config
       - ${NASCOMPOSE_DATA?}/torrents/:/data/
