@@ -8,6 +8,7 @@ services:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
       VPN_ENABLED: true
+      VPN_LAN_NETWORK: 192.168.0.0/23
     cap_add:
       - NET_ADMIN
     sysctls:
