@@ -1,37 +1,6 @@
 name: Torrents
 
 services:
-  transmission:
-    hostname: transmission
-    image: haugene/transmission-openvpn
-    environment:
-      PUID: ${NASCOMPOSE_UID?}
-      PGID: ${NASCOMPOSE_GID?}
-      OPENVPN_PROVIDER: ${NASCOMPOSE_TRANSMISSION_VPNPROVIDER?}
-      OPENVPN_CONFIG: ${NASCOMPOSE_TRANSMISSION_VPNREGION?}
-      OPENVPN_OPTS: --inactive 3600 --ping 10 --ping-exit 60
-      LOCAL_NETWORK: 192.168.0.0/16
-    cap_add:
-      - NET_ADMIN
-    networks:
-      - reverse-proxy
-      - torrents
-    dns:
-      # Work around DNS blocks in various regions
-      - 1.1.1.1
-      - 1.0.0.1
-    volumes:
-      - ${NASCOMPOSE_SERVICES?}/torrents/volumes/transmission_config/:/config/
-      - ${NASCOMPOSE_DATA?}/torrents/:/data/
-    secrets:
-      - source: transmission_vpn_creds
-        target: openvpn_creds
-    restart: unless-stopped
-    labels:
-      traefik.enable: true
-      traefik.http.services.transmission.loadbalancer.server.port: 9091
-      traefik.http.routers.transmission.middlewares: authelia@file
-
   qbittorrent:
     hostname: qbittorrent
     image: hotio/qbittorrent
@@ -45,18 +14,52 @@ services:
       net.ipv4.conf.all.src_valid_mark: 1
     networks:
       - reverse-proxy
+      - torrents
     devices:
       - /dev/net/tun:/dev/net/tun
     volumes:
       - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbittorrent_config/:/config/
       - ${NASCOMPOSE_DATA?}/torrents/:/data/
+      - ${NASCOMPOSE_SERVICES?}/torrents/secrets/wg0.conf:/config/wireguard/wg0.conf:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents/config/set_port.sh:/bin/set_port.sh:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents/config/97-gateway-setup:/etc/cont-init.d/97-gateway-setup:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents/config/98-natpmp-install:/etc/cont-init.d/98-natpmp-install:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents/config/99-cron-start:/etc/cont-init.d/99-cron-start:ro
     configs:
       - source: qbittorrent_vpn_settings
         target: /config/wireguard/wg0.conf
+      - source: qbittorrent_
+        target: /.conf
+      - source: qbittorrent_
+        target: /.conf
+      - source: qbittorrent_
+        target: /.conf
     restart: unless-stopped
     labels:
       traefik.enable: true
       traefik.http.routers.qbittorrent.middlewares: authelia@file
+
+  cross-seed:
+    hostname: cross-seed
+    image: crossseed/cross-seed
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    networks:
+      - torrents
+      - indexer
+    volumes:
+        - ${NASCOMPOSE_SERVICES?}/torrents/volumes/cross-seed_config/:/config
+        - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbittorrent_config/data/BT_backup/:/torrents:ro
+    command: daemon
+    restart: unless-stopped
+
+  qbit-manage:
+    hostname: qbit-manage
+    image: bobokun/qbit_manage
+    networks:
+      - torrents
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbit-manage_config/:/config
+      - ${NASCOMPOSE_DATA?}/torrents/:/data/
 
 networks:
   torrents:
@@ -64,11 +67,3 @@ networks:
 
   reverse-proxy:
     external: true
-
-configs:
-  qbittorrent_vpn_settings:
-    file: ${NASCOMPOSE_SERVICES?}/torrents/secrets/wg0.conf
-
-secrets:
-  transmission_vpn_creds:
-      file: ${NASCOMPOSE_SERVICES?}/torrents/secrets/vpn_creds

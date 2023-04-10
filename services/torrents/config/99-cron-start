@@ -1,0 +1,4 @@
+#!/command/with-contenv bash
+
+chmod +x /bin/set_port.sh
+(crontab -l ; echo "* * * * * /bin/set_port.sh") | sort - | uniq - | crontab -

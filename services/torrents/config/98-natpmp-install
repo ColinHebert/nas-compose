@@ -1,0 +1,4 @@
+#!/command/with-contenv bash
+
+apk add -u git
+git clone https://github.com/yimingliu/py-natpmp.git
