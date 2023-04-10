@@ -44,12 +44,12 @@ services:
     restart: unless-stopped
 
   qbit-manage:
-    hostname: qbit-manage
+    hostname: qbitmanage
     image: bobokun/qbit_manage
     networks:
       - torrents
     volumes:
-      - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbit-manage_config/:/config
+      - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbitmanage_config/:/config
       - ${NASCOMPOSE_DATA?}/torrents/:/data/
 
 networks:
