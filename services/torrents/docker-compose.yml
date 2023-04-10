@@ -23,8 +23,8 @@ services:
       - ${NASCOMPOSE_DATA?}/torrents/:/data/
       - ${NASCOMPOSE_SERVICES?}/torrents/secrets/wg0.conf:/config/wireguard/wg0.conf:ro
       - ${NASCOMPOSE_SERVICES?}/torrents/config/set_port.sh:/bin/set_port.sh:ro
-      - ${NASCOMPOSE_SERVICES?}/torrents/config/97-gateway-setup:/etc/cont-init.d/97-gateway-setup:ro
-      - ${NASCOMPOSE_SERVICES?}/torrents/config/98-natpmp-install:/etc/cont-init.d/98-natpmp-install:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents/config/01-natpmp-install:/etc/cont-init.d/01-natpmp-install:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents/config/98-gateway-setup:/etc/cont-init.d/98-gateway-setup:ro
       - ${NASCOMPOSE_SERVICES?}/torrents/config/99-cron-start:/etc/cont-init.d/99-cron-start:ro
     restart: unless-stopped
     labels:
