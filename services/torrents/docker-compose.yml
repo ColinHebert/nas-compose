@@ -67,3 +67,5 @@ networks:
 
   reverse-proxy:
     external: true
+  indexer:
+    external: true
