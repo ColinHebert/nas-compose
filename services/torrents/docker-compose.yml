@@ -43,7 +43,7 @@ services:
     command: daemon
     restart: unless-stopped
 
-  qbit-manage:
+  qbitmanage:
     hostname: qbitmanage
     image: bobokun/qbit_manage
     networks:
