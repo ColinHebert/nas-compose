@@ -25,15 +25,6 @@ services:
       - ${NASCOMPOSE_SERVICES?}/torrents/config/97-gateway-setup:/etc/cont-init.d/97-gateway-setup:ro
       - ${NASCOMPOSE_SERVICES?}/torrents/config/98-natpmp-install:/etc/cont-init.d/98-natpmp-install:ro
       - ${NASCOMPOSE_SERVICES?}/torrents/config/99-cron-start:/etc/cont-init.d/99-cron-start:ro
-    configs:
-      - source: qbittorrent_vpn_settings
-        target: /config/wireguard/wg0.conf
-      - source: qbittorrent_
-        target: /.conf
-      - source: qbittorrent_
-        target: /.conf
-      - source: qbittorrent_
-        target: /.conf
     restart: unless-stopped
     labels:
       traefik.enable: true
