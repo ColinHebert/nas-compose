@@ -9,4 +9,4 @@ gateway=$(ip -o -4 route show to default | awk '{print $3}')
 echo "Gateway: ${gateway}"
 
 echo "Adding route to Wireguard Server via Default Gateway"
-ip -4 route add ${wgserver%:*} via ${gateway} dev eth0
+ip route add ${wgserver%:*}/32 via ${gateway} dev eth0

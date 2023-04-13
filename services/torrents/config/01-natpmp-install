@@ -4,4 +4,4 @@ echo "Installing Git..."
 apk add -u git
 
 echo "Installing py-natpmp"
-git clone https://github.com/yimingliu/py-natpmp.git
+git clone https://github.com/yimingliu/py-natpmp.git /py-natpmp
