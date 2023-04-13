@@ -39,8 +39,8 @@ services:
       - indexer
       - reverse-proxy
     volumes:
-        - ${NASCOMPOSE_SERVICES?}/torrents/volumes/cross-seed_config/:/config
-        - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbittorrent_config/data/BT_backup/:/torrents:ro
+        - ${NASCOMPOSE_SERVICES?}/torrents/volumes/cross-seed_config/:/config/
+        - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
     command: daemon
     restart: unless-stopped
 
@@ -51,8 +51,9 @@ services:
       - torrents
       - reverse-proxy
     volumes:
-      - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbitmanage_config/:/config
+      - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbitmanage_config/:/config/
       - ${NASCOMPOSE_DATA?}/torrents/:/data/
+      - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
 
 networks:
   torrents:
