@@ -41,6 +41,7 @@ services:
     volumes:
         - ${NASCOMPOSE_SERVICES?}/torrents/volumes/cross-seed_config/:/config/
         - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
+        - ${NASCOMPOSE_DATA?}/torrents/watch/:/cross-seeds/
     command: daemon
     restart: unless-stopped
 
