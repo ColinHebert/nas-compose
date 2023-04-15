@@ -3,7 +3,7 @@ name: Indexer
 services:
   prowlarr:
     hostname: prowlarr
-    image: linuxserver/prowlarr
+    image: lscr.io/linuxserver/prowlarr
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}

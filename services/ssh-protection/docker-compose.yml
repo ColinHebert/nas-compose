@@ -3,7 +3,7 @@ name: SSH Protection
 services:
   endlessh:
     hostname: endlessh
-    image: linuxserver/endlessh
+    image: lscr.io/linuxserver/endlessh
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}

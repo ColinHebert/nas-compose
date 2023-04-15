@@ -3,7 +3,7 @@ name: Media requester
 services:
   ombi:
     hostname: ombi
-    image: linuxserver/ombi
+    image: lscr.io/linuxserver/ombi
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}

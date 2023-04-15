@@ -3,7 +3,7 @@ name: Book collector
 services:
   readarr-audiobook:
     hostname: readarr-audiobook
-    image: linuxserver/readarr:develop # TODO: Move to a stable version
+    image: lscr.io/linuxserver/readarr:develop # TODO: Move to a stable version
     profiles: [ebooks]
     environment:
       PUID: ${NASCOMPOSE_UID?}
@@ -22,7 +22,7 @@ services:
 
   readarr-ebook:
     hostname: readarr-ebook
-    image: linuxserver/readarr:develop # TODO: Move to a stable version
+    image: lscr.io/linuxserver/readarr:develop # TODO: Move to a stable version
     profiles: [ebooks]
     environment:
       PUID: ${NASCOMPOSE_UID?}

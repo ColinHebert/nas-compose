@@ -49,7 +49,10 @@ services:
 
   qbitmanage:
     hostname: qbitmanage
-    image: bobokun/qbit_manage
+    image: hotio/qbitmanage
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
     networks:
       - torrents
       - reverse-proxy

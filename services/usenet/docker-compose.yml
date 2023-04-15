@@ -9,7 +9,7 @@ services:
 
   sabnzbd:
     hostname: sabnzbd
-    image: linuxserver/sabnzbd
+    image: lscr.io/linuxserver/sabnzbd
     profiles: [usenet]
     environment:
       PUID: ${NASCOMPOSE_UID?}

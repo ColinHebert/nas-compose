@@ -3,7 +3,7 @@ name: Comic collector
 services:
   mylar:
     hostname: mylar
-    image: linuxserver/mylar3
+    image: lscr.io/linuxserver/mylar3
     profiles: [ebooks]
     environment:
       PUID: ${NASCOMPOSE_UID?}

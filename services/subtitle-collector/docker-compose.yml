@@ -3,7 +3,7 @@ name: Subtitle collector
 services:
   bazarr:
     hostname: bazarr
-    image: linuxserver/bazarr
+    image: lscr.io/linuxserver/bazarr
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}

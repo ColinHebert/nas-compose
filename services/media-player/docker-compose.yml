@@ -24,7 +24,7 @@ services:
 
   tautulli:
     hostname: tautulli
-    image: tautulli/tautulli
+    image: lscr.io/linuxserver/tautulli
     environment:
       PLEX_UID: ${NASCOMPOSE_UID?}
       PLEX_GID: ${NASCOMPOSE_GID?}

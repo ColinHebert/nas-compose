@@ -3,7 +3,7 @@ name: eBook-Reader
 services:
   calibre:
     hostname: calibre
-    image: linuxserver/calibre
+    image: lscr.io/linuxserver/calibre
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
@@ -21,7 +21,7 @@ services:
 
   calibre-web:
     hostname: calibre-web
-    image: linuxserver/calibre-web
+    image: lscr.io/linuxserver/calibre-web
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}

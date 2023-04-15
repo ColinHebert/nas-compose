@@ -3,7 +3,7 @@ name: Portal
 services:
   heimdall:
     hostname: heimdall
-    image: linuxserver/heimdall
+    image: lscr.io/linuxserver/heimdall
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}

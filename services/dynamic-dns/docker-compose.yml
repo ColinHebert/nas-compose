@@ -3,7 +3,7 @@ name: Dynamic DNS
 services:
   duckdns:
     hostname: duckdns
-    image: linuxserver/duckdns
+    image: lscr.io/linuxserver/duckdns
     environment:
       - SUBDOMAINS=${NASCOMPOSE_DUCKDNS_DOMAIN?}
       - FILE__TOKEN=/run/secrets/duckdns_token

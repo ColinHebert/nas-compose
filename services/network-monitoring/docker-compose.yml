@@ -3,7 +3,7 @@ name: Network monitoring
 services:
   smokeping:
     hostname: smokeping
-    image: linuxserver/smokeping
+    image: lscr.io/linuxserver/smokeping
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
