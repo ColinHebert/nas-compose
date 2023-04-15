@@ -6,18 +6,7 @@ services:
     networks:
       macvlan:
         ipv4_address: ${NASCOMPOSE_MACVLAN_TRAEFIK_IP?}
-    configs:
-      - source: traefik_synology
-        target: /etc/traefik/dynamic/synology.yml
-      - source: traefik_portainer
-        target: /etc/traefik/dynamic/portainer.yml
 
 networks:
   macvlan:
     external: true
-
-configs:
-  traefik_synology:
-    file: ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/dynamic/synology.yml
-  traefik_portainer:
-    file: ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/dynamic/portainer.yml

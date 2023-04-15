@@ -26,8 +26,8 @@ services:
     volumes:
       - /var/packages/Docker/var/docker/volumes/:/var/lib/docker/volumes/
       - ${NASCOMPOSE_SERVICES?}/bootstrap/volumes/portainer_data/:/data/
-    secrets:
-      - portainer_password
+      # Secrets
+      - ${NASCOMPOSE_SERVICES?}/bootstrap/secrets/portainer_password:/run/secrets/portainer_password:ro
     depends_on:
       - docker
     restart: unless-stopped
@@ -39,7 +39,3 @@ networks:
     name: docker
     labels:
       nas-compose.boostrap: true
-
-secrets:
-  portainer_password:
-    file: ${NASCOMPOSE_SERVICES?}/bootstrap/secrets/portainer_password

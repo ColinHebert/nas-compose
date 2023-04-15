@@ -9,24 +9,12 @@ services:
     networks:
       - reverse-proxy
       - docker
-    configs:
-      - source: traefik_static
-        target: /etc/traefik/traefik.yml
-
-      - source: traefik_dynamic
-        target: /etc/traefik/dynamic/traefik.yml
-      - source: traefik_tls
-        target: /etc/traefik/dynamic/tls.yml
-      - source: traefik_hsts
-        target: /etc/traefik/dynamic/hsts.yml
-
-      - source: traefik_authelia
-        target: /etc/traefik/dynamic/authelia.yml
-      - source: traefik_transmission-api
-        target: /etc/traefik/dynamic/transmission-api.yml
-    secrets:
-      - traefik_tls_cert
-      - traefik_tls_key
+    volumes:
+      # Config
+      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/:/etc/traefik:ro
+      # Secrets
+      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/secrets/traefik.cert:/run/secrets/traefik_tls_cert:ro
+      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/secrets/traefik.key:/run/secrets/traefik_tls_key:ro
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -39,23 +27,3 @@ networks:
 
   docker:
     external: true
-
-configs:
-  traefik_static:
-    file: ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/traefik.yml
-  traefik_dynamic:
-    file: ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/dynamic/traefik.yml
-  traefik_tls:
-    file: ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/dynamic/tls.yml
-  traefik_hsts:
-    file: ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/dynamic/hsts.yml
-  traefik_authelia:
-    file: ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/dynamic/authelia.yml
-  traefik_transmission-api:
-    file: ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/dynamic/transmission-api.yml
-
-secrets:
-  traefik_tls_cert:
-    file: ${NASCOMPOSE_SERVICES?}/reverse-proxy/secrets/traefik.cert
-  traefik_tls_key:
-    file: ${NASCOMPOSE_SERVICES?}/reverse-proxy/secrets/traefik.key

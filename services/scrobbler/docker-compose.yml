@@ -20,9 +20,9 @@ services:
       - scrobbler
     volumes:
       - ${NASCOMPOSE_SERVICES?}/scrobbler/volumes/plaxt_keystore/:/app/keystore/
-    secrets:
-      - trakt_id
-      - trakt_secret
+      # Secrets
+      - ${NASCOMPOSE_SERVICES?}/scrobbler/secrets/trakt_id:/run/secrets/trakt_id:ro
+      - ${NASCOMPOSE_SERVICES?}/scrobbler/secrets/trakt_secret:/run/secrets/trakt_secret:ro
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -34,9 +34,3 @@ networks:
 
   reverse-proxy:
     external: true
-
-secrets:
-  trakt_id:
-    file: ${NASCOMPOSE_SERVICES?}/scrobbler/secrets/trakt_id
-  trakt_secret:
-    file: ${NASCOMPOSE_SERVICES?}/scrobbler/secrets/trakt_secret

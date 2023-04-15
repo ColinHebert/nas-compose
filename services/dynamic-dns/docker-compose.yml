@@ -7,10 +7,7 @@ services:
     environment:
       - SUBDOMAINS=${NASCOMPOSE_DUCKDNS_DOMAIN?}
       - FILE__TOKEN=/run/secrets/duckdns_token
-    secrets:
-      - duckdns_token
+    volumes:
+      # Secrets
+      - ${NASCOMPOSE_SERVICES?}/dynamic-dns/secrets/duckdns_token:/run/secrets/duckdns_token:ro
     restart: unless-stopped
-
-secrets:
-  duckdns_token:
-    file: ${NASCOMPOSE_SERVICES?}/dynamic-dns/secrets/duckdns_token
