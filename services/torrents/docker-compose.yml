@@ -53,6 +53,8 @@ services:
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
+      QBT_SCHEDULE: 30
+      QBT_WIDTH: 300
     networks:
       - torrents
       - reverse-proxy
