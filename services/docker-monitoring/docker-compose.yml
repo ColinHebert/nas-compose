@@ -16,8 +16,6 @@ services:
     volumes:
       # Secrets
       - ${NASCOMPOSE_SERVICES?}/docker-monitoring/secrets/notification_url:/run/secrets/watchtower_notification_url:ro
-    secrets:
-      - watchtower_notification_url
     restart: unless-stopped
 
 networks:
