@@ -49,6 +49,22 @@ services:
       traefik.enable: true
       traefik.http.routers.autobrr.middlewares: authelia@file
 
+  omegabrr:
+    hostname: omegabrr
+    image: ghcr.io/autobrr/omegabrr
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy
+      - default
+      - indexer
+      - torrents
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/indexer/volumes/omegabrr_config/:/config/
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.omegabrr.middlewares: authelia@file
+
 networks:
   indexer:
     name: indexer
