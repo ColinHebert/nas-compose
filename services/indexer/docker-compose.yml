@@ -29,6 +29,26 @@ services:
     image: flaresolverr/flaresolverr
     restart: unless-stopped
 
+  autobrr:
+    hostname: autobrr
+    image: ghcr.io/autobrr/autobrr
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy
+      - default
+      - indexer
+      - torrents
+    dns:
+      # Work around DNS blocks in various regions
+      - 1.1.1.1
+      - 1.0.0.1
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/indexer/volumes/autobrr_config/:/config/
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.autobrr.middlewares: authelia@file
+
 networks:
   indexer:
     name: indexer
