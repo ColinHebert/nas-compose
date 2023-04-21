@@ -1,4 +1,4 @@
-name: Dynamic DNS
+name: dynamic-dns
 
 services:
   duckdns:

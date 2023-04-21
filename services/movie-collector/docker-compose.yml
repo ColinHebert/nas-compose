@@ -1,4 +1,4 @@
-name: Movie collector
+name: movie-collector
 
 services:
   radarr:

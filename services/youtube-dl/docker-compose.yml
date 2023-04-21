@@ -1,4 +1,4 @@
-name: Youtube-DL
+name: youtube-dl
 
 services:
   ytdl:

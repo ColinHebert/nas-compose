@@ -1,4 +1,4 @@
-name: Comic collector
+name: comic-collector
 
 services:
   mylar:

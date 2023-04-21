@@ -1,4 +1,4 @@
-name: Scrobbler
+name: scrobbler
 
 services:
   # Always create the usenet network even if the usenet profile is disabled

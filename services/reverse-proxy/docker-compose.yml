@@ -1,4 +1,4 @@
-name: Reverse proxy
+name: reverse-proxy
 
 services:
   traefik:

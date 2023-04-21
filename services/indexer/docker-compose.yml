@@ -1,4 +1,4 @@
-name: Indexer
+name: indexer
 
 services:
   prowlarr:

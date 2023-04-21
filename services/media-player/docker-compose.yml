@@ -1,4 +1,4 @@
-name: Media-Player
+name: media-player
 
 services:
   plex:

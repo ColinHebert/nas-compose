@@ -1,4 +1,4 @@
-name: Notifiarr
+name: notifiarr
 
 services:
   notifiarr:

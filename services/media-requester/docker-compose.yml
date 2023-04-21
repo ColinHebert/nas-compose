@@ -1,4 +1,4 @@
-name: Media requester
+name: media-requester
 
 services:
   ombi:

@@ -1,4 +1,4 @@
-name: SSH Protection
+name: ssh-protection
 
 services:
   endlessh:

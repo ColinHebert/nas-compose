@@ -1,4 +1,4 @@
-name: eBook-Reader
+name: ebook-reader
 
 services:
   calibre:

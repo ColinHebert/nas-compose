@@ -1,4 +1,4 @@
-name: TV collector
+name: tv-collector
 
 services:
   sonarr:

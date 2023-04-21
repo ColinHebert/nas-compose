@@ -1,4 +1,4 @@
-name: Usenet
+name: usenet
 
 services:
   # Always create the usenet network even if the usenet profile is disabled

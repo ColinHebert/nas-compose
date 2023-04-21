@@ -1,4 +1,4 @@
-name: Book collector
+name: book-collector
 
 services:
   readarr-audiobook:
