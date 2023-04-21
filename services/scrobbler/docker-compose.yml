@@ -1,7 +1,7 @@
 name: scrobbler
 
 services:
-  # Always create the usenet network even if the usenet profile is disabled
+  # Always create the scrobbler network even if the scrobbler profile is disabled
   dummy:
     image: tianon/true
     networks:
