@@ -61,9 +61,6 @@ services:
     volumes:
       - ${NASCOMPOSE_SERVICES?}/indexer/volumes/omegabrr_config/:/config/
     restart: unless-stopped
-    labels:
-      traefik.enable: true
-      traefik.http.routers.omegabrr.middlewares: authelia@file
 
 networks:
   indexer:
