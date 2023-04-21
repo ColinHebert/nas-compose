@@ -1,4 +1,4 @@
-name: Bootstrap
+name: bootstrap
 
 services:
   docker:
