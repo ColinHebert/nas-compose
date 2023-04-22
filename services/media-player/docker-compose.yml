@@ -26,8 +26,8 @@ services:
     hostname: tautulli
     image: lscr.io/linuxserver/tautulli
     environment:
-      PLEX_UID: ${NASCOMPOSE_UID?}
-      PLEX_GID: ${NASCOMPOSE_GID?}
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
     networks:
       - reverse-proxy
       - media-player
