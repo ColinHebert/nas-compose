@@ -38,6 +38,15 @@ services:
       traefik.enable: true
       traefik.http.routers.tautulli.middlewares: authelia@file
 
+  plex-meta-manager:
+    hostname: plex-meta-manager
+    image: meisnate12/plex-meta-manager
+    networks:
+      - media-player
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/media-player/volumes/plex-meta-manager_config/:/config/
+    restart: unless-stopped
+
   audiobookshelf:
     hostname: audiobookshelf
     image: advplyr/audiobookshelf
