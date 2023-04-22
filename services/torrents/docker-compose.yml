@@ -15,6 +15,9 @@ services:
       net.ipv4.conf.all.src_valid_mark: 1
     networks:
       - reverse-proxy
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
     devices:
       - /dev/net/tun:/dev/net/tun
     volumes:
@@ -40,6 +43,9 @@ services:
       - torrents
       - indexer
       - reverse-proxy
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
     volumes:
         - ${NASCOMPOSE_SERVICES?}/torrents/volumes/cross-seed_config/:/config/
         - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro

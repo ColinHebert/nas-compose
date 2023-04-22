@@ -9,6 +9,10 @@ services:
       PGID: ${NASCOMPOSE_GID?}
     networks:
       - reverse-proxy
+    dns:
+      # Work around DNS blocks in various regions
+      - 1.1.1.1
+      - 1.0.0.1
     volumes:
       - ${NASCOMPOSE_SERVICES?}/irc/volumes/thelounge_config/:/config/
     restart: unless-stopped

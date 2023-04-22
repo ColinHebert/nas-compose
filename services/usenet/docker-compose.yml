@@ -17,6 +17,9 @@ services:
     networks:
       - reverse-proxy
       - usenet
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
     volumes:
       - ${NASCOMPOSE_SERVICES?}/usenet/volumes/sabnzbd_config/:/config/
       - ${NASCOMPOSE_DATA?}/usenet/:/data/
