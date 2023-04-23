@@ -1,4 +1,4 @@
-name: Ttrrents
+name: torrents
 
 services:
   qbittorrent:
