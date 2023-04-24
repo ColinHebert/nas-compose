@@ -1,0 +1,7 @@
+http:
+  routers:
+    qbittorrent-api:
+      rule: '{{ $s := "qbittorrent-api" }}{{ range $i, $d := splitList "," (env `NASCOMPOSE_TRAEFIK_DOMAINS`) }}{{ if $i }} || {{end}}Host(`{{ $s }}.{{ $d }}`){{ end }}'
+      service: qbittorrent@docker
+      middlewares:
+        - authelia-basic@file

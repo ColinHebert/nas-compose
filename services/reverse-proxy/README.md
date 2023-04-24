@@ -20,7 +20,7 @@ Creates a reverse proxy to expose other services running in the NAS
 - `dynamic/synology.yml`: Route exposing the Synology DSM interface of the host
 - `dynamic/tls.yml`: [TLS](https://doc.traefik.io/traefik/https/tls/) configuration of the instance
 - `dynamic/traefik.yml`: Route exposing the Traefik API/Dashboard
-- `dynamic/transmission-api.yml`: Special case exposing the API of Transmission with BasicAuth managed by the Authentication service
+- `dynamic/qbittorrent-api.yml`: Special case exposing the API of qBittorrent with BasicAuth managed by the Authentication service
 
 ### 🔒 Secrets
 - `traefik_tls_cert`: Self-signed certificate for Traefik. Particularly useful in development to avoid generating new certificates on each restart.

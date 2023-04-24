@@ -1,7 +1,0 @@
-http:
-  routers:
-    transmission-api:
-      rule: '{{ $s := "transmission-api" }}{{ range $i, $d := splitList "," (env `NASCOMPOSE_TRAEFIK_DOMAINS`) }}{{ if $i }} || {{end}}Host(`{{ $s }}.{{ $d }}`){{ end }}'
-      service: transmission@docker
-      middlewares:
-        - authelia-basic@file
