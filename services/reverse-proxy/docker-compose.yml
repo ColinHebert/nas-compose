@@ -6,15 +6,18 @@ services:
     image: traefik
     environment:
       NASCOMPOSE_TRAEFIK_DOMAINS: ${NASCOMPOSE_TRAEFIK_DOMAINS?}
+      NASCOMPOSE_TRAEFIK_ADMIN_EMAIL: ${NASCOMPOSE_TRAEFIK_ADMIN_EMAIL?}
+      CF_DNS_API_TOKEN_FILE: /run/secrets/cf_dns_token
     networks:
       - reverse-proxy
       - docker
     volumes:
+      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/volumes/traefik_acme:/etc/traefik/acme
       # Config
-      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/:/etc/traefik:ro
+      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/dynamic:/etc/traefik/dynamic:ro
       # Secrets
-      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/secrets/traefik.cert:/run/secrets/traefik_tls_cert:ro
-      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/secrets/traefik.key:/run/secrets/traefik_tls_key:ro
+      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/secrets/cf_dns_token:/run/secrets/cf_dns_token:ro
     restart: unless-stopped
     labels:
       traefik.enable: true

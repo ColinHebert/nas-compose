@@ -1,6 +1,6 @@
 tls:
   stores:
     default:
-      defaultCertificate:
-        certFile: /run/secrets/traefik_tls_cert
-        keyFile: /run/secrets/traefik_tls_key
+      defaultGeneratedCert:
+        resolver: defaultResolver
+        domain:
