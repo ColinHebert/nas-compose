@@ -1,8 +1,8 @@
-name: torrents
+name: torrents${TORRENT_SUFFIX?TORRENT_SUFFIX variable required}
 
 services:
   qbittorrent:
-    hostname: qbittorrent
+    hostname: qbittorrent${TORRENT_SUFFIX}
     image: hotio/qbittorrent
     environment:
       PUID: ${NASCOMPOSE_UID?}
@@ -21,22 +21,22 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     volumes:
-      - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbittorrent_config/:/config/
-      - ${NASCOMPOSE_DATA?}/torrents/:/data/
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/volumes/qbittorrent_config/:/config/
+      - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX}/:/data/
       # Configuration
-      - ${NASCOMPOSE_SERVICES?}/torrents/config/set_port.sh:/bin/set_port.sh:ro
-      - ${NASCOMPOSE_SERVICES?}/torrents/config/01-natpmp-install:/etc/cont-init.d/01-natpmp-install:ro
-      - ${NASCOMPOSE_SERVICES?}/torrents/config/98-gateway-setup:/etc/cont-init.d/98-gateway-setup:ro
-      - ${NASCOMPOSE_SERVICES?}/torrents/config/99-cron-start:/etc/cont-init.d/99-cron-start:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/config/set_port.sh:/bin/set_port.sh:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/config/01-natpmp-install:/etc/cont-init.d/01-natpmp-install:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/config/98-gateway-setup:/etc/cont-init.d/98-gateway-setup:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/config/99-cron-start:/etc/cont-init.d/99-cron-start:ro
       # Secrets
-      - ${NASCOMPOSE_SERVICES?}/torrents/secrets/wg0.conf:/config/wireguard/wg0.conf:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/secrets/wg0.conf:/config/wireguard/wg0.conf:ro
     restart: unless-stopped
     labels:
-      traefik.enable: true
-      traefik.http.routers.qbittorrent.middlewares: authelia@file
+      - traefik.enable=true
+      - traefik.http.routers.qbittorrent.middlewares=authelia@file
 
   cross-seed:
-    hostname: cross-seed
+    hostname: cross-seed${TORRENT_SUFFIX}
     image: crossseed/cross-seed
     user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     networks:
@@ -47,14 +47,14 @@ services:
       - 1.1.1.1
       - 1.0.0.1
     volumes:
-        - ${NASCOMPOSE_SERVICES?}/torrents/volumes/cross-seed_config/:/config/
-        - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
-        - ${NASCOMPOSE_DATA?}/torrents/watch/:/cross-seeds/
+        - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/volumes/cross-seed_config/:/config/
+        - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
+        - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX}/watch/:/cross-seeds/
     command: daemon
     restart: unless-stopped
 
   qbitmanage:
-    hostname: qbitmanage
+    hostname: qbitmanage${TORRENT_SUFFIX}
     image: hotio/qbitmanage
     environment:
       PUID: ${NASCOMPOSE_UID?}
@@ -65,13 +65,13 @@ services:
       - torrents
       - reverse-proxy
     volumes:
-      - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbitmanage_config/:/config/
-      - ${NASCOMPOSE_DATA?}/torrents/:/data/
-      - ${NASCOMPOSE_SERVICES?}/torrents/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/volumes/qbitmanage_config/:/config/
+      - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX}/:/data/
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
 
 networks:
   torrents:
-    name: torrents
+    name: torrents${TORRENT_SUFFIX}
 
   reverse-proxy:
     external: true
