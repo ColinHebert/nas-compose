@@ -8,6 +8,7 @@ services:
       NASCOMPOSE_TRAEFIK_DOMAINS: ${NASCOMPOSE_TRAEFIK_DOMAINS?}
       NASCOMPOSE_TRAEFIK_ADMIN_EMAIL: ${NASCOMPOSE_TRAEFIK_ADMIN_EMAIL?}
       CF_DNS_API_TOKEN_FILE: /run/secrets/cf_dns_token
+      LEGO_DISABLE_CNAME_SUPPORT: true
     networks:
       - reverse-proxy
       - docker

@@ -17,7 +17,7 @@ certificatesResolvers:
   defaultResolver:
     acme:
       email: {{ env `NASCOMPOSE_TRAEFIK_ADMIN_EMAIL` }}
-      storage: acme.json
+      storage: /etc/traefik/acme/acme.json
       dnsChallenge:
         provider: cloudflare
       caServer: https://acme-staging-v02.api.letsencrypt.org/directory
