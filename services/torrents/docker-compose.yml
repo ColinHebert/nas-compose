@@ -33,7 +33,7 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
-      - traefik.http.routers.qbittorrent.middlewares=authelia@file
+      - traefik.http.routers.qbittorrent{TORRENT_SUFFIX}.middlewares=authelia@file
 
   cross-seed:
     hostname: cross-seed${TORRENT_SUFFIX}
