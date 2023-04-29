@@ -34,6 +34,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.qbittorrent${TORRENT_SUFFIX}.middlewares=authelia@file
+      - com.docker.compose.service=qbittorrent${TORRENT_SUFFIX}
 
   cross-seed:
     hostname: cross-seed${TORRENT_SUFFIX}
