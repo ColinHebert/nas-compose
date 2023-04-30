@@ -3,7 +3,7 @@ providers:
     endpoint: tcp://docker:2375
     exposedByDefault: false
     network: reverse-proxy
-    defaultRule: '{{ $s := index .Labels "com.docker.compose.service" }}{{ range $i, $d := splitList "," (env `NASCOMPOSE_TRAEFIK_DOMAINS`) }}{{ if $i }} || {{end}}Host(`{{ $s }}.{{ $d }}`){{ end }}'
+    defaultRule: '{{ .Labels "com.docker.compose.service" }}{{ env `NASCOMPOSE_DOMAIN` }}'
   file:
     directory: /etc/traefik/dynamic/
 
