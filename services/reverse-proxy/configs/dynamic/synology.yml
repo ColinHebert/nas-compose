@@ -1,7 +1,7 @@
 http:
   routers:
     synology:
-      rule: 'synology.{{ env `NASCOMPOSE_DOMAIN` }}'
+      rule: 'Host(`synology.{{ env `NASCOMPOSE_DOMAIN` }}`)'
       service: synology@file
   services:
     synology:

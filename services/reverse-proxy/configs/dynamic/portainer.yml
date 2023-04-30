@@ -2,7 +2,7 @@ http:
   #TODO: Convert to inline configuration for portainer
   routers:
     portainer:
-      rule: 'portainer.{{ env `NASCOMPOSE_DOMAIN` }}'
+      rule: 'Host(`portainer.{{ env `NASCOMPOSE_DOMAIN` }}`)'
       service: portainer@file
   services:
     portainer:

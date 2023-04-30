@@ -1,7 +1,7 @@
 http:
   routers:
     qbittorrent-api:
-      rule: 'qbittorrent-api.{{ env `NASCOMPOSE_DOMAIN` }}'
+      rule: 'Host(`qbittorrent-api.{{ env `NASCOMPOSE_DOMAIN` }}`)'
       service: qbittorrent@docker
       middlewares:
         - authelia-basic@file
