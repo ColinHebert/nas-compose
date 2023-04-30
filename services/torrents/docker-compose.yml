@@ -35,6 +35,9 @@ services:
       - traefik.enable=true
       - traefik.http.routers.qbittorrent${TORRENT_SUFFIX}.rule=Host(`qbittorrent${TORRENT_SUFFIX}.${NASCOMPOSE_DOMAIN?}`)
       - traefik.http.routers.qbittorrent${TORRENT_SUFFIX}.middlewares=authelia@file
+      # API access for nzb360
+      - traefik.http.routers.qbittorrent${TORRENT_SUFFIX}-api.rule=Host(`qbittorrent${TORRENT_SUFFIX}-api.${NASCOMPOSE_DOMAIN?}`)
+      - traefik.http.routers.qbittorrent${TORRENT_SUFFIX}-api.middlewares=authelia-basic@file
 
   cross-seed:
     hostname: cross-seed${TORRENT_SUFFIX}
