@@ -22,23 +22,23 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     volumes:
-      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/volumes/qbittorrent_config/:/config/
-      - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX}/:/data/
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbittorrent_config/:/config/
+      - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/:/data/
       # Configuration
-      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/config/set_port.sh:/bin/set_port.sh:ro
-      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/config/01-natpmp-install:/etc/cont-init.d/01-natpmp-install:ro
-      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/config/98-gateway-setup:/etc/cont-init.d/98-gateway-setup:ro
-      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/config/99-cron-start:/etc/cont-init.d/99-cron-start:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/config/set_port.sh:/bin/set_port.sh:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/config/01-natpmp-install:/etc/cont-init.d/01-natpmp-install:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/config/98-gateway-setup:/etc/cont-init.d/98-gateway-setup:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/config/99-cron-start:/etc/cont-init.d/99-cron-start:ro
       # Secrets
-      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/secrets/wg0.conf:/config/wireguard/wg0.conf:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/secrets/wg0.conf:/config/wireguard/wg0.conf:ro
     restart: unless-stopped
     labels:
       - traefik.enable=true
-      - traefik.http.routers.qbittorrent${TORRENT_SUFFIX}.rule=Host(`qbittorrent${TORRENT_SUFFIX}.${NASCOMPOSE_DOMAIN?}`)
-      - traefik.http.routers.qbittorrent${TORRENT_SUFFIX}.middlewares=authelia@file
+      - traefik.http.routers.qbittorrent${TORRENT_SUFFIX?}.rule=Host(`qbittorrent${TORRENT_SUFFIX?}.${NASCOMPOSE_DOMAIN?}`)
+      - traefik.http.routers.qbittorrent${TORRENT_SUFFIX?}.middlewares=authelia@file
       # API access for nzb360
-      - traefik.http.routers.qbittorrent${TORRENT_SUFFIX}-api.rule=Host(`qbittorrent${TORRENT_SUFFIX}-api.${NASCOMPOSE_DOMAIN?}`)
-      - traefik.http.routers.qbittorrent${TORRENT_SUFFIX}-api.middlewares=authelia-basic@file
+      - traefik.http.routers.qbittorrent${TORRENT_SUFFIX?}-api.rule=Host(`qbittorrent${TORRENT_SUFFIX?}-api.${NASCOMPOSE_DOMAIN?}`)
+      - traefik.http.routers.qbittorrent${TORRENT_SUFFIX?}-api.middlewares=authelia-basic@file
 
   cross-seed:
     hostname: cross-seed${TORRENT_SUFFIX:-main}
@@ -51,9 +51,9 @@ services:
       - 1.1.1.1
       - 1.0.0.1
     volumes:
-        - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/volumes/cross-seed_config/:/config/
-        - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
-        - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX}/watch/:/cross-seeds/
+        - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/cross-seed_config/:/config/
+        - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
+        - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/watch/:/cross-seeds/
     command: daemon
     restart: unless-stopped
 
@@ -68,13 +68,13 @@ services:
     networks:
       - torrents
     volumes:
-      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/volumes/qbitmanage_config/:/config/
-      - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX}/:/data/
-      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbitmanage_config/:/config/
+      - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/:/data/
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
 
 networks:
   torrents:
-    name: torrents${TORRENT_SUFFIX}
+    name: torrents${TORRENT_SUFFIX?}
 
   reverse-proxy:
     external: true
