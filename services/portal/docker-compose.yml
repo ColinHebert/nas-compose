@@ -8,7 +8,8 @@ services:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
     networks:
-      - reverse-proxy
+      reverse-proxy:
+        aliases: []
     volumes:
       - ${NASCOMPOSE_SERVICES?}/portal/volumes/heimdall_config/:/config/
     restart: unless-stopped
