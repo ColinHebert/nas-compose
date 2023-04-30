@@ -15,6 +15,7 @@ services:
       net.ipv4.conf.all.src_valid_mark: 1
     networks:
       - reverse-proxy
+      - torrents
     dns:
       - 1.1.1.1
       - 1.0.0.1
@@ -46,7 +47,6 @@ services:
     networks:
       - torrents
       - indexer
-      - reverse-proxy
     dns:
       - 1.1.1.1
       - 1.0.0.1
@@ -67,7 +67,6 @@ services:
       QBT_WIDTH: 170
     networks:
       - torrents
-      - reverse-proxy
     volumes:
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX}/volumes/qbitmanage_config/:/config/
       - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX}/:/data/
