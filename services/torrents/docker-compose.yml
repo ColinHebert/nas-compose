@@ -2,7 +2,7 @@ name: torrents${TORRENT_SUFFIX?TORRENT_SUFFIX variable required}
 
 services:
   qbittorrent:
-    hostname: qbittorrent${TORRENT_SUFFIX}
+    hostname: qbittorrent${TORRENT_SUFFIX:-main}
     image: hotio/qbittorrent
     environment:
       PUID: ${NASCOMPOSE_UID?}
@@ -41,7 +41,7 @@ services:
       - traefik.http.routers.qbittorrent${TORRENT_SUFFIX}-api.middlewares=authelia-basic@file
 
   cross-seed:
-    hostname: cross-seed${TORRENT_SUFFIX}
+    hostname: cross-seed${TORRENT_SUFFIX:-main}
     image: crossseed/cross-seed
     user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     networks:
@@ -58,7 +58,7 @@ services:
     restart: unless-stopped
 
   qbitmanage:
-    hostname: qbitmanage${TORRENT_SUFFIX}
+    hostname: qbitmanage${TORRENT_SUFFIX:-main}
     image: hotio/qbitmanage
     environment:
       PUID: ${NASCOMPOSE_UID?}
