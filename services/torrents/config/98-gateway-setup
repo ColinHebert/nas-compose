@@ -14,3 +14,10 @@ ip route add ${wgserver%:*}/32 via ${gateway} dev eth0
 echo "Allow DNS resolution locally"
 iptables -A INPUT -i eth0 -p udp -m udp --sport 53 -j ACCEPT
 iptables -A OUTPUT -o eth0 -p udp -m udp --dport 53 -j ACCEPT
+
+echo "Allow docker networks to connect"
+docker_cirds=$(ip -o -4 route show proto kernel | awk '{print $1}')
+for cidr in $docker_cirds; do
+    iptables -A INPUT -s "${cidr}" -d "${cidr}" -j ACCEPT
+    iptables -A OUTPUT -s "${cidr}" -d "${cidr}" -j ACCEPT
+done
