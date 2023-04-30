@@ -18,4 +18,5 @@ services:
 
 networks:
   reverse-proxy:
+    name: bridge
     external: true
