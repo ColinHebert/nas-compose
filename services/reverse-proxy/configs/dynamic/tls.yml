@@ -1,6 +1,0 @@
-tls:
-  stores:
-    default:
-      defaultGeneratedCert:
-        resolver: defaultResolver
-        domain:
