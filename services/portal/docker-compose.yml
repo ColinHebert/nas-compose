@@ -9,7 +9,8 @@ services:
       PGID: ${NASCOMPOSE_GID?}
     networks:
       reverse-proxy:
-        aliases: []
+        aliases:
+          - nope
     volumes:
       - ${NASCOMPOSE_SERVICES?}/portal/volumes/heimdall_config/:/config/
     restart: unless-stopped
