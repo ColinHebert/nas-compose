@@ -46,7 +46,7 @@ services:
     # Set hostname to "SERVICE-main" if not suffix is provided. This avoids collisions with other instances using the service name as hostname (default on compose)
     hostname: cross-seed${TORRENT_SUFFIX:--main}
     image: crossseed/cross-seed
-    profiles: [torrents${TORRENT_SUFFIX?}-xseed]
+    profiles: ["torrents${TORRENT_SUFFIX?}-xseed"]
     user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     networks:
       - torrents
