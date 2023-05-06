@@ -43,6 +43,7 @@ services:
   cross-seed:
     hostname: cross-seed${TORRENT_SUFFIX:--main}
     image: crossseed/cross-seed
+    profiles: [torrents${TORRENT_SUFFIX?}-xseed]
     user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     networks:
       - torrents

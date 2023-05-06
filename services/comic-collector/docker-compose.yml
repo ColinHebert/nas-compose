@@ -4,7 +4,6 @@ services:
   mylar:
     hostname: mylar
     image: lscr.io/linuxserver/mylar3
-    profiles: [ebooks]
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}

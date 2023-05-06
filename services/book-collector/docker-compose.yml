@@ -4,7 +4,6 @@ services:
   readarr-audiobook:
     hostname: readarr-audiobook
     image: lscr.io/linuxserver/readarr:develop # TODO: Move to a stable version
-    profiles: [ebooks]
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
@@ -23,7 +22,6 @@ services:
   readarr-ebook:
     hostname: readarr-ebook
     image: lscr.io/linuxserver/readarr:develop # TODO: Move to a stable version
-    profiles: [ebooks]
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
