@@ -29,6 +29,7 @@ services:
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/config/98-gateway-setup:/etc/cont-init.d/98-gateway-setup:ro
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/config/99-cron-start:/etc/cont-init.d/99-cron-start:ro
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/config/setPortForward:/etc/periodic/1min/setPortForward:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/config/updateMaMIP:/etc/periodic/hourly/updateMaMIP:ro
       # Secrets
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/secrets/wg0.conf:/config/wireguard/wg0.conf:ro
     restart: unless-stopped

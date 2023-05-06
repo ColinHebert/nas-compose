@@ -1,0 +1,4 @@
+#!/bin/bash
+
+[ -f /config/mam.cookies ] || exit 1
+curl -c /config/mam.cookies -b /config/mam.cookies https://t.myanonamouse.net/json/dynamicSeedbox.php
