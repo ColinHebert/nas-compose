@@ -2,6 +2,7 @@ name: torrents${TORRENT_SUFFIX?TORRENT_SUFFIX variable required}
 
 services:
   qbittorrent:
+    # Set hostname to "SERVICE-main" if not suffix is provided. This avoids collisions with other instances using the service name as hostname (default on compose)
     hostname: qbittorrent${TORRENT_SUFFIX:--main}
     image: hotio/qbittorrent
     environment:
@@ -42,6 +43,7 @@ services:
       - traefik.http.routers.qbittorrent${TORRENT_SUFFIX?}-api.middlewares=authelia-basic@file
 
   cross-seed:
+    # Set hostname to "SERVICE-main" if not suffix is provided. This avoids collisions with other instances using the service name as hostname (default on compose)
     hostname: cross-seed${TORRENT_SUFFIX:--main}
     image: crossseed/cross-seed
     profiles: [torrents${TORRENT_SUFFIX?}-xseed]
@@ -60,6 +62,7 @@ services:
     restart: unless-stopped
 
   qbitmanage:
+    # Set hostname to "SERVICE-main" if not suffix is provided. This avoids collisions with other instances using the service name as hostname (default on compose)
     hostname: qbitmanage${TORRENT_SUFFIX:--main}
     image: hotio/qbitmanage
     environment:
