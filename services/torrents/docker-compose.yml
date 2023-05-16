@@ -50,7 +50,7 @@ services:
     user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     networks:
       - torrents
-      - indexer
+#      - indexer
     dns:
       - 1.1.1.1
       - 1.0.0.1
@@ -74,8 +74,8 @@ services:
       - torrents
     volumes:
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbitmanage_config/:/config/
-      - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/:/data/
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
+      - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/:/data/
 
 networks:
   torrents:
@@ -83,5 +83,5 @@ networks:
 
   reverse-proxy:
     external: true
-  indexer:
-    external: true
+#  indexer:
+#    external: true
