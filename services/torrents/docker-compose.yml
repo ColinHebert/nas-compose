@@ -59,7 +59,7 @@ services:
         - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
         - ${NASCOMPOSE_DATA?}/:/data/:ro
         - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/watch/:/cross-seeds/
-        - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/completed/other/:/cross-seed-data/
+        - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/completed/others/:/cross-seed-data/
     command: daemon
     restart: unless-stopped
 
