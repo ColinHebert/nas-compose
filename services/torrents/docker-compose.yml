@@ -64,10 +64,9 @@ services:
   qbitmanage:
     # Set hostname to "SERVICE-main" if not suffix is provided. This avoids collisions with other instances using the service name as hostname (default on compose)
     hostname: qbitmanage${TORRENT_SUFFIX:--main}
-    image: hotio/qbitmanage
+    image: bobokun/qbit_manage
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     environment:
-      PUID: ${NASCOMPOSE_UID?}
-      PGID: ${NASCOMPOSE_GID?}
       QBT_SCHEDULE: 30
       QBT_WIDTH: 170
     networks:
