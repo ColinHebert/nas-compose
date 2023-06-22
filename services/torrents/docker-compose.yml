@@ -85,7 +85,7 @@ services:
     networks:
       - torrents
     volumes:
-      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/unpackerr_config/:/config/
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/unpackerr_config/:/etc/unpackerr/
       - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/completed/:/data/torrents${TORRENT_SUFFIX?}/completed/
     restart: unless-stopped
 
