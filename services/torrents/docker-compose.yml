@@ -55,9 +55,9 @@ services:
       - 1.1.1.1
       - 1.0.0.1
     volumes:
-        - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/cross-seed_config/:/config/
-        - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
-        - ${NASCOMPOSE_DATA?}/:/data/
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/cross-seed_config/:/config/
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
+      - ${NASCOMPOSE_DATA?}/:/data/
     command: daemon
     restart: unless-stopped
 
@@ -75,6 +75,19 @@ services:
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbitmanage_config/:/config/
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
       - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/:/data/torrents${TORRENT_SUFFIX?}/
+
+  unpackerr:
+    # Set hostname to "SERVICE-main" if not suffix is provided. This avoids collisions with other instances using the service name as hostname (default on compose)
+    hostname: unpackerr{TORRENT_SUFFIX:--main}
+    image: golift/unpackerr
+    profiles: ["torrents${TORRENT_SUFFIX?}-unpackerr"]
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    networks:
+      - torrents
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/unpackerr_config/:/config/
+      - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/completed/:/data/torrents${TORRENT_SUFFIX?}/completed/
+    restart: unless-stopped
 
 networks:
   torrents:
