@@ -24,7 +24,7 @@ services:
     networks:
       - docker
     volumes:
-      - /var/packages/Docker/var/docker/volumes/:/var/lib/docker/volumes/
+      - /var/packages/ContainerManager/var/docker/volumes/:/var/lib/docker/volumes/
       - ${NASCOMPOSE_SERVICES?}/bootstrap/volumes/portainer_data/:/data/
       # Secrets
       - ${NASCOMPOSE_SERVICES?}/bootstrap/secrets/portainer_password:/run/secrets/portainer_password:ro
