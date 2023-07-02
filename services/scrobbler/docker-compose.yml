@@ -26,7 +26,6 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.plaxt.middlewares: authelia@file
 
 networks:
   scrobbler:
