@@ -69,7 +69,6 @@ services:
     environment:
       QBT_SCHEDULE: 30
       QBT_WIDTH: 170
-      QBT_SKIP_QB_VERSION_CHECK: true
     networks:
       - torrents
     volumes:
