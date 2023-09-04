@@ -4,7 +4,7 @@ services:
   qbittorrent:
     # Set hostname to "SERVICE-main" if not suffix is provided. This avoids collisions with other instances using the service name as hostname (default on compose)
     hostname: qbittorrent${TORRENT_SUFFIX:--main}
-    image: hotio/qbittorrent:release-4.5.4
+    image: hotio/qbittorrent
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
