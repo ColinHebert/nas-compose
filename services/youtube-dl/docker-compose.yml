@@ -29,7 +29,6 @@ services:
   mkvtoolnix:
     hostname: mkvtoolnix
     image: jlesage/mkvtoolnix
-    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     networks:
       - reverse-proxy
     volumes:
