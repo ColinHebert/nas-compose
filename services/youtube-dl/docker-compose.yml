@@ -24,7 +24,21 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.youtube-dl.middlewares: authelia@file
+      traefik.http.routers.ytdl.middlewares: authelia@file
+
+  mkvtoolnix:
+    hostname: mkvtoolnix
+    image: jlesage/mkvtoolnix
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/youtube-dl/volumes/mkvtoolnix_config/:/config/
+      - ${NASCOMPOSE_DATA?}/ytdl/:/storage/
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.mkvtoolnix.middlewares: authelia@file
 
 networks:
   reverse-proxy:
