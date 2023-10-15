@@ -1,6 +1,0 @@
-services:
-  traefik:
-    ports:
-      - 22:22
-      - 80:80
-      - 443:443

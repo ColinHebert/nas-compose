@@ -1,4 +1,0 @@
-services:
-  plex:
-    ports:
-      - 32400:32400
