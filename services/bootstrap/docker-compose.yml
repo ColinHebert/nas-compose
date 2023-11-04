@@ -24,7 +24,7 @@ services:
     networks:
       - docker
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      #- /var/run/docker.sock:/var/run/docker.sock
       - /var/packages/ContainerManager/var/docker/volumes/:/var/lib/docker/volumes/
       - ${NASCOMPOSE_SERVICES?}/bootstrap/volumes/portainer_data/:/data/
       # Secrets
