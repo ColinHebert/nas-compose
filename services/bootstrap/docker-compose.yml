@@ -5,7 +5,6 @@ services:
     hostname: portainer
     image: portainer/portainer-ce
     command: >
-      --host tcp://docker:2375
       --hide-label nas-compose.boostrap=true
       --admin-password-file /run/secrets/portainer_password
     user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
