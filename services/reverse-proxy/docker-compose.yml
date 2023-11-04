@@ -12,8 +12,8 @@ services:
       LEGO_DISABLE_CNAME_SUPPORT: true
     networks:
       - reverse-proxy
-      - docker
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
       - ${NASCOMPOSE_SERVICES?}/reverse-proxy/volumes/traefik_acme:/etc/traefik/acme
       # Config
       - ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/traefik.yml:/etc/traefik/traefik.yml:ro
@@ -29,6 +29,3 @@ services:
 networks:
   reverse-proxy:
     name: reverse-proxy
-
-  docker:
-    external: true
