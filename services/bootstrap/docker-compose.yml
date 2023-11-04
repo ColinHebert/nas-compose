@@ -15,8 +15,6 @@ services:
       - ${NASCOMPOSE_SERVICES?}/bootstrap/volumes/portainer_data/:/data/
       # Secrets
       - ${NASCOMPOSE_SERVICES?}/bootstrap/secrets/portainer_password:/run/secrets/portainer_password:ro
-    depends_on:
-      - docker
     restart: unless-stopped
     labels:
       nas-compose.boostrap: true
