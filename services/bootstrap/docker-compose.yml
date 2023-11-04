@@ -1,34 +1,15 @@
 name: bootstrap
 
 services:
-  docker:
-    hostname: docker
-    image: alpine/socat
-    command: tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
-    networks:
-      - docker
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    restart: unless-stopped
-    labels:
-      nas-compose.boostrap: true
-
   portainer:
     hostname: portainer
     image: portainer/portainer-ce
     command: >
-      --host tcp://docker:2375
-      --hide-label nas-compose.boostrap=true
       --admin-password-file /run/secrets/portainer_password
-    networks:
-      - docker
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      #- /var/packages/ContainerManager/var/docker/volumes/:/var/lib/docker/volumes/
-      #- ${NASCOMPOSE_SERVICES?}/bootstrap/volumes/portainer_data/:/data/
+      - /var/packages/ContainerManager/var/docker/volumes/:/var/lib/docker/volumes/
+      - ${NASCOMPOSE_SERVICES?}/bootstrap/volumes/portainer_data/:/data/
       # Secrets
       - ${NASCOMPOSE_SERVICES?}/bootstrap/secrets/portainer_password:/run/secrets/portainer_password:ro
     restart: unless-stopped
-
-networks:
-  docker:
