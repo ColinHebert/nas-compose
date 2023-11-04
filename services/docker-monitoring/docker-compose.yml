@@ -5,7 +5,6 @@ services:
     hostname: watchtower
     image: containrrr/watchtower
     environment:
-      DOCKER_HOST: tcp://docker:2375
       WATCHTOWER_INCLUDE_RESTARTING: true
       WATCHTOWER_INCLUDE_STOPPED: true
       WATCHTOWER_CLEANUP: true
