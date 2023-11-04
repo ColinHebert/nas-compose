@@ -10,7 +10,6 @@ services:
     networks:
       - reverse-proxy
       - media-player
-      - scrobbler
     volumes:
       - ${NASCOMPOSE_SERVICES?}/media-player/volumes/plex_config/:/config/
       - ${NASCOMPOSE_DATA?}/media/anime/:/data/anime/:ro
@@ -38,6 +37,26 @@ services:
       traefik.enable: true
       traefik.http.routers.tautulli.middlewares: authelia@file
 
+  plaxt:
+    hostname: plaxt
+    image: xanderstrike/goplaxt
+    profiles: [plaxt]
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    environment:
+      TRAKT_ID_FILE: /run/secrets/trakt_id
+      TRAKT_SECRET_FILE: /run/secrets/trakt_secret
+    networks:
+      - reverse-proxy
+      - media-player
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/media-player/volumes/plaxt_keystore/:/app/keystore/
+      # Secrets
+      - ${NASCOMPOSE_SERVICES?}/media-player/secrets/trakt_id:/run/secrets/trakt_id:ro
+      - ${NASCOMPOSE_SERVICES?}/media-player/secrets/trakt_secret:/run/secrets/trakt_secret:ro
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+
   audiobookshelf:
     hostname: audiobookshelf
     image: advplyr/audiobookshelf
@@ -62,6 +81,3 @@ networks:
 
   reverse-proxy:
     external: true
-  scrobbler:
-    external: true
-
