@@ -1,5 +1,0 @@
-volumes:
-  plex_transcode:
-    driver_opts:
-      type: tmpfs
-      device: tmpfs

@@ -12,7 +12,6 @@ services:
       - media-player
       - scrobbler
     volumes:
-      - plex_transcode:/transcode/
       - ${NASCOMPOSE_SERVICES?}/media-player/volumes/plex_config/:/config/
       - ${NASCOMPOSE_DATA?}/media/anime/:/data/anime/:ro
       - ${NASCOMPOSE_DATA?}/media/tv/:/data/tv/:ro
@@ -66,5 +65,3 @@ networks:
   scrobbler:
     external: true
 
-volumes:
-  plex_transcode:
