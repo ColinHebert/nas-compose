@@ -7,19 +7,12 @@ services:
     environment:
       UID: ${NASCOMPOSE_UID?}
       GID: ${NASCOMPOSE_GID?}
-      YTDL_OPTIONS: >
-        {
-          "writesubtitles": true,
-          "subtitleslangs": ["all", "-live_chat"],
-          "subtitlesformat": "ass/srt/best",
-          "postprocessors": [
-            { "key": "FFmpegEmbedSubtitle" },
-            { "key": "FFmpegMetadata" }
-          ]
-        }
+      YTDL_OPTIONS_FILE: /etc/ytdl_options.json
+      DELETE_FILE_ON_TRASHCAN: true
     networks:
       - reverse-proxy
     volumes:
+      - ${NASCOMPOSE_SERVICES?}/youtube-dl/config/ytdl_options.json:/etc/ytdl_options.json:ro
       - ${NASCOMPOSE_DATA?}/ytdl/:/downloads/
     restart: unless-stopped
     labels:
