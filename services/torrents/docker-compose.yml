@@ -24,7 +24,7 @@ services:
       - /dev/net/tun:/dev/net/tun
     volumes:
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbittorrent_config/:/config/
-      - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/:/data/torrents${TORRENT_SUFFIX?}/
+      - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/:/data/torrents/
       # Configuration
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/config/01-natpmp-install:/etc/cont-init.d/01-natpmp-install:ro
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/config/98-gateway-setup:/etc/cont-init.d/98-gateway-setup:ro
@@ -74,7 +74,7 @@ services:
     volumes:
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbitmanage_config/:/config/
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
-      - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/:/data/torrents${TORRENT_SUFFIX?}/
+      - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/:/data/torrents/
 
   unpackerr:
     # Set hostname to "SERVICE-main" if not suffix is provided. This avoids collisions with other instances using the service name as hostname (default on compose)
@@ -86,7 +86,7 @@ services:
       - torrents
     volumes:
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/unpackerr_config/:/etc/unpackerr/
-      - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/completed/:/data/torrents${TORRENT_SUFFIX?}/completed/
+      - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/completed/:/data/torrents/completed/
     restart: unless-stopped
 
 networks:
