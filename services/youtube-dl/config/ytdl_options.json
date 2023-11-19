@@ -1,18 +1,15 @@
 {
     "writesubtitles": true,
     "subtitleslangs": [
-        "all",
+        "en",
         "-live_chat"
     ],
     "subtitlesformat": "ass/srt/best",
     "postprocessors": [
         {
             "key": "FFmpegEmbedSubtitle"
-        },
-        {
-            "key": "FFmpegMetadata"
         }
     ],
-    "format": "(bv*[vcodec~='^((he|a)vc|h26[45])']+ba) / (bv*+ba/b)",
+    "format": "bv*[vcodec~='^((he|a)vc|h26[45])']+ba[ext=m4a]/b[vcodec~='^((he|a)vc|h26[45])'] / bv*+ba/b",
     "merge_output_format": "mkv"
 }
