@@ -16,6 +16,19 @@ services:
       traefik.enable: true
       traefik.http.routers.notifiarr.middlewares: authelia@file
 
+  recyclarr:
+    hostname: recyclarr
+    image: ghcr.io/recyclarr/recyclarr
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/notifiarr/volumes/recyclarr_config/:/config/
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.recyclarr.middlewares: authelia@file
+
 networks:
   reverse-proxy:
     external: true
