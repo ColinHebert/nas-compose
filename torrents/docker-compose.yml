@@ -75,6 +75,7 @@ services:
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbitmanage_config/:/config/
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
       - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/:/data/torrents/
+    restart: unless-stopped
 
   unpackerr:
     # Set hostname to "SERVICE-main" if not suffix is provided. This avoids collisions with other instances using the service name as hostname (default on compose)
