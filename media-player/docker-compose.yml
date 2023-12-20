@@ -78,6 +78,7 @@ services:
   jellyfin:
     hostname: jellyfin
     image: jellyfin/jellyfin
+    profiles: [jellyfin]
     user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     networks:
       - reverse-proxy
