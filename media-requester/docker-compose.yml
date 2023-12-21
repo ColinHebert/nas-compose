@@ -18,6 +18,21 @@ services:
     labels:
       traefik.enable: true
 
+  overseerr:
+    hostname: overseerr
+    image: sctx/overseerr
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy
+      - media-player
+      - tv-collector
+      - movie-collector
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/media-requester/volumes/overseerr_config/:/app/config
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+
 networks:
   reverse-proxy:
     external: true
