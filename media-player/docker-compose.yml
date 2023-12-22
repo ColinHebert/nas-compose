@@ -12,9 +12,7 @@ services:
       - media-player
     volumes:
       - ${NASCOMPOSE_SERVICES?}/media-player/volumes/plex_config/:/config/
-      - ${NASCOMPOSE_DATA?}/media/anime/:/data/anime/:ro
-      - ${NASCOMPOSE_DATA?}/media/tv/:/data/tv/:ro
-      - ${NASCOMPOSE_DATA?}/media/movies/:/data/movies/:ro
+      - ${NASCOMPOSE_DATA?}/media/:/data/:ro
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -86,10 +84,7 @@ services:
     volumes:
       - ${NASCOMPOSE_SERVICES?}/media-player/volumes/jellyfin_config/:/config/
       - ${NASCOMPOSE_SERVICES?}/media-player/volumes/jellyfin_cache/:/cache/
-      - ${NASCOMPOSE_DATA?}/media/anime/:/data/anime/:ro
-      - ${NASCOMPOSE_DATA?}/media/tv/:/data/tv/:ro
-      - ${NASCOMPOSE_DATA?}/media/movies/:/data/movies/:ro
-      - ${NASCOMPOSE_DATA?}/media/concerts/:/data/concerts/:ro
+      - ${NASCOMPOSE_DATA?}/media/:/data/:ro
     restart: unless-stopped
     labels:
       traefik.enable: true
