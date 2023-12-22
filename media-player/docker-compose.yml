@@ -89,6 +89,7 @@ services:
       - ${NASCOMPOSE_DATA?}/media/anime/:/data/anime/:ro
       - ${NASCOMPOSE_DATA?}/media/tv/:/data/tv/:ro
       - ${NASCOMPOSE_DATA?}/media/movies/:/data/movies/:ro
+      - ${NASCOMPOSE_DATA?}/media/concerts/:/data/concerts/:ro
     restart: unless-stopped
     labels:
       traefik.enable: true
