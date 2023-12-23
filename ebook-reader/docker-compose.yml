@@ -31,8 +31,8 @@ services:
       - calibre
     volumes:
       - ${NASCOMPOSE_SERVICES?}/ebook-reader/volumes/calibre-web_config/:/config/
-      - ${NASCOMPOSE_DATA?}/media/ebooks/:/ebooks/
-      - ${NASCOMPOSE_SERVICES?}/ebook-reader/volumes/calibre_database/metadata.db:/ebooks/metadata.db
+      - ${NASCOMPOSE_DATA?}/media/ebooks/:/ebooks/:ro
+      - ${NASCOMPOSE_SERVICES?}/ebook-reader/volumes/calibre_database/metadata.db:/ebooks/metadata.db:ro
     restart: unless-stopped
     labels:
       traefik.enable: true
