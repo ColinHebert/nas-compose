@@ -38,7 +38,7 @@ services:
   plaxt:
     hostname: plaxt
     image: xanderstrike/goplaxt
-    profiles: [plaxt]
+    profiles: [ plaxt ]
     user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     environment:
       TRAKT_ID_FILE: /run/secrets/trakt_id
@@ -58,7 +58,7 @@ services:
   audiobookshelf:
     hostname: audiobookshelf
     image: advplyr/audiobookshelf
-    profiles: [ebooks]
+    profiles: [ ebooks ]
     environment:
       AUDIOBOOKSHELF_UID: ${NASCOMPOSE_UID?}
       AUDIOBOOKSHELF_GID: ${NASCOMPOSE_GID?}
@@ -76,7 +76,7 @@ services:
   jellyfin:
     hostname: jellyfin
     image: jellyfin/jellyfin
-    profiles: [jellyfin]
+    profiles: [ jellyfin ]
     user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     networks:
       - reverse-proxy

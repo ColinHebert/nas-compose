@@ -46,11 +46,11 @@ services:
     # Set hostname to "SERVICE-main" if not suffix is provided. This avoids collisions with other instances using the service name as hostname (default on compose)
     hostname: cross-seed${TORRENT_SUFFIX:--main}
     image: crossseed/cross-seed
-    profiles: ["torrents${TORRENT_SUFFIX?}-xseed"]
+    profiles: [ "torrents${TORRENT_SUFFIX?}-xseed" ]
     user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     networks:
       - torrents
-#      - indexer
+      #- indexer
     dns:
       - 1.1.1.1
       - 1.0.0.1
@@ -81,7 +81,7 @@ services:
     # Set hostname to "SERVICE-main" if not suffix is provided. This avoids collisions with other instances using the service name as hostname (default on compose)
     hostname: unpackerr{TORRENT_SUFFIX:--main}
     image: golift/unpackerr
-    profiles: ["torrents${TORRENT_SUFFIX?}-unpackerr"]
+    profiles: [ "torrents${TORRENT_SUFFIX?}-unpackerr" ]
     user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     networks:
       - torrents
@@ -96,5 +96,6 @@ networks:
 
   reverse-proxy:
     external: true
+
 #  indexer:
 #    external: true
