@@ -11,6 +11,7 @@ services:
       PAPERLESS_URL: https://paperless.${NASCOMPOSE_DOMAIN?}
       PAPERLESS_ENABLE_HTTP_REMOTE_USER: true
       PAPERLESS_TRASH_DIR: /usr/src/paperless/media/recycle-bin/paperless/
+      PAPERLESS_OCR_USER_ARGS: '{"invalidate_digital_signatures": true}'
     networks:
       - reverse-proxy
       - default
