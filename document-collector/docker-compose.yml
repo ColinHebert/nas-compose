@@ -10,6 +10,7 @@ services:
       USERMAP_GID: ${NASCOMPOSE_GID?}
       PAPERLESS_URL: https://paperless.${NASCOMPOSE_DOMAIN?}
       PAPERLESS_ENABLE_HTTP_REMOTE_USER: true
+      PAPERLESS_TRASH_DIR: /usr/src/paperless/media/recycle-bin/paperless/
     networks:
       - reverse-proxy
       - default
@@ -17,7 +18,7 @@ services:
       - broker
     volumes:
       - ${NASCOMPOSE_SERVICES?}/document-collector/volumes/paperless_data/:/usr/src/paperless/data/
-      - ${NASCOMPOSE_DATA?}/media/documents/:/usr/src/paperless/media/
+      - ${NASCOMPOSE_DATA?}/media/:/usr/src/paperless/media/
       - ${NASCOMPOSE_DATA?}/consume:/usr/src/paperless/consume
       - ${NASCOMPOSE_DATA?}/export:/usr/src/paperless/export
     restart: unless-stopped
