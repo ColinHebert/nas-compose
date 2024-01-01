@@ -10,7 +10,6 @@ services:
       USERMAP_GID: ${NASCOMPOSE_GID?}
       PAPERLESS_URL: https://paperless.${NASCOMPOSE_DOMAIN?}
       PAPERLESS_ENABLE_HTTP_REMOTE_USER: true
-      PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: Remote-User
     networks:
       - reverse-proxy
       - default
