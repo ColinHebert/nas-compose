@@ -1,0 +1,36 @@
+name: document-collector
+
+services:
+  paperless:
+    hostname: paperless
+    image: ghcr.io/paperless-ngx/paperless-ngx
+    environment:
+      PAPERLESS_REDIS: redis://broker:6379
+      USERMAP_UID: ${NASCOMPOSE_UID?}
+      USERMAP_GID: ${NASCOMPOSE_GID?}
+      PAPERLESS_ENABLE_HTTP_REMOTE_USER: true
+      PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: Remote-User
+    networks:
+      - reverse-proxy
+    depends_on:
+      - broker
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/document-collector/volumes/paperless_data/:/usr/src/paperless/data/
+      - ${NASCOMPOSE_DATA?}/media/documents/:/usr/src/paperless/media/
+      - ${NASCOMPOSE_DATA?}/consume:/usr/src/paperless/consume
+      - ${NASCOMPOSE_DATA?}/export:/usr/src/paperless/export
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.paperless.middlewares: authelia@file
+
+  broker:
+    hostname: broker
+    image: redis:7
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/document-collector/volumes/broker_data/:/data/
+    restart: unless-stopped
+
+networks:
+  reverse-proxy:
+    external: true
