@@ -56,3 +56,7 @@ services:
     volumes:
       - ${NASCOMPOSE_SERVICES?}/photo-collector/volumes/immich_postgres_data/:/var/lib/postgresql/data/
     restart: unless-stopped
+
+networks:
+  reverse-proxy:
+    external: true
