@@ -30,7 +30,7 @@ services:
     hostname: immich-machine-learning
     image: ghcr.io/immich-app/immich-machine-learning
     volumes:
-      - model-cache:/cache
+      - ${NASCOMPOSE_SERVICES?}/photo-collector/volumes/imich_ml_cache/:/cache/
     restart: unless-stopped
 
   redis:
@@ -46,5 +46,5 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: immich
     volumes:
-      - ${NASCOMPOSE_SERVICES?}/photo-collector/volumes/database_data/:/var/lib/postgresql/data
+      - ${NASCOMPOSE_SERVICES?}/photo-collector/volumes/database_data/:/var/lib/postgresql/data/
     restart: unless-stopped
