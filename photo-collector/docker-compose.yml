@@ -3,7 +3,7 @@ name: photo-collector
 services:
   immich:
     hostname: immich
-    image: ghcr.io/immich-app/immich-server
+    image: ghcr.io/immich-app/immich-server:release
     command: [ "start.sh", "immich" ]
     depends_on:
       - redis
@@ -17,7 +17,7 @@ services:
 
   immich-microservices:
     hostname: immich-microservices
-    image: ghcr.io/immich-app/immich-server
+    image: ghcr.io/immich-app/immich-server:release
     command: [ "start.sh", "microservices" ]
     depends_on:
       - redis
@@ -28,7 +28,7 @@ services:
 
   immich-machine-learning:
     hostname: immich-machine-learning
-    image: ghcr.io/immich-app/immich-machine-learning
+    image: ghcr.io/immich-app/immich-machine-learning:release
     volumes:
       - ${NASCOMPOSE_SERVICES?}/photo-collector/volumes/imich_ml_cache/:/cache/
     restart: unless-stopped
