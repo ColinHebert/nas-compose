@@ -14,7 +14,7 @@ services:
       - reverse-proxy
       - default
     depends_on:
-      - redis
+      - immich_redis
       - immich_postgres
     volumes:
       - ${NASCOMPOSE_DATA?}/media/photos/:/usr/src/app/upload/
@@ -33,7 +33,7 @@ services:
       DB_PASSWORD: postgres
       DB_DATABASE_NAME: immich
     depends_on:
-      - redis
+      - immich_redis
       - immich_postgres
     volumes:
       - ${NASCOMPOSE_DATA?}/media/photos/:/usr/src/app/upload/
