@@ -15,7 +15,7 @@ services:
       - default
     depends_on:
       - redis
-      - database
+      - immich_postgres
     volumes:
       - ${NASCOMPOSE_DATA?}/media/photos/:/usr/src/app/upload/
     restart: unless-stopped
@@ -27,9 +27,14 @@ services:
     hostname: immich-microservices
     image: ghcr.io/immich-app/immich-server:release
     command: [ "start.sh", "microservices" ]
+    environment:
+      DB_HOSTNAME: immich_postgres
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_DATABASE_NAME: immich
     depends_on:
       - redis
-      - database
+      - immich_postgres
     volumes:
       - ${NASCOMPOSE_DATA?}/media/photos/:/usr/src/app/upload/
     restart: unless-stopped
