@@ -46,9 +46,9 @@ services:
       - ${NASCOMPOSE_SERVICES?}/photo-collector/volumes/imich_ml_cache/:/cache/
     restart: unless-stopped
 
-  redis:
+  immich_redis:
+    hostname: immich_redis
     image: redis
-    hostname: redis
     restart: unless-stopped
 
   immich_postgres:
