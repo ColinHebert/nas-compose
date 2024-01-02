@@ -6,10 +6,10 @@ services:
     image: ghcr.io/immich-app/immich-server:release
     command: [ "start.sh", "immich" ]
     environment:
-      - DB_HOSTNAME: immich_postgres
-      - DB_USERNAME: postgres
-      - DB_PASSWORD: postgres
-      - DB_DATABASE_NAME: immich
+      DB_HOSTNAME: immich_postgres
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_DATABASE_NAME: immich
     networks:
       - reverse-proxy
       - default
