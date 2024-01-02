@@ -5,6 +5,14 @@ services:
     hostname: immich
     image: ghcr.io/immich-app/immich-server:release
     command: [ "start.sh", "immich" ]
+    environment:
+      - DB_HOSTNAME: immich_postgres
+      - DB_USERNAME: postgres
+      - DB_PASSWORD: postgres
+      - DB_DATABASE_NAME: immich
+    networks:
+      - reverse-proxy
+      - default
     depends_on:
       - redis
       - database
@@ -38,13 +46,13 @@ services:
     hostname: redis
     restart: unless-stopped
 
-  database:
+  immich_postgres:
+    hostname: immich_postgres
     image: tensorchord/pgvecto-rs:pg14-v0.1.11
-    hostname: database
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: immich
     volumes:
-      - ${NASCOMPOSE_SERVICES?}/photo-collector/volumes/database_data/:/var/lib/postgresql/data/
+      - ${NASCOMPOSE_SERVICES?}/photo-collector/volumes/immich_postgres_data/:/var/lib/postgresql/data/
     restart: unless-stopped
