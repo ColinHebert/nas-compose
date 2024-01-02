@@ -1,0 +1,50 @@
+name: photo-collector
+
+services:
+  immich:
+    hostname: immich
+    image: ghcr.io/immich-app/immich-server
+    command: [ "start.sh", "immich" ]
+    depends_on:
+      - redis
+      - database
+    volumes:
+      - ${NASCOMPOSE_DATA?}/media/photos/:/usr/src/app/upload/
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.immich.middlewares: authelia@file
+
+  immich-microservices:
+    hostname: immich-microservices
+    image: ghcr.io/immich-app/immich-server
+    command: [ "start.sh", "microservices" ]
+    depends_on:
+      - redis
+      - database
+    volumes:
+      - ${NASCOMPOSE_DATA?}/media/photos/:/usr/src/app/upload/
+    restart: unless-stopped
+
+  immich-machine-learning:
+    hostname: immich-machine-learning
+    image: ghcr.io/immich-app/immich-machine-learning
+    volumes:
+      - model-cache:/cache
+    restart: unless-stopped
+
+  redis:
+    image: redis
+    hostname: redis
+    restart: unless-stopped
+
+  database:
+    image: tensorchord/pgvecto-rs:pg14-v0.1.11
+    hostname: database
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: immich
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/photo-collector/volumes/database_data/:/var/lib/postgresql/data
+    restart: unless-stopped
