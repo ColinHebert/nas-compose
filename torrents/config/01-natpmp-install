@@ -1,8 +1,0 @@
-#!/command/with-contenv bash
-
-echo "Installing Git..."
-apk add -u git
-
-echo "Installing py-natpmp"
-rm -r /py-natpmp || echo "py-natpmp clean"
-git clone https://github.com/yimingliu/py-natpmp.git /py-natpmp
