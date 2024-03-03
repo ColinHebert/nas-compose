@@ -9,8 +9,12 @@ services:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
       VPN_ENABLED: true
-      VPN_LAN_NETWORK: 192.168.0.0/23
+      VPN_CONF: wg0-fix
       VPN_PROVIDER: ${TORRENT_VPN?}
+      VPN_LAN_NETWORK: 192.168.0.0/23
+      VPN_AUTO_PORT_FORWARD: true
+      VPN_KEEP_LOCAL_DNS: true
+      VPN_FIREWALL_TYPE: legacy
     cap_add:
       - NET_ADMIN
     sysctls:
