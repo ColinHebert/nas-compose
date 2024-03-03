@@ -35,7 +35,7 @@ services:
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/config/99-cron-start:/etc/cont-init.d/99-cron-start:ro
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/config/updateMaMIP:/etc/periodic/hourly/updateMaMIP:ro
       # Secrets
-      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/secrets/wg0.conf:/config/wireguard/wg0.conf:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/secrets/wg0-fix.conf:/config/wireguard/wg0-fix.conf:ro
     restart: unless-stopped
     labels:
       - traefik.enable=true
