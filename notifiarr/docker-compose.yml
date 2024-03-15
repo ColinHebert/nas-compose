@@ -25,9 +25,6 @@ services:
     volumes:
       - ${NASCOMPOSE_SERVICES?}/notifiarr/volumes/recyclarr_config/:/config/
     restart: unless-stopped
-    labels:
-      traefik.enable: true
-      traefik.http.routers.recyclarr.middlewares: authelia@file
 
 networks:
   reverse-proxy:
