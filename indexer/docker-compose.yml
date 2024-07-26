@@ -26,7 +26,7 @@ services:
 
   flaresolverr:
     hostname: flaresolverr
-    image: flaresolverr/flaresolverr
+    image: ghcr.io/flaresolverr/flaresolverr:pr-1282 # Temporary until https://github.com/FlareSolverr/FlareSolverr/pull/1272 gets fixed
     restart: unless-stopped
     dns:
       # Work around DNS blocks in various regions
