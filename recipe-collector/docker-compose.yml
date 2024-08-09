@@ -1,0 +1,21 @@
+name: recipe-collector
+
+services:
+  mealie:
+    hostname: mealie
+    image: ghcr.io/mealie-recipes/mealie
+    networks:
+      - reverse-proxy
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/recipe-collector/volumes/mealie_data/:/app/data/
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.mealie.middlewares: authelia@file
+
+networks:
+  reverse-proxy:
+    external: true
