@@ -3,7 +3,7 @@ name: photo-collector
 services:
   immich:
     hostname: immich
-    image: ghcr.io/immich-server:release
+    image: ghcr.io/immich-app/immich-server:release
     networks:
       - reverse-proxy
       - default
