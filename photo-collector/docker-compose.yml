@@ -10,6 +10,10 @@ services:
     depends_on:
       - immich_redis
       - immich_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: immich
     volumes:
       - ${NASCOMPOSE_DATA?}/media/photos/:/usr/src/app/upload/
     restart: unless-stopped
