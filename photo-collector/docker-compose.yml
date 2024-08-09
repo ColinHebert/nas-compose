@@ -36,7 +36,7 @@ services:
     restart: unless-stopped
 
   immich_postgres:
-    hostname: postgres
+    hostname: database
     image: tensorchord/pgvecto-rs:pg14-v0.2.0
     environment:
       POSTGRES_USER: postgres
