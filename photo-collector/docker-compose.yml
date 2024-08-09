@@ -4,6 +4,7 @@ services:
   immich:
     hostname: immich
     image: ghcr.io/immich-app/immich-server:release
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     networks:
       - reverse-proxy
       - default
@@ -38,6 +39,7 @@ services:
   immich_postgres:
     hostname: database
     image: tensorchord/pgvecto-rs:pg14-v0.2.0
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
