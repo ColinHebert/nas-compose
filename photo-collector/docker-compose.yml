@@ -29,14 +29,14 @@ services:
     restart: unless-stopped
 
   immich_redis:
-    hostname: immich_redis
+    hostname: redis
     image: redis:6.2-alpine
     healthcheck:
       test: redis-cli ping || exit 1
     restart: unless-stopped
 
   immich_postgres:
-    hostname: immich_postgres
+    hostname: postgres
     image: tensorchord/pgvecto-rs:pg14-v0.2.0
     environment:
       POSTGRES_USER: postgres
