@@ -9,7 +9,7 @@ services:
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
-      LOG_LEVEL: debug
+      LOG_LEVEL: trace
     volumes:
       - ${NASCOMPOSE_SERVICES?}/recipe-collector/volumes/mealie_data/:/app/data/
     restart: unless-stopped
