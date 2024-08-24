@@ -27,7 +27,7 @@ services:
     hostname: immich-machine-learning
     image: ghcr.io/immich-app/immich-machine-learning:release
     volumes:
-      - ${NASCOMPOSE_SERVICES?}/photo-collector/volumes/imich_ml_cache/:/cache/
+      - ${NASCOMPOSE_SERVICES?}/photo-collector/volumes/immich_ml_cache/:/cache/
     restart: unless-stopped
 
   immich_redis:
