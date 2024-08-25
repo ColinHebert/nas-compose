@@ -40,7 +40,7 @@ services:
       GID: ${NASCOMPOSE_GID?}
       LLDAP_JWT_SECRET_FILE: /run/secrets/lldap_jwt_secret
       LLDAP_KEY_SEED_FILE: /run/secrets/lldap_key_seed
-      LLDAP_LDAP_BASE_DN: ${NASCOMPOSE_GID?}
+      LLDAP_LDAP_BASE_DN: ${NASCOMPOSE_LDAP_DN?}
     networks:
       - reverse-proxy
       - default
