@@ -51,6 +51,7 @@ services:
       - ${NASCOMPOSE_SERVICES?}/authentication/secrets/lldap_key_seed:/run/secrets/key_seed:ro
     labels:
       traefik.enable: true
+      traefik.http.services.lldap.loadbalancer.server.port: 17170
 
 networks:
   reverse-proxy:
