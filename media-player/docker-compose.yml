@@ -73,24 +73,6 @@ services:
       traefik.enable: true
       traefik.http.routers.audiobookshelf.middlewares: authelia@file
 
-  jellyfin:
-    hostname: jellyfin
-    image: jellyfin/jellyfin
-    profiles: [ jellyfin ]
-    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
-    networks:
-      - reverse-proxy
-      - media-player
-    volumes:
-      - ${NASCOMPOSE_SERVICES?}/media-player/volumes/jellyfin_config/:/config/
-      - ${NASCOMPOSE_SERVICES?}/media-player/volumes/jellyfin_cache/:/cache/
-      - ${NASCOMPOSE_DATA?}/media/:/data/:ro
-    restart: unless-stopped
-    labels:
-      traefik.enable: true
-      traefik.http.services.jellyfin.loadbalancer.server.port: 8096
-      traefik.http.services.jellyfin.loadbalancer.server.scheme: https
-
 networks:
   media-player:
     name: media-player
