@@ -22,13 +22,13 @@ services:
     volumes:
       - ${NASCOMPOSE_SERVICES?}/authentication/volumes/authelia_config/:/config/
       # Configuration
-      - ${NASCOMPOSE_SERVICES?}/authentication/configs/configuration.yml:/etc/authelia/configuration.yml:ro
-      - ${NASCOMPOSE_SERVICES?}/authentication/configs/access.yml:/etc/authelia/access.yml:ro
-      - ${NASCOMPOSE_SERVICES?}/authentication/configs/authentication.yml:/etc/authelia/authentication.yml:ro
+      - ${NASCOMPOSE_SERVICES?}/authentication/configs/authelia_configuration.yml:/etc/authelia/configuration.yml:ro
+      - ${NASCOMPOSE_SERVICES?}/authentication/configs/authelia_access.yml:/etc/authelia/access.yml:ro
+      - ${NASCOMPOSE_SERVICES?}/authentication/configs/authelia_authentication.yml:/etc/authelia/authentication.yml:ro
       # Secrets
-      - ${NASCOMPOSE_SERVICES?}/authentication/secrets/jwt_secret:/run/secrets/jwt_secret:ro
-      - ${NASCOMPOSE_SERVICES?}/authentication/secrets/storage_key:/run/secrets/storage_key:ro
-      - ${NASCOMPOSE_SERVICES?}/authentication/secrets/smtp_password:/run/secrets/smtp_password:ro
+      - ${NASCOMPOSE_SERVICES?}/authentication/secrets/authelia_jwt_secret:/run/secrets/jwt_secret:ro
+      - ${NASCOMPOSE_SERVICES?}/authentication/secrets/authelia_storage_key:/run/secrets/storage_key:ro
+      - ${NASCOMPOSE_SERVICES?}/authentication/secrets/authelia_smtp_password:/run/secrets/smtp_password:ro
     restart: unless-stopped
     labels:
       traefik.enable: true
@@ -38,8 +38,8 @@ services:
     environment:
       UID: ${NASCOMPOSE_UID?}
       GID: ${NASCOMPOSE_GID?}
-      LLDAP_JWT_SECRET_FILE: /run/secrets/lldap_jwt_secret
-      LLDAP_KEY_SEED_FILE: /run/secrets/lldap_key_seed
+      LLDAP_JWT_SECRET_FILE: /run/secrets/jwt_secret
+      LLDAP_KEY_SEED_FILE: /run/secrets/key_seed
       LLDAP_LDAP_BASE_DN: ${NASCOMPOSE_LDAP_DN?}
     networks:
       - reverse-proxy
@@ -47,8 +47,8 @@ services:
     volumes:
       - ${NASCOMPOSE_SERVICES?}/authentication/volumes/lldap_data:/data
       # Secrets
-      - ${NASCOMPOSE_SERVICES?}/authentication/secrets/lldap_jwt_secret:/run/secrets/lldap_jwt_secret:ro
-      - ${NASCOMPOSE_SERVICES?}/authentication/secrets/lldap_key_seed:/run/secrets/lldap_key_seed:ro
+      - ${NASCOMPOSE_SERVICES?}/authentication/secrets/lldap_jwt_secret:/run/secrets/jwt_secret:ro
+      - ${NASCOMPOSE_SERVICES?}/authentication/secrets/lldap_key_seed:/run/secrets/key_seed:ro
     labels:
       traefik.enable: true
 
