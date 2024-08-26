@@ -15,7 +15,7 @@ services:
       AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE: /run/secrets/smtp_password
       AUTHELIA_NOTIFIER_SMTP_SENDER: "authelia@${NASCOMPOSE_DOMAIN?}"
       AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE: /run/secrets/oidcsecret
-      AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY_FILE: /run/secrets/oicd.pem
+      AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY_FILE: /run/secrets/oidc.pem
       X_AUTHELIA_CONFIG_FILTERS: template
       TEMPLATE_NASCOMPOSE_DOMAIN: ${NASCOMPOSE_DOMAIN?}
     networks:
@@ -32,7 +32,7 @@ services:
       - ${NASCOMPOSE_SERVICES?}/authentication/secrets/authelia_storage_key:/run/secrets/storage_key:ro
       - ${NASCOMPOSE_SERVICES?}/authentication/secrets/authelia_smtp_password:/run/secrets/smtp_password:ro
       - ${NASCOMPOSE_SERVICES?}/authentication/secrets/authelia_oidcsecret:/run/secrets/oidcsecret:ro
-      - ${NASCOMPOSE_SERVICES?}/authentication/secrets/authelia_oicd.pem:/run/secrets/oicd.pem:ro
+      - ${NASCOMPOSE_SERVICES?}/authentication/secrets/authelia_oidc.pem:/run/secrets/oidc.pem:ro
     restart: unless-stopped
     labels:
       traefik.enable: true
