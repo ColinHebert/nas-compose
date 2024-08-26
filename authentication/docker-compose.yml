@@ -31,7 +31,6 @@ services:
       - ${NASCOMPOSE_SERVICES?}/authentication/secrets/authelia_smtp_password:/run/secrets/smtp_password:ro
       - ${NASCOMPOSE_SERVICES?}/authentication/secrets/authelia_oidcsecret:/run/secrets/oidcsecret:ro
       - ${NASCOMPOSE_SERVICES?}/authentication/secrets/authelia_oidc.key:/run/secrets/oidc.key:ro
-      - ${NASCOMPOSE_SERVICES?}/authentication/secrets/authelia_oidc.pem:/run/secrets/oidc.pem:ro
     restart: unless-stopped
     labels:
       traefik.enable: true
