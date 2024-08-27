@@ -9,9 +9,26 @@ services:
       WATCHTOWER_INCLUDE_STOPPED: true
       WATCHTOWER_CLEANUP: true
       WATCHTOWER_NOTIFICATION_REPORT: true
-      WATCHTOWER_NOTIFICATION_URL: /run/secrets/watchtower_notification_url
+      WATCHTOWER_NOTIFICATION_URL: /run/secrets/notification_url
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       # Secrets
-      - ${NASCOMPOSE_SERVICES?}/docker-monitoring/secrets/notification_url:/run/secrets/watchtower_notification_url:ro
+      - ${NASCOMPOSE_SERVICES?}/docker-monitoring/secrets/notification_url:/run/secrets/notification_url:ro
     restart: unless-stopped
+  dockge:
+    hostname: dockge
+    image: louislam/dockger
+    networks:
+      - reverse-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${NASCOMPOSE_SERVICES?}/authentication/volumes/dockge_stacks/:/opt/stacks/
+      - ${NASCOMPOSE_SERVICES?}/authentication/volumes/dockge_data/:/app/data/
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.notifiarr.middlewares: authelia@file
+
+networks:
+  reverse-proxy:
+    external: true
