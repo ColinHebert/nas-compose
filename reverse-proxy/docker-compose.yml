@@ -14,7 +14,8 @@ services:
       - reverse-proxy
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/volumes/traefik_acme:/etc/traefik/acme
+      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/volumes/traefik_acme/:/etc/traefik/acme/
+      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/volumes/traefik_logs/:/var/log/traefik/
       # Config
       - ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/traefik.yml:/etc/traefik/traefik.yml:ro
       - ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/dynamic:/etc/traefik/dynamic:ro
