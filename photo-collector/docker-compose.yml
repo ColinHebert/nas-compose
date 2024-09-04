@@ -20,8 +20,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      # Authentication in Immich directly
-      # traefik.http.routers.immich.middlewares: authelia@file
+      traefik.http.routers.immich.middlewares: authelia@file
 
   immich-machine-learning:
     hostname: immich-machine-learning
