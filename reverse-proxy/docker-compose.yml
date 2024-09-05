@@ -27,8 +27,7 @@ services:
       traefik.enable: true
       traefik.http.routers.traefik.service: api@internal
       traefik.http.routers.traefik.middlewares: authelia@file
-
- crowdsec:
+  crowdsec:
     hostname: crowdsec
     image: crowdsecurity/crowdsec
     environment:
