@@ -28,6 +28,21 @@ services:
       traefik.http.routers.traefik.service: api@internal
       traefik.http.routers.traefik.middlewares: authelia@file
 
+ crowdsec:
+    hostname: crowdsec
+    image: crowdsecurity/crowdsec
+    environment:
+      COLLECTIONS: "crowdsecurity/traefik"
+      GID: ${NASCOMPOSE_GID?}
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/configs/crowdsec_acquis.yml:/etc/crowdsec/acquis.yaml
+      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/volumes/crowdsec_config/:/etc/crowdsec/
+      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/volumes/crowdsec_data/:/var/lib/crowdsec/data/
+      - ${NASCOMPOSE_SERVICES?}/reverse-proxy/volumes/traefik_logs/:/var/log/traefik/:ro
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+
 networks:
   reverse-proxy:
     name: reverse-proxy
