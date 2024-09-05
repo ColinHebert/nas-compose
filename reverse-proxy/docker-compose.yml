@@ -4,7 +4,8 @@ services:
   traefik:
     hostname: traefik
     image: traefik
-    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    # TODO: Run as non root user
+    #user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     environment:
       NASCOMPOSE_DOMAIN: ${NASCOMPOSE_DOMAIN?}
       CF_DNS_API_TOKEN_FILE: /run/secrets/cf_dns_token
