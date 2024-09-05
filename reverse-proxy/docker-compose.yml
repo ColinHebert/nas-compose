@@ -43,6 +43,7 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
+      traefik.http.routers.crowdsec.middlewares: authelia@file
 
 networks:
   reverse-proxy:
