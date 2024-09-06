@@ -9,7 +9,6 @@ services:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
       VPN_ENABLED: true
-      VPN_CONF: wg0-fix
       VPN_PROVIDER: ${TORRENT_VPN?}
       VPN_LAN_NETWORK: 192.168.0.0/23
       VPN_AUTO_PORT_FORWARD: true
@@ -25,8 +24,6 @@ services:
     dns:
       - 1.1.1.1
       - 1.0.0.1
-    devices:
-      - /dev/net/tun:/dev/net/tun
     volumes:
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/volumes/qbittorrent_config/:/config/
       - ${NASCOMPOSE_DATA?}/torrents${TORRENT_SUFFIX?}/:/data/torrents/
@@ -35,7 +32,7 @@ services:
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/config/99-cron-start:/etc/cont-init.d/99-cron-start:ro
       - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/config/updateMaMIP:/etc/periodic/hourly/updateMaMIP:ro
       # Secrets
-      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/secrets/wg0-fix.conf:/config/wireguard/wg0-fix.conf:ro
+      - ${NASCOMPOSE_SERVICES?}/torrents${TORRENT_SUFFIX?}/secrets/wg0.conf:/config/wireguard/wg0.conf:ro
     restart: unless-stopped
     labels:
       - traefik.enable=true
