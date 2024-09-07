@@ -3,7 +3,7 @@ name: bootstrap
 services:
   portainer:
     hostname: portainer
-    image: portainer/portainer-ce
+    image: portainer/portainer-ee
     command: >
       --admin-password-file /run/secrets/portainer_password
     volumes:
