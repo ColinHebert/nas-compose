@@ -34,7 +34,10 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-
+  authelia-redis:
+    hostname: authelia-redis
+    image: redis
+    restart: unless-stopped
   lldap:
     image: lldap/lldap
     environment:
