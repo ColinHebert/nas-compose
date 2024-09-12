@@ -41,7 +41,7 @@ services:
       - traefik.http.routers.qbittorrent${TORRENT_SUFFIX?}.middlewares=authelia@file
       # API access for nzb360
       - traefik.http.routers.qbittorrent${TORRENT_SUFFIX?}-api.rule=Host(`qbittorrent${TORRENT_SUFFIX?}-api.${NASCOMPOSE_DOMAIN?}`)
-      - traefik.http.routers.qbittorrent${TORRENT_SUFFIX?}-api.middlewares=authelia-basic@file
+      - traefik.http.routers.qbittorrent${TORRENT_SUFFIX?}.middlewares=authelia@file
 
   cross-seed:
     # Set hostname to "SERVICE-main" if not suffix is provided. This avoids collisions with other instances using the service name as hostname (default on compose)
