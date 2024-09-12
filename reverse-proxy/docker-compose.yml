@@ -8,6 +8,10 @@ services:
     #user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     environment:
       NASCOMPOSE_DOMAIN: ${NASCOMPOSE_DOMAIN?}
+      CF_DNS_API_TOKEN_FILE: /run/secrets/cf_dns_token
+      TRAEFIK_CERTIFICATESRESOLVERS_DEFAULTRESOLVER_ACME_EMAIL: admin@${NASCOMPOSE_DOMAIN?}
+      TRAEFIK_ENTRYPOINTS_WEBSECURE_HTTP_TLS_DOMAINS_0_MAIN: '*.${NASCOMPOSE_DOMAIN?}'
+      LEGO_DISABLE_CNAME_SUPPORT: true
     networks:
       - reverse-proxy
     volumes:
