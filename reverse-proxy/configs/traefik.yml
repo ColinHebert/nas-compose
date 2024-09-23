@@ -9,33 +9,60 @@ providers:
 serverstransport:
   insecureskipverify: true
 
-api: {}
-accessLog: {}
+api:
+  dashboard: true
+  insecure: true
+accessLog:
+  filePath: /var/log/traefik/access.log
+  format: json
+  fields:
+    defaultMode: keep
+    names:
+      StartLocal: drop
+      ClientAddr: drop
+    headers:
+      defaultMode: drop
+      names:
+        Remote-User: keep
+metrics:
+  prometheus:
+    addRoutersLabels: true
+    entryPoint: metrics
 
 certificatesResolvers:
   defaultResolver:
     acme:
       storage: /etc/traefik/acme/acme.json
-      dnsChallenge:
-        provider: cloudflare
+      tlsChallenge: {}
 
 entryPoints:
   web:
-    address: :80
+    address: :8080
     http:
       redirections:
         entryPoint:
           to: websecure
           scheme: https
-  websecure:
-    address: :443
+          permanent: true
+  websecure:  
+    address: :8443
+    asDefault: true
     http:
       tls:
         certResolver: defaultResolver
       middlewares:
         - hsts@file
+        - compress@file
+    http3:
+      advertisedPort: 443
   ssh:
-    address: :22
+    address: :8022
+  ssh-tarpit:
+    address: :8222
+  metrics:
+    address: :9982
+  traefik:
+    address: :8081
 
 global:
   sendAnonymousUsage: false

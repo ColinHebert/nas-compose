@@ -1,5 +1,4 @@
 name: tv-collector
-
 services:
   sonarr:
     hostname: sonarr
@@ -19,11 +18,9 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.sonarr.middlewares: authelia@file
-
 networks:
   tv-collector:
     name: tv-collector
-
   reverse-proxy:
     external: true
   torrents:

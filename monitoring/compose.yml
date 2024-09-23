@@ -1,0 +1,68 @@
+version: "3.8"
+services:
+  loki:
+    image: grafana/loki
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      default: null
+      macvlan:
+        ipv4_address: ${NASCOMPOSE_MACVLAN_LOKI_IP?}
+    restart: unless-stopped
+  promtail:
+    image: grafana/promtail
+    volumes:
+      - /var/log:/var/log
+      - ${NASCOMPOSE_SERVICES?}/monitoring/config/promtail_config.yaml:/etc/promtail/config.yaml
+      - ${NASCOMPOSE_SERVICES?}/monitoring/volumes/promtail_logs/:/data/logs/
+    command: -config.file=/etc/promtail/config.yaml
+    restart: unless-stopped
+  grafana:
+    image: grafana/grafana-oss
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/monitoring/volumes/grafana_data/:/var/lib/grafana
+      - ${NASCOMPOSE_SERVICES?}/monitoring/config/grafana.ini:/etc/grafana/grafana.ini:ro
+    networks:
+      - reverse-proxy
+      - default
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor
+    hostname: cadvisor
+    command:
+      - --enable_metrics=app,cpu,memory,network,oom_event,percpu
+      - --store_container_labels=false
+      - --docker_only=true
+      - --whitelisted_container_labels=com.docker.compose.project,com.docker.compose.service
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/packages/ContainerManager/var/docker/:/var/lib/docker:ro
+    networks:
+      - reverse-proxy
+      - default
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.cadvisor.middlewares: authelia@file
+  prometheus:
+    image: prom/prometheus
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/monitoring/config/prometheus_config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ${NASCOMPOSE_SERVICES?}/monitoring/volumes/prometheus_data/:/prometheus/
+    restart: unless-stopped
+    networks:
+      - reverse-proxy
+      - default
+    labels:
+      traefik.enable: true
+      traefik.http.routers.prometheus.middlewares: authelia@file
+networks:
+  reverse-proxy:
+    external: true
+  macvlan:
+    external: true

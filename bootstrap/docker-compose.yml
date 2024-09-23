@@ -1,11 +1,10 @@
-name: bootstrap
-
+version: "3.8"
 services:
   portainer:
     hostname: portainer
-    image: portainer/portainer-ce
-    command: >
-      --admin-password-file /run/secrets/portainer_password
+    image: portainer/portainer-ee
+    command:
+      - --admin-password-file=/run/secrets/portainer_password
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/packages/ContainerManager/var/docker/volumes/:/var/lib/docker/volumes/

@@ -2,18 +2,11 @@ http:
   middlewares:
     authelia:
       forwardAuth:
-        address: 'http://authelia:9091/api/verify?rd=https%3A%2F%2Fauthelia.{{ env `NASCOMPOSE_DOMAIN` }}%2F'
+        address: http://authelia:9091/api/authz/forward-auth
         trustForwardHeader: true
         authResponseHeaders:
-          - Remote-User
-          - Remote-Groups
-          - Remote-Name
-          - Remote-Email
-    authelia-basic:
-      forwardAuth:
-        address: http://authelia:9091/api/verify?auth=basic
-        trustForwardHeader: true
-        authResponseHeaders:
+          - Authorization
+          - Proxy-Authorization
           - Remote-User
           - Remote-Groups
           - Remote-Name

@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  gitea:
+    container_name: gitea
+    image: gitea/gitea:latest-rootless
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    volumes:
+      - ${NASCOMPOSE_DATA?}/git:/var/lib/gitea/git/lfs
+      - ${NASCOMPOSE_SERVICES?}/git/volumes/gitea_data:/var/lib/gitea
+      - ${NASCOMPOSE_SERVICES?}/git/volumes/gitea_config:/etc/gitea
+    networks:
+      - reverse-proxy
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.services.gitea.loadbalancer.server.port: 3000
+      traefik.tcp.routers.gitea.entryPoints: ssh
+      traefik.tcp.routers.gitea.rule: HostSNI(`*`)
+      traefik.tcp.services.gitea.loadbalancer.server.port: 2222
+networks:
+  reverse-proxy:
+    external: true

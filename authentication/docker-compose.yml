@@ -1,10 +1,13 @@
-name: authentication
+version: "3.8"
 
 services:
   authelia:
     hostname: authelia
     image: authelia/authelia
-    command: --config /etc/authelia/configuration.yml,/etc/authelia/access.yml,/etc/authelia/authentication.yml
+    command:
+      - --config=/etc/authelia/configuration.yml
+      - --config=/etc/authelia/access.yml
+      - --config=/etc/authelia/authentication.yml
     environment:
       PUID: ${NASCOMPOSE_UID?}
       PGID: ${NASCOMPOSE_GID?}
@@ -13,7 +16,7 @@ services:
       AUTHELIA_NOTIFIER_SMTP_ADDRESS: ${NASCOMPOSE_AUTHELIA_SMTP_ADDRESS?}
       AUTHELIA_NOTIFIER_SMTP_USERNAME: ${NASCOMPOSE_AUTHELIA_SMTP_USERNAME?}
       AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE: /run/secrets/smtp_password
-      AUTHELIA_NOTIFIER_SMTP_SENDER: "authelia@${NASCOMPOSE_DOMAIN?}"
+      AUTHELIA_NOTIFIER_SMTP_SENDER: authelia@${NASCOMPOSE_DOMAIN?}
       X_AUTHELIA_CONFIG_FILTERS: template
       TEMPLATE_NASCOMPOSE_DOMAIN: ${NASCOMPOSE_DOMAIN?}
     networks:
@@ -34,7 +37,10 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-
+  authelia-redis:
+    hostname: authelia-redis
+    image: redis
+    restart: unless-stopped
   lldap:
     image: lldap/lldap
     environment:
@@ -52,8 +58,8 @@ services:
       - ${NASCOMPOSE_SERVICES?}/authentication/secrets/lldap_key_seed:/run/secrets/key_seed:ro
     labels:
       traefik.enable: true
+      traefik.http.routers.lldap.middlewares: authelia@file
       traefik.http.services.lldap.loadbalancer.server.port: 17170
-
 networks:
   reverse-proxy:
     external: true

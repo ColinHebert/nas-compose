@@ -2,7 +2,7 @@ http:
   middlewares:
     hsts:
       headers:
-        frameDeny: true
+        customFrameOptionsValue: SAMEORIGIN
         browserXssFilter: true
         stsSeconds: 31536000 # 1 year
         stsPreload: true
