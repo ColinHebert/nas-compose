@@ -1,0 +1,6 @@
+# Promtail logs volume is special as it contains folders which are symlinked to as volumes for other containers
+# Stop the parent .gitignore from impacting subfolders
+!*/
+# Ignore the content of all the subfolders
+*/*
+!.gitkeep

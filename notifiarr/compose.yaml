@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  notifiarr:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: notifiarr
+    image: golift/notifiarr
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    volumes:
+      - ./volumes/notifiarr_config/:/config/
+    labels:
+      traefik.http.routers.notifiarr.middlewares: authelia@file
+  recyclarr:
+    extends:
+      file: ../compose.base.yaml
+      service: base-service
+    container_name: recyclarr
+    image: ghcr.io/recyclarr/recyclarr
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy #Hack to get access to the right containers
+    volumes:
+      - ./volumes/recyclarr_config/:/config/
+networks:
+  reverse-proxy:
+    external: true

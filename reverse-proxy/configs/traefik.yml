@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://json.schemastore.org/traefik-v2.json
+
 providers:
   docker:
     exposedByDefault: false
@@ -44,7 +46,7 @@ entryPoints:
           to: websecure
           scheme: https
           permanent: true
-  websecure:  
+  websecure:
     address: :8443
     asDefault: true
     http:
@@ -59,6 +61,10 @@ entryPoints:
     address: :8022
   ssh-tarpit:
     address: :8222
+    transport:
+      respondingTimeouts:
+        readTimeout: 0
+        idleTimeout: 0
   metrics:
     address: :9982
   traefik:

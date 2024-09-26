@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  portainer:
+    networks:
+      macvlan:
+        ipv4_address: ${NASCOMPOSE_MACVLAN_PORTAINER_IP?}
+
+networks:
+  macvlan:
+    name: macvlan
+    driver: macvlan
+    driver_opts:
+      parent: ${NASCOMPOSE_MACVLAN_IFACE?}
+    ipam:
+      config:
+        - subnet: ${NASCOMPOSE_MACVLAN_SUBNET?}
+          gateway: ${NASCOMPOSE_MACVLAN_GATEWAY?}
+          ip_range: ${NASCOMPOSE_MACVLAN_RANGE?}
+          aux_addresses:
+            nas: ${NASCOMPOSE_MACVLAN_HOST_IP?}
+    labels:
+      nas-compose.boostrap: true

@@ -1,0 +1,67 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  authelia:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: authelia
+    image: authelia/authelia
+    command:
+      - authelia
+      - --config=/etc/authelia/configuration.yml
+      - --config=/etc/authelia/access.yml
+      - --config=/etc/authelia/authentication.yml
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    environment:
+      AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE: /run/secrets/jwt_secret
+      AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE: /run/secrets/storage_key
+      AUTHELIA_NOTIFIER_SMTP_ADDRESS: smtp://smtp-server
+      AUTHELIA_NOTIFIER_SMTP_DISABLE_REQUIRE_TLS: true
+      AUTHELIA_NOTIFIER_SMTP_SENDER: Authelia <authelia@${NASCOMPOSE_DOMAIN?}>
+      X_AUTHELIA_CONFIG_FILTERS: template
+      TEMPLATE_NASCOMPOSE_DOMAIN: ${NASCOMPOSE_DOMAIN?}
+    networks:
+      - smtp-server
+      - default
+    volumes:
+      - ./volumes/authelia_config/:/config/
+      - ./configs/authelia_configuration.yml:/etc/authelia/configuration.yml:ro
+      - ./configs/authelia_access.yml:/etc/authelia/access.yml:ro
+      - ./configs/authelia_authentication.yml:/etc/authelia/authentication.yml:ro
+      - ./secrets/authelia_jwt_secret:/run/secrets/jwt_secret:ro
+      - ./secrets/authelia_storage_key:/run/secrets/storage_key:ro
+      - ./secrets/authelia_oidcsecret:/run/secrets/oidcsecret:ro
+      - ./secrets/authelia_oidc.key:/run/secrets/oidc.key:ro
+  authelia-redis:
+    extends:
+      file: ../compose.base.yaml
+      service: base-service
+    container_name: authelia-redis
+    image: redis
+    #user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+
+  lldap:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: lldap
+    image: lldap/lldap:latest-alpine-rootless
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    environment:
+      LLDAP_JWT_SECRET_FILE: /run/secrets/jwt_secret
+      LLDAP_KEY_SEED_FILE: /run/secrets/key_seed
+    networks:
+      - default
+    volumes:
+      - ./volumes/lldap_data:/data
+      - ./secrets/lldap_jwt_secret:/run/secrets/jwt_secret:ro
+      - ./secrets/lldap_key_seed:/run/secrets/key_seed:ro
+    labels:
+      traefik.http.routers.lldap.middlewares: authelia@file
+      traefik.http.services.lldap.loadbalancer.server.port: 17170
+networks:
+  reverse-proxy:
+    external: true
+  smtp-server:
+    external: true

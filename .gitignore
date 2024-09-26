@@ -1,5 +1,13 @@
 *.nas-compose.env
-/**/volumes/*
-/**/secrets/*
+# Prevent the content of volumes from being commited, but allow the folders
+/*/volumes/*/**
+# Prevent secrets from being commited
+/*/secrets/**
+# Prevent local environment configuration from being commited
+/*/.env
+# Allow .gitkeeps for empty folders (volumes/secrets)
+!.gitkeep
+!.gitignore
+
 @eaDir
 .DS_Store

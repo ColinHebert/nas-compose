@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  paperless:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: paperless
+    image: ghcr.io/paperless-ngx/paperless-ngx
+    environment:
+      PAPERLESS_REDIS: redis://paperless-broker:6379
+      USERMAP_UID: ${NASCOMPOSE_UID?}
+      USERMAP_GID: ${NASCOMPOSE_GID?}
+      PAPERLESS_URL: https://paperless.${NASCOMPOSE_DOMAIN?}
+      PAPERLESS_ENABLE_HTTP_REMOTE_USER: true
+      PAPERLESS_TRASH_DIR: /usr/src/paperless/media/recycle-bin/paperless/
+      PAPERLESS_OCR_USER_ARGS: '{"invalidate_digital_signatures": true}'
+    networks:
+      - default
+    depends_on:
+      - paperless-broker
+    volumes:
+      - ./volumes/paperless_data/:/usr/src/paperless/data/
+      - ${NASCOMPOSE_DATA?}/media/:/usr/src/paperless/media/
+      - ${NASCOMPOSE_DATA?}/consume:/usr/src/paperless/consume
+      - ${NASCOMPOSE_DATA?}/export:/usr/src/paperless/export
+    labels:
+      traefik.http.routers.paperless.middlewares: authelia@file
+  paperless-broker:
+    extends:
+      file: ../compose.base.yaml
+      service: base-service
+    container_name: paperless-broker
+    image: redis
+    volumes:
+      - ./volumes/broker_data/:/data/
+networks:
+  reverse-proxy:
+    external: true

@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  loki:
+    networks:
+      macvlan:
+        ipv4_address: ${NASCOMPOSE_MACVLAN_LOKI_IP?}
+
+networks:
+  macvlan:
+    external: true

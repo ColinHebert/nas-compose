@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  mealie:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: mealie
+    image: ghcr.io/mealie-recipes/mealie
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    env_file: ./config/mealie.env
+    volumes:
+      - ./volumes/mealie_data/:/app/data/
+networks:
+  reverse-proxy:
+    external: true

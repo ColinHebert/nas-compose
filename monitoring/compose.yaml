@@ -1,0 +1,75 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  loki:
+    extends:
+      file: ../compose.base.yaml
+      service: base-service
+    container_name: loki
+    image: grafana/loki
+    #user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - default
+  promtail:
+    extends:
+      file: ../compose.base.yaml
+      service: base-service
+    container_name: promtail
+    image: grafana/promtail
+    command: -config.file=/etc/promtail/config.yaml
+    #user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    volumes:
+      - /var/log:/var/log
+      - ./config/promtail_config.yaml:/etc/promtail/config.yaml
+      - ./volumes/promtail_logs/:/data/logs/
+  grafana:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: grafana
+    image: grafana/grafana-oss
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    volumes:
+      - ./volumes/grafana_data/:/var/lib/grafana
+      - ./config/grafana.ini:/etc/grafana/grafana.ini:ro
+    networks:
+      - default
+  cadvisor:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: cadvisor
+    image: gcr.io/cadvisor/cadvisor
+    #user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    command:
+      - --enable_metrics=app,cpu,memory,network,oom_event,percpu
+      - --store_container_labels=false
+      - --docker_only=true
+      - --whitelisted_container_labels=com.docker.compose.project,com.docker.compose.service
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/packages/ContainerManager/var/docker/:/var/lib/docker:ro
+    networks:
+      - default
+    labels:
+      traefik.http.routers.cadvisor.middlewares: authelia@file
+  prometheus:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: prometheus
+    image: prom/prometheus
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    volumes:
+      - ./config/prometheus_config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./volumes/prometheus_data/:/prometheus/
+    networks:
+      - default
+    labels:
+      traefik.http.routers.prometheus.middlewares: authelia@file
+networks:
+  reverse-proxy:
+    external: true

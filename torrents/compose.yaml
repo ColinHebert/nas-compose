@@ -1,0 +1,116 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+x-qbittorrent: &a1
+  extends:
+    file: ../compose.base.yaml
+    service: exposed-service
+  image: hotio/qbittorrent
+  environment:
+    PUID: ${NASCOMPOSE_UID?}
+    PGID: ${NASCOMPOSE_GID?}
+    VPN_ENABLED: true
+    VPN_CONF: wg0-fix
+    VPN_PROVIDER: ${TORRENT_VPN?}
+    VPN_LAN_NETWORK: 192.168.0.0/23
+    VPN_AUTO_PORT_FORWARD: true
+    VPN_KEEP_LOCAL_DNS: true
+    VPN_FIREWALL_TYPE: legacy
+  cap_add:
+    - NET_ADMIN
+  sysctls:
+    net.ipv4.conf.all.src_valid_mark: 1
+  networks:
+    - torrents
+  dns:
+    - 1.1.1.1
+    - 1.0.0.1
+x-qbitmanage: &a2
+  extends:
+    file: ../compose.base.yaml
+    service: base-service
+  image: bobokun/qbit_manage
+  user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+  environment:
+    QBT_SCHEDULE: 30
+    QBT_WIDTH: 170
+  networks:
+    - torrents
+services:
+  qbittorrent:
+    <<: *a1
+    container_name: qbittorrent
+    volumes:
+      - ./volumes/qbittorrent_config/:/config/
+      - ${NASCOMPOSE_DATA?}/torrents/:/data/torrents/
+      - ./config/99-cron-start:/etc/cont-init.d/99-cron-start:ro
+      - ./config/updateMaMIP:/etc/periodic/hourly/updateMaMIP:ro
+      - ./secrets/wg0.conf:/config/wireguard/wg0-fix.conf:ro
+    labels:
+      traefik.http.routers.qbittorrent.middlewares: authelia@file
+  qbitmanage:
+    <<: *a2
+    container_name: qbitmanage
+    volumes:
+      - ./volumes/qbitmanage_config/:/config/
+      - ./volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
+      - ${NASCOMPOSE_DATA?}/torrents/:/data/torrents/
+  cross-seed:
+    extends:
+      file: ../compose.base.yaml
+      service: base-service
+    container_name: cross-seed
+    image: crossseed/cross-seed:master
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    networks:
+      - torrents
+      #- indexer
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+    volumes:
+      - ./volumes/cross-seed_config/:/config/
+      - ./volumes/qbittorrent_config/data/BT_backup/:/torrents/:ro
+      - ${NASCOMPOSE_DATA?}/:/data/
+    command: daemon
+  unpackerr:
+    extends:
+      file: ../compose.base.yaml
+      service: base-service
+    container_name: unpackerr
+    image: golift/unpackerr
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    networks:
+      - torrents
+    volumes:
+      - ./volumes/unpackerr_config/:/etc/unpackerr/
+      - ${NASCOMPOSE_DATA?}/torrents/completed/:/data/torrents/completed/
+  qbittorrent-seeding:
+    <<: *a1
+    container_name: qbittorrent-seeding
+    profiles:
+      - torrents-seeding
+    volumes:
+      - ./volumes/qbittorrent-seeding_config/:/config/
+      - ${NASCOMPOSE_DATA?}/torrents-seeding/:/data/torrents/
+      - ./config/99-cron-start:/etc/cont-init.d/99-cron-start:ro
+      - ./config/updateMaMIP:/etc/periodic/hourly/updateMaMIP:ro
+      - ./secrets/wg0-seeding.conf:/config/wireguard/wg0-fix.conf:ro
+    labels:
+      traefik.http.routers.qbittorrent-seeding.middlewares: authelia@file
+  qbitmanage-seeding:
+    <<: *a2
+    container_name: qbitmanage-seeding
+    profiles:
+      - torrents-seeding
+    volumes:
+      - ./volumes/qbitmanage-seeding_config/:/config/
+      - ./volumes/qbittorrent-seeding_config/data/BT_backup/:/torrents/:ro
+      - ${NASCOMPOSE_DATA?}/torrents-seeding/:/data/torrents/
+networks:
+  torrents:
+    name: torrents
+  reverse-proxy:
+    external: true
+
+#  indexer:
+#    external: true

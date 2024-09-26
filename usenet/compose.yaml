@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  # Always create the usenet network even if the usenet profile is disabled
+  dummy:
+    image: tianon/true
+    networks:
+      - usenet
+  sabnzbd:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: sabnzbd
+    image: lscr.io/linuxserver/sabnzbd
+    profiles:
+      - usenet
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - usenet
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+    volumes:
+      - ./volumes/sabnzbd_config/:/config/
+      - ${NASCOMPOSE_DATA?}/usenet/:/data/usenet/
+    restart: unless-stopped
+    labels:
+      traefik.http.routers.sabnzbd.middlewares: authelia@file
+networks:
+  usenet:
+    name: usenet
+  reverse-proxy:
+    external: true

@@ -1,0 +1,82 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  immich:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: immich
+    image: ghcr.io/immich-app/immich-server:release
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    networks:
+      - smtp-server
+      - default
+    depends_on:
+      - immich_redis
+      - immich_postgres
+    environment:
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_DATABASE_NAME: immich
+    volumes:
+      - ${NASCOMPOSE_DATA?}/media/photos/:/usr/src/app/upload/
+    labels:
+      traefik.http.routers.immich.middlewares: authelia@file
+  immich-machine-learning:
+    extends:
+      file: ../compose.base.yaml
+      service: base-service
+    hostname: immich-machine-learning
+    image: ghcr.io/immich-app/immich-machine-learning:release
+    volumes:
+      - ./volumes/immich_ml_cache/:/cache/
+  immich_redis:
+    extends:
+      file: ../compose.base.yaml
+      service: base-service
+    hostname: redis
+    image: redis:6.2-alpine
+    healthcheck:
+      test: redis-cli ping || exit 1
+  immich_postgres:
+    extends:
+      file: ../compose.base.yaml
+      service: base-service
+    hostname: database
+    image: tensorchord/pgvecto-rs:pg14-v0.2.0
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: immich
+      POSTGRES_INITDB_ARGS: --data-checksums
+    volumes:
+      - ./volumes/immich_postgres_data/:/var/lib/postgresql/data/
+    healthcheck:
+      test: pg_isready --dbname='immich' --username='postgres' || exit 1;
+        Chksum="$$(psql --dbname='immich' --username='postgres' --tuples-only
+        --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM
+        pg_stat_database')"; echo "checksum failure count is $$Chksum"; [
+        "$$Chksum" = '0' ] || exit 1
+      interval: 5m
+      #start_interval: 30s
+      start_period: 5m
+    command:
+      - postgres
+      - -c
+      - shared_preload_libraries=vectors.so
+      - -c
+      - search_path="$$user", public, vectors
+      - -c
+      - logging_collector=on
+      - -c
+      - max_wal_size=2GB
+      - -c
+      - shared_buffers=512MB
+      - -c
+      - wal_compression=on
+networks:
+  reverse-proxy:
+    external: true
+  smtp-server:
+    external: true

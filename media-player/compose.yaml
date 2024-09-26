@@ -1,0 +1,76 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  plex:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: plex
+    image: plexinc/pms-docker
+    environment:
+      PLEX_UID: ${NASCOMPOSE_UID?}
+      PLEX_GID: ${NASCOMPOSE_GID?}
+    networks:
+      - media-player
+    volumes:
+      - ./volumes/plex_config/:/config/
+      - ${NASCOMPOSE_DATA?}/media/:/data/:ro
+    labels:
+      traefik.http.services.plex.loadbalancer.server.port: 32400
+      traefik.http.services.plex.loadbalancer.server.scheme: https
+  tautulli:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: tautulli
+    image: ghcr.io/tautulli/tautulli
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - media-player
+    volumes:
+      - ./volumes/tautulli_config/:/config/
+    labels:
+      traefik.http.routers.tautulli.middlewares: authelia@file
+  plaxt:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: plaxt
+    image: xanderstrike/goplaxt
+    profiles:
+      - plaxt
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    environment:
+      TRAKT_ID_FILE: /run/secrets/trakt_id
+      TRAKT_SECRET_FILE: /run/secrets/trakt_secret
+    networks:
+      - media-player
+    volumes:
+      - ./volumes/plaxt_keystore/:/app/keystore/
+      - ./secrets/trakt_id:/run/secrets/trakt_id:ro
+      - ./secrets/trakt_secret:/run/secrets/trakt_secret:ro
+  audiobookshelf:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: audiobookshelf
+    image: advplyr/audiobookshelf
+    profiles:
+      - ebooks
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    environment:
+      PORT: 13378
+    volumes:
+      - ./volumes/audiobookshelf_config/:/config/
+      - ./volumes/audiobookshelf_metadata/:/metadata/
+      - ${NASCOMPOSE_DATA?}/media/audiobooks/:/audiobooks/
+    labels:
+      traefik.http.routers.audiobookshelf.middlewares: authelia@file
+      traefik.http.services.audiobookshelf.loadbalancer.server.port: 13378
+networks:
+  media-player:
+    name: media-player
+  reverse-proxy:
+    external: true

@@ -1,0 +1,61 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  watchtower:
+    extends:
+      file: ../compose.base.yaml
+      service:  ase-service
+    container_name: watchtower
+    image: containrrr/watchtower
+    environment:
+      WATCHTOWER_INCLUDE_RESTARTING: true
+      WATCHTOWER_INCLUDE_STOPPED: true
+      WATCHTOWER_CLEANUP: true
+      WATCHTOWER_NOTIFICATION_REPORT: true
+      WATCHTOWER_NOTIFICATION_URL: /run/secrets/notification_url
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${NASCOMPOSE_SERVICES?}/docker-monitoring/secrets/notification_url:/run/secrets/notification_url:ro
+
+  portainer:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: portainer
+    image: portainer/portainer-ee
+    command:
+      - --admin-password-file=/run/secrets/portainer_password
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./volumes/portainer_data/:/data/
+      - ./secrets/portainer_password:/run/secrets/portainer_password:ro
+    labels:
+      traefik.http.services.portainer.loadbalancer.server.port: 9443
+      traefik.http.services.portainer.loadbalancer.server.scheme: https
+
+  dockge:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: dockge
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM louislam/dockge
+        RUN  apt update \
+             && apt --yes --no-install-recommends install \
+             docker-ce-cli docker-compose-plugin \
+             && rm -rf /var/lib/apt/lists/*
+    environment:
+      DOCKGE_STACKS_DIR: ${NASCOMPOSE_SERVICES?}/
+      COMPOSE_ENV_FILES: ${NASCOMPOSE_SERVICES?}/nas-compose.env,.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${NASCOMPOSE_SERVICES?}/:${NASCOMPOSE_SERVICES?}/
+      - ${NASCOMPOSE_SERVICES?}/docker-monitoring/volumes/dockge_data/:/app/data/
+    labels:
+      traefik.http.routers.dockge.middlewares: authelia@file
+
+networks:
+  reverse-proxy:
+    external: true

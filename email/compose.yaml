@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  smtp-server:
+    extends:
+      file: ../compose.base.yaml
+      service: base-service
+    container_name: smtp-server
+    image: juanluisbaptiste/postfix
+    environment:
+      - SMTP_SERVER=${SMTP_ADDRESS?}
+      - SMTP_USERNAME=${SMTP_USERNAME?}
+      - SMTP_PASSWORD_FILE=/run/secrets/smtp_password
+      - SERVER_HOSTNAME=${NASCOMPOSE_DOMAIN?}
+    networks:
+      - smtp-server
+    volumes:
+      - ./secrets/smtp_password:/run/secrets/smtp_password:ro
+networks:
+  smtp-server:
+    name: smtp-server

@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  ytdl:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: ytdl
+    image: alexta69/metube
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    environment:
+      YTDL_OPTIONS_FILE: /etc/ytdl_options.json
+      DELETE_FILE_ON_TRASHCAN: true
+    volumes:
+      - ./config/ytdl_options.json:/etc/ytdl_options.json:ro
+      - ${NASCOMPOSE_DATA?}/ytdl/:/downloads/
+    labels:
+      traefik.http.routers.ytdl.middlewares: authelia@file
+networks:
+  reverse-proxy:
+    external: true

@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  bazarr:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: bazarr
+    image: lscr.io/linuxserver/bazarr
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - movie-collector
+      - tv-collector
+    volumes:
+      - ./volumes/bazarr_config/:/config/
+      - ${NASCOMPOSE_DATA?}/media/movies/:/data/media/movies/
+      - ${NASCOMPOSE_DATA?}/media/tv/:/data/media/tv/
+    labels:
+      traefik.http.routers.bazarr.middlewares: authelia@file
+networks:
+  reverse-proxy:
+    external: true
+  movie-collector:
+    external: true
+  tv-collector:
+    external: true

@@ -1,0 +1,22 @@
+services:
+  base-service:
+    restart: unless-stopped
+    logging:
+      driver: loki
+      options:
+        loki-url: http://${NASCOMPOSE_MACVLAN_LOKI_IP?}:3100/loki/api/v1/push
+        loki-retries: 2
+        loki-max-backoff: 800ms
+        loki-timeout: 1s
+        keep-file: 'true'
+
+  exposed-service:
+    extends: base-service
+    networks:
+      - reverse-proxy
+    labels:
+      traefik.enable: true
+
+networks:
+  reverse-proxy:
+    external: true

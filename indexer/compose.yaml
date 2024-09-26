@@ -1,0 +1,74 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  prowlarr:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: prowlarr
+    image: lscr.io/linuxserver/prowlarr
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    networks:
+      - default
+      - indexer
+      - torrents
+      - usenet
+    dns:
+      # Work around DNS blocks in various regions
+      - 1.1.1.1
+      - 1.0.0.1
+    volumes:
+      - ./volumes/prowlarr_config/:/config/
+    labels:
+      traefik.http.routers.prowlarr.middlewares: authelia@file
+  flaresolverr:
+    extends:
+      file: ../compose.base.yaml
+      service: base-service
+    container_name: flaresolverr
+    image: alexfozor/flaresolverr:pr-1300-experimental # ghcr.io/flaresolverr/flaresolverr:pr-1282 # Temporary until https://github.com/FlareSolverr/FlareSolverr/pull/1272 gets fixed
+    dns:
+      # Work around DNS blocks in various regions
+      - 1.1.1.1
+      - 1.0.0.1
+  autobrr:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: autobrr
+    image: ghcr.io/autobrr/autobrr
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    networks:
+      - default
+      - torrents
+    dns:
+      # Work around DNS blocks in various regions
+      - 1.1.1.1
+      - 1.0.0.1
+    volumes:
+      - ./volumes/autobrr_config/:/config/
+    labels:
+      traefik.http.routers.autobrr.middlewares: authelia@file
+  omegabrr:
+    extends:
+      file: ../compose.base.yaml
+      service: base-service
+    container_name: omegabrr
+    image: ghcr.io/autobrr/omegabrr
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    networks:
+      - reverse-proxy # Hack to access sonarr/radarr
+      - default
+    volumes:
+      - ${NASCOMPOSE_SERVICES?}/indexer/volumes/omegabrr_config/:/config/
+networks:
+  indexer:
+    name: indexer
+  reverse-proxy:
+    external: true
+  torrents:
+    external: true
+  usenet:
+    external: true

@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  overseerr:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: overseerr
+    image: sctx/overseerr
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    networks:
+      - media-player
+      - tv-collector
+      - movie-collector
+    volumes:
+      - ./volumes/overseerr_config/:/app/config
+networks:
+  reverse-proxy:
+    external: true
+  tv-collector:
+    external: true
+  movie-collector:
+    external: true
+  media-player:
+    external: true

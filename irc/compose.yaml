@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  thelounge:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: thelounge
+    image: lscr.io/linuxserver/thelounge
+    environment:
+      PUID: ${NASCOMPOSE_UID?}
+      PGID: ${NASCOMPOSE_GID?}
+    dns:
+      # Work around DNS blocks in various regions
+      - 1.1.1.1
+      - 1.0.0.1
+    volumes:
+      - ./volumes/thelounge_config/:/config/
+    labels:
+      traefik.http.routers.thelounge.middlewares: authelia@file
+
+networks:
+  reverse-proxy:
+    external: true

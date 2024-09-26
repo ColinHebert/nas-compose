@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  duckdns:
+    container_name: duckdns
+    image: lscr.io/linuxserver/duckdns
+    environment:
+      - SUBDOMAINS=${NASCOMPOSE_DUCKDNS_DOMAIN?}
+      - FILE__TOKEN=/run/secrets/duckdns_token
+    volumes:
+      # Secrets
+      - ./secrets/duckdns_token:/run/secrets/duckdns_token:ro
+    restart: unless-stopped
+networks: {}

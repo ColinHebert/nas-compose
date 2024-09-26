@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://json.schemastore.org/traefik-v2-file-provider.json
+
 http:
   middlewares:
     authelia:

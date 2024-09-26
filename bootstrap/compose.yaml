@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  portainer:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: portainer
+    image: portainer/portainer-ee
+    command:
+      - --admin-password-file=/run/secrets/portainer_password
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./volumes/portainer_data/:/data/
+      - ./secrets/portainer_password:/run/secrets/portainer_password:ro
+    labels:
+      traefik.http.services.portainer.loadbalancer.server.port: 9443
+      traefik.http.services.portainer.loadbalancer.server.scheme: https
+networks:
+  reverse-proxy:
+    external: true

@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+services:
+  gitea:
+    extends:
+      file: ../compose.base.yaml
+      service: exposed-service
+    container_name: gitea
+    image: gitea/gitea:latest-rootless
+    user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    volumes:
+      - ${NASCOMPOSE_DATA?}/git:/var/lib/gitea/git/lfs
+      - ./volumes/gitea_data:/var/lib/gitea
+      - ./volumes/gitea_config:/etc/gitea
+    labels:
+      traefik.http.services.gitea.loadbalancer.server.port: 3000
+      traefik.tcp.routers.gitea.entryPoints: ssh
+      traefik.tcp.routers.gitea.rule: HostSNI(`*`)
+      traefik.tcp.services.gitea.loadbalancer.server.port: 2222
+networks:
+  reverse-proxy:
+    external: true
