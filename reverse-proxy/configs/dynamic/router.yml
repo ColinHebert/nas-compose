@@ -1,0 +1,13 @@
+http:
+  services:
+    router:
+      loadBalancer:
+        servers:
+          - url: {{ env `NASCOMPOSE_ROUTER_URL` }}
+        passHostHeader: false
+  routers:
+    router:
+      rule: 'Host(`router.{{ env `NASCOMPOSE_DOMAIN` }}`)'
+      service: router@file
+      middlewares:
+        - authelia@file

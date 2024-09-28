@@ -11,6 +11,7 @@ services:
     #user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
     environment:
       NASCOMPOSE_DOMAIN: ${NASCOMPOSE_DOMAIN?}
+      NASCOMPOSE_ROUTER_URL: ${NASCOMPOSE_ROUTER_URL?}
       TRAEFIK_CERTIFICATESRESOLVERS_DEFAULTRESOLVER_ACME_EMAIL: admin@${NASCOMPOSE_DOMAIN?}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
