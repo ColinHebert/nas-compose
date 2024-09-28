@@ -30,9 +30,12 @@ services:
     container_name: grafana
     image: grafana/grafana-oss
     user: ${NASCOMPOSE_UID?}:${NASCOMPOSE_GID?}
+    environment:
+      MASCOMPOSE_DOMAIN: ${MASCOMPOSE_DOMAIN?}
     volumes:
       - ./volumes/grafana_data/:/var/lib/grafana
       - ./config/grafana.ini:/etc/grafana/grafana.ini:ro
+      - ./secrets/grafana_oauth:/run/secrets/grafana/oauth_secret:ro
     networks:
       - default
   cadvisor:
