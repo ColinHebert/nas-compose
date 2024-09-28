@@ -20,8 +20,6 @@ services:
       DB_DATABASE_NAME: immich
     volumes:
       - ${NASCOMPOSE_DATA?}/media/photos/:/usr/src/app/upload/
-    labels:
-      traefik.http.routers.immich.middlewares: authelia@file
   immich-machine-learning:
     extends:
       file: ../compose.base.yaml
