@@ -4,7 +4,7 @@ services:
   watchtower:
     extends:
       file: ../compose.base.yaml
-      service:  ase-service
+      service: base-service
     container_name: watchtower
     image: containrrr/watchtower
     environment:
