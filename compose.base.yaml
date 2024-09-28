@@ -1,6 +1,9 @@
 services:
+  # All services should at least use this
   base-service:
+    # Always restart unless explicitly stopped
     restart: unless-stopped
+    # Send the logs to a Loki instance with ability to fail
     logging:
       driver: loki
       options:
@@ -10,6 +13,7 @@ services:
         loki-timeout: 1s
         keep-file: 'true'
 
+  # Service exposed via the reverse proxy
   exposed-service:
     extends: base-service
     networks:
